@@ -1,0 +1,70 @@
+.content {
+  max-width: rem(920px);
+  // max-width: "auto";
+  // margin-right: calc(var(--mantine-spacing-xl) * 3);
+
+  @media (max-width: $mantine-breakpoint-md) {
+    max-width: 100%;
+    margin-right: 0;
+  }
+}
+
+.inner {
+  // display: flex;
+  // justify-content: space-between;
+  /* padding-top: calc(var(--mantine-spacing-xl) * 4); */
+  padding-bottom: calc(var(--mantine-spacing-xl) * 4);
+}
+
+.breadcrumbs {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: grey transparent; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+
+  &::-webkit-scrollbar {
+    height: 5px; /* Height of the scrollbar */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent; /* Track background */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: grey; /* Scroll thumb color */
+    border-radius: 10px;
+    border: 3px solid transparent; /* Creates padding around scroll thumb */
+  }
+
+  // Style the Anchor tags
+  a {
+    display: inline-block;
+    margin-right: 1rem; /* Add some space between items */
+    padding: 0.5rem 0; /* Add padding to increase touch area */
+    color: #fff; /* Text color */
+    text-decoration: none; /* Remove underline */
+
+    // Apply styles for active step
+    &.active {
+      // color: blue;
+      font-weight: 500;
+      text-decoration: underline;
+    }
+  }
+}
+
+.buttonsGroup {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: nowrap;
+
+  // Responsive adjustments
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+    & button {
+      margin-top: 0.5rem;
+    }
+  }
+}

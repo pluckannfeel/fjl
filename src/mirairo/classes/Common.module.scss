@@ -1,0 +1,33 @@
+.title {
+  font-size: rem(34px);
+  font-weight: 900;
+
+  @media (max-width: $mantine-breakpoint-sm) {
+    font-size: rem(24px);
+  }
+}
+
+// you can use this to style the input and label
+.label {
+  // background-color: var(--mantine-color-blue-light);
+}
+
+.input {
+  // border: rem(1px) solid var(--mantine-color-violet-filled);
+}
+
+.radioChecked {
+  // Styles for the radio icon when checked
+  .mantine-Radio-input:checked + .mantine-Radio-icon {
+    background-color: #1e2c55; // Checked background color
+    border-color: #1e2c55; // Checked border color
+  }
+}
+
+.radioUnchecked {
+  // Styles for the radio icon when unchecked
+  .mantine-Radio-icon {
+    background-color: transparent; // Unchecked background color
+    border-color: #cdd3f1; // Unchecked border color
+  }
+}

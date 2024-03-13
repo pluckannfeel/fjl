@@ -10,12 +10,36 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@mantine/core": "7.6.1",
-    "@mantine/hooks": "7.6.1",
+    "@date-io/dayjs": "^3.0.0",
+    "@mantine/code-highlight": "^7.6.1",
+    "@mantine/core": "^7.6.2",
+    "@mantine/dates": "^7.6.2",
+    "@mantine/hooks": "^7.6.2",
+    "@mantine/modals": "^7.6.1",
+    "@mantine/notifications": "^7.6.1",
+    "@mantine/nprogress": "^7.6.1",
+    "@sentry/react": "^7.106.0",
+    "@tabler/icons-react": "^2.47.0",
+    "axios": "^1.6.7",
+    "dayjs": "^1.11.10",
+    "env-cmd": "^10.1.0",
+    "formik": "^2.4.5",
+    "framer-motion": "^11.0.8",
+    "gh-pages": "^6.1.1",
+    "i18next": "^23.10.1",
+    "i18next-browser-languagedetector": "^7.2.0",
+    "i18next-xhr-backend": "^3.2.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-error-boundary": "^4.0.13",
+    "react-i18next": "^14.1.0",
+    "react-query": "^3.39.3",
+    "react-router": "^6.22.3",
+    "react-router-dom": "^6.22.3",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@types/gh-pages": "^6",
     "@types/react": "^18.2.36",
     "@types/react-dom": "^18.2.14",
     "@typescript-eslint/eslint-plugin": "^6.9.1",
@@ -27,8 +51,10 @@
     "postcss": "^8.4.32",
     "postcss-preset-mantine": "1.13.0",
     "postcss-simple-vars": "^7.0.1",
+    "sass": "^1.71.1",
     "typescript": "^5.3.3",
-    "vite": "^5.0.10"
+    "vite": "^5.0.10",
+    "vite-plugin-svgr": "^4.2.0"
   },
   "packageManager": "yarn@4.0.2"
 }

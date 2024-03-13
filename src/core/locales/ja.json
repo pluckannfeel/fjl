@@ -1,0 +1,170 @@
+{
+  "admin": {},
+  "common": {
+    "yes": "はい",
+    "no": "いいえ",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "delete": "削除",
+    "submit": "提出",
+    "close": "閉じる",
+    "back": "戻る",
+    "next": "次へ",
+    "optional": "任意",
+    "reset": "リセット",
+    "retry": "再挑戦",
+    "selected": "厳選された",
+    "snackbar": {
+      "error": "エラー",
+      "success": "成功"
+    },
+    "errors": {
+      "required": "必須",
+      "invalid": "無効",
+      "forbidden": {
+        "subTitle": "このページを表示する権限がありません。"
+      },
+      "notFound": {
+        "subTitle": "お探しのページは見つかりませんでした。URLの入力間違いではありませんか？スペルを確認してください。",
+        "title": "Oops!"
+      },
+      "unexpected": {
+        "subTitle": "何かが間違っていた！問題が解決しない場合は、弊社までご連絡ください！",
+        "title": "Oops!"
+      },
+      "underConstructions": {
+        "subTitle": "このページに積極的に取り組んでいます。",
+        "title": "建築中"
+      },
+      "wrongCredentials": {
+        "subTitle": "入力したメールアドレスまたはパスワードが間違っています。",
+        "title": "エラー！"
+      },
+      "imageUploadLimit": {
+        "subTitle": "一度に 3 枚の写真しかアップロードできません。",
+        "title": "Error."
+      },
+      "fileSizeLimit": {
+        "subTitle": "写真のサイズは 5MB を超えてはなりません",
+        "title": "エラー！"
+      }
+    }
+  },
+  "mirairo": {
+    "name": "Mirairo ",
+    "introduction": {
+      "title": "フィリピン人面接候補者用",
+      "description": "面接用履歴書作成は、面接官に自身の経歴やスキルを紹介する文書です。学歴、職歴、資格などを含み、応募する職種に合わせて情報が整理されます。目的は、効果的に自己アピールし、良い印象を与えることです。",
+      "items": {
+        "0": "個人情報の記入",
+        "1": "お気に入りの写真や動画をアップできる",
+        "2": "ユニークなトピック"
+      }
+    },
+    "sections": {
+      "personalInformation": "個人情報",
+      "legalInformation": "法的情報",
+      "family": "家族",
+      "educationalBackground": "学歴",
+      "workExperience": "職歴",
+      "qualificationsLicenses": "資格・免許",
+      "skillsLanguages": "スキル・言語",
+      "SelfCareerPlans": "自己PR・キャリアプラン"
+    },
+    "actions": {
+      "getStarted": "はじめる"
+    },
+    "form": {
+      "first_name": {
+        "label": "名",
+        "placeholder": "塁"
+      },
+      "last_name": {
+        "label": "姓",
+        "placeholder": "山田"
+      },
+      "middle_name": {
+        "label": "ミドルネーム",
+        "placeholder": "太郎"
+      },
+      "nationality": {
+        "label": "国籍",
+        "placeholder": "日本",
+        "options": {
+          "japan": "日本",
+          "philippines": "フィリピン",
+          "america": "アメリカ",
+          "nepal": "ネパール",
+          "myanmar": "ミャンマー",
+          "vietnam": "ベトナム",
+          "indonesia": "インドネシア"
+        }
+      },
+      "gender": {
+        "label": "性別",
+        "placeholder": "性別",
+        "options": {
+          "f": "女性",
+          "m": "男性",
+          "n": "その他"
+        }
+      },
+      "age": {
+        "label": "年齢",
+        "placeholder": "20"
+      },
+      "birth_date": {
+        "label": "生年月日",
+        "options": {
+          "year": "年",
+          "month": "月",
+          "day": "日"
+        },
+        "placeholder": {
+          "year": "1992",
+          "month": "05",
+          "day": "12"
+        }
+      },
+      "birth_place": {
+        "label": "出生地",
+        "placeholder": "東京都"
+      },
+      "marital_status": {
+        "label": "配偶者の有無",
+        "placeholder": "独身",
+        "options": {
+          "single": "独身",
+          "married": "既婚",
+          "widowed": "未亡人",
+          "separated": "別居",
+          "divorced": "離婚"
+        }
+      },
+      "occupation": {
+        "label": "現在の職業",
+        "placeholder": "会社員"
+      },
+      "current_address": {
+        "label": "現住所",
+        "placeholder": "国、都市、郵便番号を含む）"
+      },
+      "phone_number": {
+        "label": "電話番号",
+        "placeholder": "090-1234-5678"
+      },
+      "email": {
+        "label": "メールアドレス",
+        "placeholder": "abc123@gmail.com"
+      },
+      "passport_number": {
+        "label": "パスポート番号",
+        "placeholder": "P234578D"
+      },
+      "passport_expiry": {
+        "label": "パスポート有効期限",
+        "placeholder": "日付を選択"
+      }
+    }
+  }
+}

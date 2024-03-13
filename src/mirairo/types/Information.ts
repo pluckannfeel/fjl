@@ -1,0 +1,83 @@
+export type PersonalInformation = {
+  id?: string;
+  nationality: string;
+  name: Name;
+  first_name?: string;
+  last_name?: string;
+  middle_name?: string;
+  birth_date: BirthDate;
+  age: number;
+  gender: string;
+  birth_place: string;
+  marital_status: string;
+  occupation: string;
+  current_address: string;
+  phone_number: string;
+
+  // legal
+  passport_number: string;
+  passport_expiry: Date | null;
+  email: string;
+  family: FamilyInformation[];
+  education: EducationBackground[];
+  work_experience: WorkExperience[];
+  qualifications_licenses: QualificationsLicenses[];
+  jlpt: string;
+  other_languages: string;
+  computer_skills: string;
+  other_skills?: string;
+  self_introduction?: string;
+  reason_for_application?: string;
+  past_experience?: string;
+  future_career_plan?: string;
+};
+
+type Name = {
+  first_name: string;
+  last_name?: string;
+  middle_name: string;
+};
+
+type BirthDate = {
+  year: string;
+  month: string;
+  day: string;
+};
+
+export type FamilyInformation = {
+  id?: string;
+  name: string;
+  relationship: string;
+  birth_date: string;
+  age: number;
+  nationality: string;
+  intended_to_stay: boolean;
+  work_school_place: string;
+  residence_card_number: string;
+};
+
+export type EducationBackground = {
+  id?: string;
+  school_name: string;
+  faculty?: string;
+  major?: string;
+  from: string;
+  to: string;
+};
+
+export type QualificationsLicenses = {
+  id?: string;
+  name: string;
+  acquired_date: string;
+  file?: string;
+};
+
+export type WorkExperience = {
+  id?: string;
+  employer_name: string;
+  from: string;
+  to: string;
+  position: string;
+  responsibilities?: string;
+  achievements?: string;
+};
