@@ -3,6 +3,8 @@
   "common": {
     "yes": "Yes",
     "no": "No",
+    "add": "Add",
+    "remove": "Remove",
     "cancel": "Cancel",
     "save": "Save",
     "delete": "Delete",
@@ -10,6 +12,9 @@
     "close": "Close",
     "back": "Back",
     "next": "Next",
+    "upload": "Upload",
+    "change": "Change",
+    "download": "Download",
     "optional": "Optional",
     "reset": "Reset",
     "retry": "Try Again",
@@ -21,8 +26,10 @@
     "errors": {
       "required": "Required",
       "invalid": "Invalid",
+      "urlRequired": "URL is required",
+      "invalidUrl": "Invalid URL",
       "forbidden": {
-        "subTitle": "You don't have access to view this page"
+        "subTitle": "You don't haveƒ access to view this page"
       },
       "notFound": {
         "subTitle": "Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve mistyped the URL? Be sure to check your spelling.",
@@ -47,6 +54,10 @@
       "imageUploadLimit": {
         "subTitle": "You can only upload 3 photos at a time.",
         "title": "Error."
+      },
+      "incompleteForm": {
+        "subTitle": "Please fill out all required fields. There may be incomplete or invalid information.",
+        "title": "Error."
       }
     }
   },
@@ -64,17 +75,25 @@
     "sections": {
       "personalInformation": "Personal Information",
       "legalInformation": "Legal Information",
-      "family": "Family",
+      "family": "Do you have Family/Relatives in Japan?",
       "educationalBackground": "Educational Background",
       "workExperience": "Work Experience",
       "qualificationsLicenses": "Qualifications & Licenses",
       "skillsLanguages": "Skills & Languages",
-      "SelfCareerPlans": "Self Career Plans"
+      "SelfCareerPlans": "Self Career Plans",
+      "photosVideosLinks": "Favorite Photos, Video/Reel Links",
+      "uniqueQuestions": "Unique Questions"
     },
     "actions": {
       "getStarted": "Get Started"
     },
     "form": {
+      "img": {
+        "label": "Image",
+        "description": "Upload your favorite photo that describes you.",
+        "change": "Change Photo",
+        "upload": "Upload Photo"
+      },
       "first_name": {
         "label": "First Name",
         "placeholder": "John"
@@ -164,6 +183,125 @@
       "passport_expiry": {
         "label": "Passport Expiry",
         "placeholder": "日付を選択"
+      },
+      "has_family": {
+        "options": {
+          "yes": "Yes",
+          "none": "None",
+          "add": "Add",
+          "remove": "Remove"
+        }
+      },
+      "family": {
+        "name": "Name",
+        "relationship": "Relationship",
+        "birth_date": "Birth Date",
+        "age": "Age",
+        "nationality": "Nationality",
+        "intended_to_stay": "Intended to Stay",
+        "work_school_place": "Work/School Place",
+        "residence_card_number": "Residence Card No."
+      },
+      "education": {
+        "school_name": "School Name",
+        "faculty": "Faculty",
+        "major": "Major",
+        "from": "From",
+        "to": "To"
+      },
+      "qualifications_licenses": {
+        "name": "Name",
+        "acquired_date": "Acquired Date",
+        "file": "File"
+      },
+      "work_experience": {
+        "employer_name": "Employer Name",
+        "from": "From",
+        "to": "To",
+        "position": "Position",
+        "responsibilities": "Responsibilities",
+        "achievements": "Achievement(s)"
+      },
+      "skills_languages": {
+        "jlpt": {
+          "placeholder": "Select JLPT Level",
+          "label": "JLPT",
+          "none": "None",
+          "n1": "N1",
+          "n2": "N2",
+          "n3": "N3",
+          "n4": "N4",
+          "n5": "N5"
+        },
+        "japanese": "Japanese",
+        "english": "English",
+        "computer_skills": {
+          "label": "Computer Skills",
+          "placeholder": "Word, Excel, Spreadsheet, Adobe Photoshop, Video Editing, Programming (HTML, CSS, JavaScript, C#, Python, PHP), etc."
+        },
+        "other_skills": {
+          "label": "Other Skills and Talents",
+          "placeholder": "Anything you want to share with us."
+        },
+        "level": {
+          "placeholder": "Select Level",
+          "none": "None",
+          "basic": "Basic",
+          "conversational": "Conversational",
+          "business": "Business",
+          "native": "Native"
+        }
+      },
+      "self_career_plans": {
+        "self_introduction": {
+          "label": "Self Introduction",
+          "placeholder": "Tell us about yourself. "
+        },
+        "reason_for_application": {
+          "label": "Reason for Applying"
+        },
+        "past_experience": {
+          "label": "Past Experiences and how it will help you in the future."
+        },
+        "future_career_plan": {
+          "label": "Future Career Plan",
+          "placeholder": "Goals, Plans, Anything you might want to share to help us get to know you better."
+        }
+      },
+      "photosVideosLinks": {
+        "description": "What are your interests? please upload your favorite photos/video links that describes you and your interests. Help us get to know you better."
+      },
+      "uniqueQuestions": {
+        "1": "1. If a movie were made about your life, what would the title be?",
+        "2": "2. What was your favorite game as a child?",
+        "3": "3. If you had the power to change one thing about the world, what would it be?",
+        "4": "4. Tell us about a principle or belief that you hold dear.",
+        "5": "5. What recently made you smile?",
+        "6": "6. If you could have dinner with any celebrity, who would you choose?",
+        "7": "7. What is the achievement you are most proud of in your life?",
+        "8": "8. What trait do you have that is most valued by your friends and family?",
+        "9": "9. If you could experience one thing just once in your lifetime, what would it be?",
+        "10": "10. What is an important lesson you want to share with others?",
+        "11": "11. What event has changed your life the most?",
+        "12": "12. If everything was going to end tomorrow, what would you do today?",
+        "13": "13. What is the most valuable thing you have learned from someone else?",
+        "14": "14. Where is your ideal place to live?",
+        "15": "15. Who is the person that has had the most influence on your life and why?",
+        "16": "16. What has been the most challenging thing you have faced, and how did you overcome it?",
+        "17": "17. If you could experience a different profession for one day, what would it be?",
+        "18": "18. What is the most important tradition for you?",
+        "19": "19. What is your ultimate stress-relief activity?",
+        "20": "20. What is the greatest adventure you have ever been on?",
+        "21": "21. Who has taught you the most valuable lesson in life?",
+        "22": "22. If you could learn a new skill starting tomorrow, what would it be?",
+        "23": "23. What was the strangest dream you had as a child?",
+        "24": "24. If you could live anywhere for a month, where would it be?",
+        "25": "25. If you could become any animal, which would you want to be?",
+        "26": "26. What is the most beautiful moment you have experienced?",
+        "27": "27. What song has the most influence on your life?",
+        "28": "28. If you were writing your autobiography, which chapter would be the most exciting?",
+        "29": "29. What are you most thankful for?",
+        "30": "30. What advice would you give to your future self?"
       }
     }
   }

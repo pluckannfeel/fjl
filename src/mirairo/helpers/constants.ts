@@ -1,3 +1,5 @@
+import { FormikErrors } from "formik";
+
 export const genders = [
   { label: "mirairo.form.gender.options.f", value: "Female" },
   { label: "mirairo.form.gender.options.m", value: "Male" },
@@ -16,6 +18,27 @@ export const nationalities = [
   { label: "mirairo.form.nationality.options.myanmar", value: "Myanmar" },
   { label: "mirairo.form.nationality.options.vietnam", value: "Vietnam" },
   { label: "mirairo.form.nationality.options.indonesia", value: "Indonesia" },
+];
+
+// skills languages
+export const languageLevels = [
+  { label: "mirairo.form.skills_languages.level.none", value: "none" },
+  { label: "mirairo.form.skills_languages.level.basic", value: "basic" },
+  {
+    label: "mirairo.form.skills_languages.level.conversational",
+    value: "conversational",
+  },
+  { label: "mirairo.form.skills_languages.level.business", value: "business" },
+  { label: "mirairo.form.skills_languages.level.native", value: "Native" },
+];
+
+export const JLPTs = [
+  { label: "mirairo.form.skills_languages.jlpt.none", value: "none" },
+  { label: "mirairo.form.skills_languages.jlpt.n5", value: "N5" },
+  { label: "mirairo.form.skills_languages.jlpt.n4", value: "N4" },
+  { label: "mirairo.form.skills_languages.jlpt.n3", value: "N3" },
+  { label: "mirairo.form.skills_languages.jlpt.n2", value: "N2" },
+  { label: "mirairo.form.skills_languages.jlpt.n1", value: "N1" },
 ];
 
 const currentYear = new Date().getFullYear();
@@ -59,3 +82,39 @@ export function calculateAge(
   }
   return age;
 }
+
+export function getNestedError<T>(
+  path: string,
+  errors: FormikErrors<T>
+): string | undefined {
+  const parts = path.split(".");
+  let current: any = errors;
+
+  for (const part of parts) {
+    if (current === null || current === undefined) {
+      return undefined;
+    } else if (typeof current === "object" && part in current) {
+      current = current[part];
+    } else {
+      return undefined;
+    }
+  }
+
+  return typeof current === "string" ? current : undefined;
+}
+
+export const allowedURLPattern =
+  /^(https:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/; // Simple regex for URLs
+export const disallowedDomains = [
+  "xvideos.com",
+  "pornhub.com",
+  "xnxx.com",
+  "xhamster.com",
+  "redtube.com",
+  "youporn.com",
+  "spankbang.com",
+  "xvidzz.com",
+  "on.fmoviesto.site",
+  "pornhd.com"
+  // Add more as needed
+];

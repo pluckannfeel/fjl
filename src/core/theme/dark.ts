@@ -9,6 +9,9 @@ import {
   Autocomplete,
   Select,
   Textarea,
+  FileInput,
+  Radio,
+  RadioGroup,
 } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
 
@@ -291,7 +294,54 @@ export const DarkTheme = createTheme({
         },
       }),
     }),
+    FileInput: FileInput.extend({
+      defaultProps: {
+        // These default props will apply globally to all TextInput components
+        variant: "filled", // Choose 'filled', 'unstyled', or 'default'
+      },
+      styles: (theme) => ({
+        input: {
+          backgroundColor: "white", // Dark theme background
+          color: "black", // Text color for dark theme
+
+          "&::placeholder": {
+            color: theme.colors.gray[4], // Placeholder color for dark theme
+          },
+        },
+        required: {
+          fontSize: "1.25em",
+        },
+        label: {
+          color: theme.colors.text[9],
+          // Target the required asterisk within label
+          "&[dataRequired]::after": {
+            content: '"*"',
+            marginLeft: 8,
+            color: theme.colors.orange[6], // Change asterisk color if needed
+            fontSize: "1.00em", // Make asterisk larger
+          },
+        },
+        error: {
+          // Customize the error message color
+          color: theme.colors.orange[6], // Use light orange for errors
+        },
+      }),
+    }),
+    RadioGroup: RadioGroup.extend({
+      defaultProps: {
+        // These default props will apply globally to all TextInput components
+        // variant: "filled", // Choose 'filled', 'unstyled', or 'default'
+      },
+      styles: (theme) => ({
+        error: {
+          marginTop: 8,
+          // Customize the error message color
+          color: theme.colors.orange[6], // Use light orange for errors
+        },
+      }),
+    }),
   },
+
   other: {
     body: {
       backgroundColor: "#1A202C",

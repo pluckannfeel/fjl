@@ -1,0 +1,26 @@
+/* module.css */
+.avatarButton {
+  width: 100%; /* Full width on small screens */
+  height: auto; /* Keep the aspect ratio */
+  padding: 0;
+  border: none; /* Remove the border if you don't need it */
+  background: none; /* Transparent background */
+  cursor: pointer; /* Mouse pointer on hover */
+
+  /* Fixed width on larger screens */
+  @media (min-width: 992px) {
+    /* Adjust the breakpoint to your project's needs */
+    width: 250px;
+    height: 250px;
+  }
+}
+
+.avatarImage {
+  width: 100%;
+  height: auto; /* Fixed width on larger screens */
+  @media (min-width: 992px) {
+    /* Adjust the breakpoint to your project's needs */
+    width: 200px;
+    height: 200px;
+  }
+}

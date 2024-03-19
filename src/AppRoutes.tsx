@@ -13,6 +13,8 @@ const MirairoManagement = lazy(
   () => import("./mirairo/pages/MirairoManagement")
 );
 
+const NotFound = lazy(() => import("./core/pages/NotFound"));
+
 // Admin
 // const Admin = lazy(() => import("./admin/pages/Admin"));
 
@@ -36,6 +38,8 @@ const AppRoutes = () => {
         <Route path="403" element={<Forbidden />} />
         <Route path="404" element={<NotFound />} /> */}
         {/* <Route path="*" element={<Navigate to={`404`} replace />} /> */}
+
+        <Route path="404" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

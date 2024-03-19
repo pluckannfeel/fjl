@@ -3,6 +3,8 @@
   "common": {
     "yes": "はい",
     "no": "いいえ",
+    "add": "追加",
+    "remove": "削除",
     "cancel": "キャンセル",
     "save": "保存",
     "delete": "削除",
@@ -14,6 +16,9 @@
     "reset": "リセット",
     "retry": "再挑戦",
     "selected": "厳選された",
+    "upload": "アップロード",
+    "change": "変更",
+    "download": "ダウンロード",
     "snackbar": {
       "error": "エラー",
       "success": "成功"
@@ -21,6 +26,8 @@
     "errors": {
       "required": "必須",
       "invalid": "無効",
+      "urlRequired": "URLが必要です",
+      "invalidUrl": "URLが無効です",
       "forbidden": {
         "subTitle": "このページを表示する権限がありません。"
       },
@@ -47,6 +54,10 @@
       "fileSizeLimit": {
         "subTitle": "写真のサイズは 5MB を超えてはなりません",
         "title": "エラー！"
+      },
+      "incompleteForm": {
+        "subTitle": "すべての必須フィールドを入力してください。",
+        "title": "エラー"
       }
     }
   },
@@ -64,17 +75,25 @@
     "sections": {
       "personalInformation": "個人情報",
       "legalInformation": "法的情報",
-      "family": "家族",
-      "educationalBackground": "学歴",
+      "family": "在日親族について",
+      "educationalBackground": "最終学歴",
       "workExperience": "職歴",
       "qualificationsLicenses": "資格・免許",
       "skillsLanguages": "スキル・言語",
-      "SelfCareerPlans": "自己PR・キャリアプラン"
+      "SelfCareerPlans": "自己PR・キャリアプラン",
+      "photosVideosLinks": "お気に入りの写真や動画をアップできる",
+      "uniqueQuestions": "ユニーク質問集"
     },
     "actions": {
       "getStarted": "はじめる"
     },
     "form": {
+      "img": {
+        "label": "写真",
+        "description": "お気に入りの写真をアップロードできます。",
+        "change": "写真を変更",
+        "upload": "写真をアップロード"
+      },
       "first_name": {
         "label": "名",
         "placeholder": "塁"
@@ -164,6 +183,123 @@
       "passport_expiry": {
         "label": "パスポート有効期限",
         "placeholder": "日付を選択"
+      },
+      "has_family": {
+        "options": {
+          "yes": "有",
+          "none": "無"
+        }
+      },
+      "family": {
+        "name": "名前",
+        "relationship": "続柄",
+        "birth_date": "生年月日",
+        "age": "年齢",
+        "nationality": "国籍",
+        "intended_to_stay": "同居予定の有無",
+        "work_school_place": "勤務先や通学先の名称",
+        "residence_card_number": "在留カード番号"
+      },
+      "education": {
+        "school_name": "学校名",
+        "faculty": "学部",
+        "major": "専攻",
+        "from": "開始日",
+        "to": "終了日"
+      },
+      "qualifications_licenses": {
+        "name": "資格名",
+        "acquired_date": "取得日",
+        "file": "資格証明書"
+      },
+      "work_experience": {
+        "employer_name": "会社名",
+        "from": "開始日",
+        "to": "終了日",
+        "position": "役職",
+        "responsibilities": "業務内容",
+        "achievements": "業績"
+      },
+      "skills_languages": {
+        "jlpt": {
+          "label": "日本語能力試験",
+          "placeholder": "レベル選択",
+          "none": "なし",
+          "n1": "N1",
+          "n2": "N2",
+          "n3": "N3",
+          "n4": "N4",
+          "n5": "N5"
+        },
+        "japanese": "日本語",
+        "english": "英語",
+        "computer_skills": {
+          "label": "コンピュータスキル（使用できるソフトウェアやプログラミング言語）",
+          "placeholder": "例：Microsoft Office, Adobe Photoshop, HTML, CSS, JavaScript, etc."
+        },
+        "other_skills": {
+          "label": "その他特技やスキル",
+          "placeholder": "例：料理、ダンス、スポーツ、音楽、絵画、etc."
+        },
+        "level": {
+          "placeholder": "レベル選択",
+          "none": "なし",
+          "basic": "基本",
+          "conversational": "会話",
+          "business": "ビジネス",
+          "native": "ネイティブ"
+        }
+      },
+      "self_career_plans": {
+        "self_introduction": {
+          "label": "自己紹介",
+          "placeholder": "自己紹介文を記入してください。自分の強みや特技、興味を持っていること、将来のキャリアプランなどを記入してください。"
+        },
+        "reason_for_application": {
+          "label": "志望動機"
+        },
+        "past_experience": {
+          "label": "これまでの経験からどのように役立つか"
+        },
+        "future_career_plan": {
+          "label": "将来のキャリアプラン",
+          "placeholder": "将来のキャリアプランを記入してください。"
+        }
+      },
+      "photosVideosLinks": {
+        "description": "お気に入りの写真や動画URLをアップできる"
+      },
+      "uniqueQuestions": {
+        "1": "1. あなたの人生を題材にした映画を作るとしたら、タイトルは何にしますか？",
+        "2": "2. 子供の頃に好きだった遊びは何ですか？",
+        "3": "3. もし世界を変える力があるとしたら、何を変えますか？",
+        "4": "4. あなたが信じるものや原則について教えてください。",
+        "5": "5. 最近あなたを笑顔にしたものは何ですか？",
+        "6": "6. もし有名人と夕食を共にできるとしたら、誰を選びますか？",
+        "7": "7. あなたの人生で最も誇りに思う成就は何ですか？",
+        "8": "8. 友人や家族にあなたのどのような特徴を最も評価されますか？",
+        "9": "9. 一生に一度だけ経験できることをするとしたら、何を選びますか？",
+        "10": "10.  あなたが他の人に伝えたい、あなたにとって大切な教訓は何ですか？",
+        "11": "11.  あなたの人生を変えた出来事は何ですか？",
+        "12": "12.  もし明日で全てが終わるとしたら、今日あなたは何をしますか？",
+        "13": "13.  あなたが他人から学ぶことを最も価値あると思うことは何ですか？",
+        "14": "14.  あなたが選ぶ理想の生活場所はどこですか？",
+        "15": "15.  人生で一番影響を受けた人物は誰ですか、またその理由は？",
+        "16": "16.  あなたがこれまでに取り組んだ中で最も困難だったことは何ですか、そしてそれをどのように乗り越えましたか？",
+        "17": "17.  もし一日だけ違う職業を体験できるとしたら、何を選びますか？",
+        "18": "18.  あなたにとって最も大切な伝統は何ですか？",
+        "19": "19.  あなたの一番のストレス解消法は何ですか？",
+        "20": "20.  あなたが今までに行った最高の冒険は何ですか？",
+        "21": "21.  あなたの人生の中で最も価値のある教訓を教えてくれたのは誰ですか？",
+        "22": "22.  もし明日から新しいスキルを習得できるとしたら、それは何ですか？",
+        "23": "23.  あなたが子供の頃に抱いていた最も変わった夢は何ですか？",
+        "24": "24.  もし一ヶ月間だけ好きな場所に住めるとしたら、どこを選びますか？",
+        "25": "25.  もし動物になれるとしたら、何になりたいですか？",
+        "26": "26.  あなたが今までに体験した最も美しい瞬間は何ですか？",
+        "27": "27.  あなたの人生において最も影響力のある曲は何ですか？",
+        "28": "28.  もし自分の伝記を書くとしたら、どの章が最もエキサイティングですか？",
+        "29": "29.  あなたが最も感謝していることは何ですか？",
+        "30": "30.  未来の自分にどんなアドバイスを送りたいですか？"
       }
     }
   }

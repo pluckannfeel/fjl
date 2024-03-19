@@ -1,4 +1,4 @@
-// FormContext.tsx
+// FormProvder.tsx
 import React, { useContext } from "react";
 import { FormikProps } from "formik";
 import { PersonalInformation } from "../types/Information"; // Adjust the import path as necessary

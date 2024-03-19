@@ -105,7 +105,7 @@ const LegalInformationForm = (props: Props) => {
             // autoFocus
             clearable
             label={t("mirairo.form.passport_expiry.label")}
-            valueFormat="YYYY MMM DD"
+            valueFormat="YYYY/MM"
             placeholder={t("mirairo.form.passport_expiry.placeholder")}
             // onChange={formik.handleChange("passport_expiry")}
             onChange={(value: DateValue) =>

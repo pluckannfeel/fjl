@@ -4,10 +4,20 @@ import { LandingHeader } from "../../landing/components/Header";
 import { Introduction } from "../components/Introduction";
 import { motion } from "framer-motion"; // Step 1: Import motion
 import MirairoForm from "../components/MirairoForm";
+import { useSubmitApplicant } from "../hooks/useSubmitApplicant";
+import { PersonalInformation } from "../types/Information";
+import ApplicantSubmitted from "../components/ApplicantSubmitted";
+import { notifications } from "@mantine/notifications";
+import { useFormikContext } from "../contexts/FormProvider";
 
 const MirairoManagement: React.FC = () => {
   const theme = useMantineTheme();
   const [isStarted, setIsStarted] = useState<boolean>(false);
+  const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
+  const formik = useFormikContext();
+
+  // submit hook
+  const { isLoading, submitApplicant } = useSubmitApplicant();
 
   const getStartedHandler = () => {
     setIsStarted(true);
@@ -20,25 +30,61 @@ const MirairoManagement: React.FC = () => {
     visible: { opacity: 1, transition: { duration: 0.5 } },
   };
 
+  // submit handler
+  const submitApplicantHandler = async (
+    values: Partial<PersonalInformation>
+  ) => {
+    submitApplicant(values as PersonalInformation)
+      .then(() => {
+        setFormSubmitted(true);
+      })
+      .catch((error) => {
+        console.log(error);
+        notifications.show({
+          color: "red",
+          title: "Error",
+          message: "Something is Wrong, Please Try Again Later.",
+          // classNames: classes,
+        });
+      })
+      .finally(() => {
+        // clean up
+        formik.resetForm();
+      });
+  };
+
   return (
     <React.Fragment>
-      <Paper>
-        <LandingHeader title="Mirairo 未来路 " />
-        {/* Conditional rendering with animation */}
-        {isStarted ? (
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={formVariants}
-          >
-            <Container pt={50}>
-              <MirairoForm />
-            </Container>
-          </motion.div>
+      <Paper
+        style={{
+          // width: "100%",
+          height: "auto",
+        }}
+      >
+        {!formSubmitted ? (
+          <>
+            <LandingHeader title="Mirairo 未来路 " />
+            {isStarted ? (
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={formVariants}
+              >
+                <Container pt={50}>
+                  <MirairoForm
+                    loading={isLoading}
+                    onSubmitApplicant={submitApplicantHandler}
+                  />
+                </Container>
+              </motion.div>
+            ) : (
+              <Container pt={120}>
+                <Introduction getStartedHandler={getStartedHandler} />
+              </Container>
+            )}
+          </>
         ) : (
-          <Container pt={120}>
-            <Introduction getStartedHandler={getStartedHandler} />
-          </Container>
+          <ApplicantSubmitted />
         )}
       </Paper>
     </React.Fragment>
