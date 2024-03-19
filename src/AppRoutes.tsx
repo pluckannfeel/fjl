@@ -1,5 +1,7 @@
 import { lazy } from "react";
-import { Navigate, Route, Routes, BrowserRouter } from "react-router-dom";
+import { 
+  // Navigate,
+   Route, Routes, BrowserRouter } from "react-router-dom";
 
 // import PrivateRoute from "./core/components/PrivateRoute";
 

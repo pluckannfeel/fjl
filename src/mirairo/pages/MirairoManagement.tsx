@@ -11,7 +11,7 @@ import { notifications } from "@mantine/notifications";
 import { useFormikContext } from "../contexts/FormProvider";
 
 const MirairoManagement: React.FC = () => {
-  const theme = useMantineTheme();
+  // const theme = useMantineTheme();
   const [isStarted, setIsStarted] = useState<boolean>(false);
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const formik = useFormikContext();
