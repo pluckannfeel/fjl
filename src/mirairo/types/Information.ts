@@ -76,7 +76,7 @@ export type QualificationsLicenses = {
   id?: string;
   name: string;
   acquired_date: Date | null;
-  file?: File | string | null;
+  file?: File | null;
 };
 
 export type WorkExperience = {
