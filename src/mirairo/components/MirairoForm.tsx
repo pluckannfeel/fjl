@@ -270,6 +270,8 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
       },
     ],
     jlpt: "",
+    jft: "",
+    nat: "",
     japanese: "",
     english: "",
     computer_skills: "",
@@ -286,8 +288,9 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
       },
     ],
     // unique_questions: [],
-    unique_questions: Array.from({ length: 30 }, (_, i) => ({
+    unique_questions: Array.from({ length: 3 }, (_, i) => ({
       id: (i + 1).toString(),
+      question: "",
       answer: "",
     })),
   };

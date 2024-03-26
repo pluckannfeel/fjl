@@ -224,14 +224,44 @@
       },
       "skills_languages": {
         "jlpt": {
-          "placeholder": "Select JLPT Level",
+          "placeholder": "Select Level",
           "label": "JLPT",
           "none": "None",
           "n1": "N1",
           "n2": "N2",
           "n3": "N3",
           "n4": "N4",
-          "n5": "N5"
+          "n5": "N5",
+          "a1": "A1",
+          "a2": "A2",
+          "b1": "B1",
+          "b2": "B2",
+          "c1": "C1",
+          "c2": "C2",
+          "5q": "5Q",
+          "4q": "4Q",
+          "3q": "3Q",
+          "2q": "2Q"
+        },
+        "jft": {
+          "label": "JFT BASIC",
+          "placeholder": "Select Level",
+          "none": "None",
+          "a1": "A1",
+          "a2": "A2",
+          "b1": "B1",
+          "b2": "B2",
+          "c1": "C1",
+          "c2": "C2"
+        },
+        "nat": {
+          "label": "NAT-TEST",
+          "placeholder": "Select Level",
+          "none": "None",
+          "5q": "5Q",
+          "4q": "4Q",
+          "3q": "3Q",
+          "2q": "2Q"
         },
         "japanese": "Japanese",
         "english": "English",
@@ -272,6 +302,10 @@
         "description": "What are your interests? please upload your favorite photos/video links that describes you and your interests. Help us get to know you better."
       },
       "uniqueQuestions": {
+        "placeholder": {
+          "select": "Select a question",
+          "answer": "Answer here.."
+        },
         "1": "1. If a movie were made about your life, what would the title be?",
         "2": "2. What was your favorite game as a child?",
         "3": "3. If you had the power to change one thing about the world, what would it be?",

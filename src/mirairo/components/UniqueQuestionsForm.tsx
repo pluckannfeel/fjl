@@ -1,12 +1,17 @@
 import React from "react";
-import { SimpleGrid, Textarea, Title } from "@mantine/core";
+import { Select, SimpleGrid, Textarea, Title } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { useFormikContext } from "../contexts/FormProvider";
-import { getNestedError } from "../helpers/constants";
+import { getNestedError, uniqueQuestionsList } from "../helpers/constants";
 
 const UniqueQuestionsForm = () => {
   const { t } = useTranslation();
   const formik = useFormikContext();
+
+  const uniqueQuestionsListOptions = uniqueQuestionsList.map((question) => ({
+    ...question,
+    label: t(question.label), // Translates the label
+  }));
 
   return (
     <React.Fragment>
@@ -15,7 +20,93 @@ const UniqueQuestionsForm = () => {
       </Title>
 
       <SimpleGrid mt="sm" cols={1}>
-        {formik.values.unique_questions.map((question, index) => (
+        <Select
+          placeholder={t("mirairo.form.uniqueQuestions.placeholder.select")}
+          onChange={(_value, option) => {
+            formik.setFieldValue(`unique_questions[0].question`, option.value);
+          }}
+          maxDropdownHeight={300}
+          data={uniqueQuestionsListOptions}
+          required
+          name={`unique_questions[0].question`}
+          value={formik.values.unique_questions[0].question}
+          error={getNestedError(`unique_questions[0].question`, formik.errors)}
+        />
+        <Textarea
+          // key={question.id}
+          // autoFocus={index === 0} // Focus only the first question
+          minRows={3}
+          // label={t(`mirairo.form.uniqueQuestions.${question.id}`)}
+          placeholder={t("mirairo.form.uniqueQuestions.placeholder.answer")}
+          required
+          onChange={formik.handleChange(`unique_questions[0].answer`)}
+          name={`unique_questions[0].answer`}
+          value={formik.values.unique_questions[0].answer}
+          error={
+            formik.touched.unique_questions?.[0]?.answer &&
+            getNestedError(`unique_questions.${0}.answer`, formik.errors)
+          }
+        />
+
+        <Select
+          mt={"lg"}
+          placeholder={t("mirairo.form.uniqueQuestions.placeholder.select")}
+          onChange={(_value, option) => {
+            formik.setFieldValue(`unique_questions[1].question`, option.value);
+          }}
+          maxDropdownHeight={300}
+          data={uniqueQuestionsListOptions}
+          required
+          name={`unique_questions[1].question`}
+          value={formik.values.unique_questions[1].question}
+          error={getNestedError(`unique_questions[1].question`, formik.errors)}
+        />
+        <Textarea
+          // key={question.id}
+          // autoFocus={index === 1} // Focus only the first question
+          minRows={3}
+          // label={t(`mirairo.form.uniqueQuestions.${question.id}`)}
+          placeholder={t("mirairo.form.uniqueQuestions.placeholder.answer")}
+          required
+          onChange={formik.handleChange(`unique_questions[1].answer`)}
+          name={`unique_questions[1].answer`}
+          value={formik.values.unique_questions[1].answer}
+          error={
+            formik.touched.unique_questions?.[1]?.answer &&
+            getNestedError(`unique_questions.${1}.answer`, formik.errors)
+          }
+        />
+
+        <Select
+          mt={"lg"}
+          placeholder={t("mirairo.form.uniqueQuestions.placeholder.select")}
+          onChange={(_value, option) => {
+            formik.setFieldValue(`unique_questions[2].question`, option.value);
+          }}
+          maxDropdownHeight={300}
+          data={uniqueQuestionsListOptions}
+          required
+          name={`unique_questions[2].question`}
+          value={formik.values.unique_questions[2].question}
+          error={getNestedError(`unique_questions[2].question`, formik.errors)}
+        />
+        <Textarea
+          // key={question.id}
+          // autoFocus={index === 0} // Focus only the first question
+          minRows={3}
+          // label={t(`mirairo.form.uniqueQuestions.${question.id}`)}
+          placeholder={t("mirairo.form.uniqueQuestions.placeholder.answer")}
+          required
+          onChange={formik.handleChange(`unique_questions[2].answer`)}
+          name={`unique_questions[2].answer`}
+          value={formik.values.unique_questions[2].answer}
+          error={
+            formik.touched.unique_questions?.[2]?.answer &&
+            getNestedError(`unique_questions.${2}.answer`, formik.errors)
+          }
+        />
+
+        {/* {formik.values.unique_questions.map((question, index) => (
           <Textarea
             key={question.id}
             autoFocus={index === 0} // Focus only the first question
@@ -30,7 +121,7 @@ const UniqueQuestionsForm = () => {
               getNestedError(`unique_questions.${index}.answer`, formik.errors)
             }
           />
-        ))}
+        ))} */}
       </SimpleGrid>
     </React.Fragment>
   );

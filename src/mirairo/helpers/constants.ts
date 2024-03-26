@@ -41,6 +41,57 @@ export const JLPTs = [
   { label: "mirairo.form.skills_languages.jlpt.n1", value: "N1" },
 ];
 
+export const JFTs = [
+  { label: "mirairo.form.skills_languages.jft.none", value: "none" },
+  { label: "mirairo.form.skills_languages.jft.a1", value: "A1" },
+  { label: "mirairo.form.skills_languages.jft.a2", value: "A2" },
+  { label: "mirairo.form.skills_languages.jft.b1", value: "B1" },
+  { label: "mirairo.form.skills_languages.jft.b2", value: "B2" },
+  { label: "mirairo.form.skills_languages.jft.c1", value: "C1" },
+  { label: "mirairo.form.skills_languages.jft.c2", value: "C2" },
+];
+
+export const NATs = [
+  { label: "mirairo.form.skills_languages.nat.none", value: "none" },
+  { label: "mirairo.form.skills_languages.nat.5q", value: "5Q" },
+  { label: "mirairo.form.skills_languages.nat.4q", value: "4Q" },
+  { label: "mirairo.form.skills_languages.nat.3q", value: "3Q" },
+  { label: "mirairo.form.skills_languages.nat.2q", value: "2Q" },
+];
+
+export const uniqueQuestionsList = [
+  { label: "mirairo.form.uniqueQuestions.1", value: "1" },
+  { label: "mirairo.form.uniqueQuestions.2", value: "2" },
+  { label: "mirairo.form.uniqueQuestions.3", value: "3" },
+  { label: "mirairo.form.uniqueQuestions.4", value: "4" },
+  { label: "mirairo.form.uniqueQuestions.5", value: "5" },
+  { label: "mirairo.form.uniqueQuestions.6", value: "6" },
+  { label: "mirairo.form.uniqueQuestions.7", value: "7" },
+  { label: "mirairo.form.uniqueQuestions.8", value: "8" },
+  { label: "mirairo.form.uniqueQuestions.9", value: "9" },
+  { label: "mirairo.form.uniqueQuestions.10", value: "10" },
+  { label: "mirairo.form.uniqueQuestions.11", value: "11" },
+  { label: "mirairo.form.uniqueQuestions.12", value: "12" },
+  { label: "mirairo.form.uniqueQuestions.13", value: "13" },
+  { label: "mirairo.form.uniqueQuestions.14", value: "14" },
+  { label: "mirairo.form.uniqueQuestions.15", value: "15" },
+  { label: "mirairo.form.uniqueQuestions.16", value: "16" },
+  { label: "mirairo.form.uniqueQuestions.17", value: "17" },
+  { label: "mirairo.form.uniqueQuestions.18", value: "18" },
+  { label: "mirairo.form.uniqueQuestions.19", value: "19" },
+  { label: "mirairo.form.uniqueQuestions.20", value: "20" },
+  { label: "mirairo.form.uniqueQuestions.21", value: "21" },
+  { label: "mirairo.form.uniqueQuestions.22", value: "22" },
+  { label: "mirairo.form.uniqueQuestions.23", value: "23" },
+  { label: "mirairo.form.uniqueQuestions.24", value: "24" },
+  { label: "mirairo.form.uniqueQuestions.25", value: "25" },
+  { label: "mirairo.form.uniqueQuestions.26", value: "26" },
+  { label: "mirairo.form.uniqueQuestions.27", value: "27" },
+  { label: "mirairo.form.uniqueQuestions.28", value: "28" },
+  { label: "mirairo.form.uniqueQuestions.29", value: "29" },
+  { label: "mirairo.form.uniqueQuestions.30", value: "30" },
+];
+
 const currentYear = new Date().getFullYear();
 const startYear = 1975;
 const endYear = currentYear - 10; // Current year minus 10
@@ -115,6 +166,6 @@ export const disallowedDomains = [
   "spankbang.com",
   "xvidzz.com",
   "on.fmoviesto.site",
-  "pornhd.com"
+  "pornhd.com",
   // Add more as needed
 ];

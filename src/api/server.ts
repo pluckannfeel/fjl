@@ -16,9 +16,9 @@ export const baseUrl = determineBaseUrl();
 const instance: AxiosInstance = axios.create({
   baseURL: baseUrl,
   // ... other settings (like headers, timeout, etc.)
-  headers: {
-    "Access-Control-Allow-Origin": "*",
-  },
+  // headers: {
+  //   "Access-Control-Allow-Origin": "*",
+  // },
 });
 
 instance.interceptors.request.use(

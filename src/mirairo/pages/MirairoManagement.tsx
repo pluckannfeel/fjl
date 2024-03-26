@@ -10,10 +10,16 @@ import ApplicantSubmitted from "../components/ApplicantSubmitted";
 import { notifications } from "@mantine/notifications";
 import { useFormikContext } from "../contexts/FormProvider";
 
+import { useLocalStorage } from "@mantine/hooks";
+
 const MirairoManagement: React.FC = () => {
   // const theme = useMantineTheme();
   const [isStarted, setIsStarted] = useState<boolean>(false);
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
+  const [submitTimeout, setSubmitTimeout] = useLocalStorage<number | null>({
+    key: "submitTimeout",
+    defaultValue: null,
+  });
   const formik = useFormikContext();
 
   // submit hook
@@ -23,6 +29,9 @@ const MirairoManagement: React.FC = () => {
     setIsStarted(true);
     // console.log("clicked");
   };
+
+  // Check if the current time is before the timeout and prevent submission if it is
+  const canSubmit = !submitTimeout || new Date().getTime() > submitTimeout;
 
   // Define variants for the animation
   const formVariants = {
@@ -34,8 +43,22 @@ const MirairoManagement: React.FC = () => {
   const submitApplicantHandler = async (
     values: Partial<PersonalInformation>
   ) => {
+    if (!canSubmit) {
+      notifications.show({
+        color: "red",
+        title: "Submission Disabled",
+        message:
+          "You've recently submitted an application. Please wait before submitting again.",
+      });
+      return;
+    }
+
+    const now = new Date().getTime();
+
     submitApplicant(values as PersonalInformation)
       .then(() => {
+        const twoHoursFromNow = now + 2 * 60 * 60 * 1000; // 2 hours timeout
+        setSubmitTimeout(twoHoursFromNow);
         setFormSubmitted(true);
       })
       .catch((error) => {
@@ -49,7 +72,7 @@ const MirairoManagement: React.FC = () => {
       })
       .finally(() => {
         // clean up
-        formik.resetForm();
+        // formik.resetForm();
       });
   };
 

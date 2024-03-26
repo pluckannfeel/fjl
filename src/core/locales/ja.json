@@ -81,7 +81,7 @@
       "qualificationsLicenses": "資格・免許",
       "skillsLanguages": "スキル・言語",
       "SelfCareerPlans": "自己PR・キャリアプラン",
-      "photosVideosLinks": "お気に入りの写真や動画をアップできる",
+      "photosVideosLinks": "お気に入りの写真や動画をアップ",
       "uniqueQuestions": "ユニーク質問集"
     },
     "actions": {
@@ -231,6 +231,26 @@
           "n4": "N4",
           "n5": "N5"
         },
+        "jft": {
+          "label": "JFT BASIC",
+          "placeholder": "レベル選択",
+          "none": "なし",
+          "a1": "A1",
+          "a2": "A2",
+          "b1": "B1",
+          "b2": "B2",
+          "c1": "C1",
+          "c2": "C2"
+        },
+        "nat": {
+          "label": "日本語NAT-TEST",
+          "placeholder": "言語選択",
+          "none": "なし",
+          "5q": "5Q",
+          "4q": "4Q",
+          "3q": "3Q",
+          "2q": "2Q"
+        },
         "japanese": "日本語",
         "english": "英語",
         "computer_skills": {
@@ -244,9 +264,9 @@
         "level": {
           "placeholder": "レベル選択",
           "none": "なし",
-          "basic": "基本",
-          "conversational": "会話",
-          "business": "ビジネス",
+          "basic": "基礎",
+          "conversational": "中級",
+          "business": "上級",
           "native": "ネイティブ"
         }
       },
@@ -270,6 +290,10 @@
         "description": "お気に入りの写真や動画URLをアップできる"
       },
       "uniqueQuestions": {
+        "placeholder": {
+          "select": "選択",
+          "answer": "回答"
+        },
         "1": "1. あなたの人生を題材にした映画を作るとしたら、タイトルは何にしますか？",
         "2": "2. 子供の頃に好きだった遊びは何ですか？",
         "3": "3. もし世界を変える力があるとしたら、何を変えますか？",

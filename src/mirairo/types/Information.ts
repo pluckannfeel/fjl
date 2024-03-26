@@ -24,6 +24,8 @@ export type PersonalInformation = {
   work_experience: WorkExperience[];
   qualifications_licenses: QualificationsLicenses[];
   jlpt: string;
+  jft: string;
+  nat: string;
   japanese: string;
   english: string;
   computer_skills: string;
@@ -32,7 +34,7 @@ export type PersonalInformation = {
   reason_for_application?: string;
   past_experience?: string;
   future_career_plan?: string;
-  photos: File[];
+  photos?: File[];
   links: Link[];
   unique_questions: Questions[];
 };
@@ -74,7 +76,7 @@ export type QualificationsLicenses = {
   id?: string;
   name: string;
   acquired_date: Date | null;
-  file?: File | null;
+  file?: File | string | null;
 };
 
 export type WorkExperience = {
@@ -94,5 +96,6 @@ export type Link = {
 
 export type Questions = {
   id: string;
+  question: string;
   answer: string;
 };

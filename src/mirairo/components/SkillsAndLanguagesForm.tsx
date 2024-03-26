@@ -2,7 +2,7 @@ import { Grid, Select, Textarea, Title } from "@mantine/core";
 import React from "react";
 import commonStyles from "../classes/Common.module.scss";
 import { useTranslation } from "react-i18next";
-import { JLPTs, languageLevels } from "../helpers/constants";
+import { JFTs, JLPTs, NATs, languageLevels } from "../helpers/constants";
 import { useFormikContext } from "../contexts/FormProvider";
 
 const SkillsAndLanguagesForm = () => {
@@ -20,6 +20,16 @@ const SkillsAndLanguagesForm = () => {
     ...level,
     label: t(level.label), // Translates the label
   }));
+
+  const jfOptions = JFTs.map((level) => ({
+    ...level,
+    label: t(level.label), // Translates the label
+  }));
+
+  const natOptions = NATs.map((level) => ({
+    ...level,
+    label: t(level.label), // Translates the label
+  }));
   return (
     <React.Fragment>
       <Title
@@ -33,7 +43,7 @@ const SkillsAndLanguagesForm = () => {
       </Title>
 
       <Grid mt="sm">
-        <Grid.Col mt={"xs"} span={{ base: 12, sm: 4 }}>
+        <Grid.Col mt={"xs"} span={{ base: 12, sm: 2.4 }}>
           <Select
             label={t("mirairo.form.skills_languages.english")}
             placeholder={t("mirairo.form.skills_languages.level.placeholder")}
@@ -50,7 +60,7 @@ const SkillsAndLanguagesForm = () => {
             error={formik.touched.english && Boolean(formik.errors.english)}
           />
         </Grid.Col>
-        <Grid.Col mt={"xs"} span={{ base: 12, sm: 4 }}>
+        <Grid.Col mt={"xs"} span={{ base: 12, sm: 2.4 }}>
           <Select
             label={t("mirairo.form.skills_languages.japanese")}
             placeholder={t("mirairo.form.skills_languages.level.placeholder")}
@@ -67,7 +77,7 @@ const SkillsAndLanguagesForm = () => {
             error={formik.touched.japanese && Boolean(formik.errors.japanese)}
           />
         </Grid.Col>
-        <Grid.Col mt={"xs"} span={{ base: 12, sm: 4 }}>
+        <Grid.Col mt={"xs"} span={{ base: 12, sm: 2.4 }}>
           <Select
             label={t("mirairo.form.skills_languages.jlpt.label")}
             placeholder={t("mirairo.form.skills_languages.jlpt.placeholder")}
@@ -82,6 +92,38 @@ const SkillsAndLanguagesForm = () => {
             name="jlpt"
             // error={formik.errors.nationality}
             error={formik.touched.jlpt && Boolean(formik.errors.jlpt)}
+          />
+        </Grid.Col>
+        <Grid.Col mt={"xs"} span={{ base: 12, sm: 2.4 }}>
+          <Select
+            label={t("mirairo.form.skills_languages.jft.label")}
+            placeholder={t("mirairo.form.skills_languages.jft.placeholder")}
+            data={jfOptions}
+            required
+            onChange={(_value, option) => {
+              formik.setFieldValue("jft", option.value);
+            }}
+            searchable
+            value={formik.values.jft}
+            name="jft"
+            // error={formik.errors.nationality}
+            error={formik.touched.jft && Boolean(formik.errors.jft)}
+          />
+        </Grid.Col>
+        <Grid.Col mt={"xs"} span={{ base: 12, sm: 2.4 }}>
+          <Select
+            label={t("mirairo.form.skills_languages.nat.label")}
+            placeholder={t("mirairo.form.skills_languages.nat.placeholder")}
+            data={natOptions}
+            required
+            onChange={(_value, option) => {
+              formik.setFieldValue("nat", option.value);
+            }}
+            searchable
+            value={formik.values.nat}
+            name="nat"
+            // error={formik.errors.nationality}
+            error={formik.touched.nat && Boolean(formik.errors.nat)}
           />
         </Grid.Col>
       </Grid>
