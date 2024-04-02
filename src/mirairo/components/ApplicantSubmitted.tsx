@@ -13,7 +13,11 @@ import { motion } from "framer-motion";
 import SubmittedImg from "../../core/assets/submitted.svg";
 import { useNavigate } from "react-router";
 
-const ApplicantSubmitted = () => {
+type ApplicantSubmittedProps = {
+  goBackHandler: () => void;
+};
+
+const ApplicantSubmitted = ({ goBackHandler }: ApplicantSubmittedProps) => {
   const navigate = useNavigate();
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -78,7 +82,8 @@ const ApplicantSubmitted = () => {
             size="lg"
             color="blue"
             onClick={() => {
-              navigate("/");
+              // navigate("/mirairo");
+              goBackHandler();
             }}
           >
             Homepage

@@ -99,7 +99,7 @@ const MirairoManagement: React.FC = () => {
           height: "auto",
         }}
       >
-        {/* {!formSubmitted ? (
+        {!formSubmitted ? (
           <>
             <LandingHeader title="Mirairo 未来路 " />
             {isStarted ? (
@@ -122,9 +122,8 @@ const MirairoManagement: React.FC = () => {
             )}
           </>
         ) : (
-          <ApplicantSubmitted />
-        )} */}
-        <ApplicantSubmitted />
+          <ApplicantSubmitted goBackHandler={() => setFormSubmitted(false)} />
+        )}
       </Paper>
     </React.Fragment>
   );
