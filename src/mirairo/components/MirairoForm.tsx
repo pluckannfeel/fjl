@@ -97,7 +97,10 @@ const formSteps = [
   {
     name: "mirairo.sections.qualificationsLicenses",
     component: QualificationAndLicensesForm,
-    fields: ["qualifications_licenses"],
+    fields: [
+      // "qualifications_licenses.name, qualifications_licenses.acquired_date",
+      "qualifications_licenses",
+    ],
   },
   {
     name: "mirairo.sections.workExperience",
@@ -110,6 +113,8 @@ const formSteps = [
     component: SkillsAndLanguagesForm,
     fields: [
       "jlpt",
+      "jft",
+      "nat",
       "japanese",
       "english",
       "other_languages",
@@ -367,6 +372,7 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
   // ----------------- FORMIK YUP ---------------------
 
   // ----------------- STATE MGMT --------------------------
+  // const [submitAttempted, setSubmitAttempted] = useState(false);
 
   const [formValues, setFormValues] = useLocalStorage<PersonalInformation>({
     key: "formValues",
@@ -385,6 +391,21 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
         ...values,
         img_url: convertBase64ToFile(values.img_url as string, imgName),
       };
+
+      // check for last errors
+      // const errors = await formik.validateForm();
+      // const errors = await formik.errors
+      // .catch((err) => {
+      //   console.error(err);
+      //   setShowError(true);
+      //   return;
+      // });
+
+      if (Object.keys(formik.errors).length > 0) {
+        console.error(formik.errors);
+        setShowError(true);
+        return;
+      }
 
       props.onSubmitApplicant(modifiedValues);
 
