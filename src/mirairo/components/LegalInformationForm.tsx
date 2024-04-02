@@ -46,7 +46,7 @@ const LegalInformationForm = (props: Props) => {
             label={t("mirairo.form.current_address.label")}
             placeholder={t("mirairo.form.current_address.placeholder")}
             onChange={formik.handleChange("current_address")}
-            required
+            // required
             name="current_address"
             value={formik.values.current_address}
             error={
@@ -66,7 +66,7 @@ const LegalInformationForm = (props: Props) => {
             label={t("mirairo.form.phone_number.label")}
             placeholder={t("mirairo.form.phone_number.placeholder")}
             onChange={formik.handleChange("phone_number")}
-            required
+            // required
             name="phone_number"
             value={formik.values.phone_number}
             error={
@@ -79,7 +79,7 @@ const LegalInformationForm = (props: Props) => {
             label={t("mirairo.form.email.label")}
             placeholder={t("mirairo.form.email.placeholder")}
             onChange={formik.handleChange("email")}
-            required
+            // required
             name="email"
             value={formik.values.email}
             error={formik.touched.email && Boolean(formik.errors.email)}
@@ -92,7 +92,7 @@ const LegalInformationForm = (props: Props) => {
             label={t("mirairo.form.passport_number.label")}
             placeholder={t("mirairo.form.passport_number.placeholder")}
             onChange={formik.handleChange("passport_number")}
-            required
+            // required
             name="passport_number"
             value={formik.values.passport_number}
             error={
@@ -111,8 +111,7 @@ const LegalInformationForm = (props: Props) => {
             onChange={(value: DateValue) =>
               formik.setFieldValue("passport_expiry", value)
             }
-            required
-            withAsterisk
+            // required
             name="passport_expiry"
             value={
               formik.values.passport_expiry

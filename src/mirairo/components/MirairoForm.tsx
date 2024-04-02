@@ -77,11 +77,11 @@ const formSteps = [
     component: LegalInformationForm,
     fields: [
       "occupation",
-      "current_address",
-      "phone_number",
-      "passport_number",
-      "passport_expiry",
-      "email",
+      // "current_address",
+      // "phone_number",
+      // "passport_number",
+      // "passport_expiry",
+      // "email",
     ],
   },
   {
@@ -291,11 +291,11 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
     birth_place: Yup.string().required(t("common.errors.required")),
     marital_status: Yup.string().required(t("common.errors.required")),
     occupation: Yup.string().required(t("common.errors.required")),
-    current_address: Yup.string().required(t("common.errors.required")),
-    phone_number: Yup.string().required(t("common.errors.required")),
-    passport_number: Yup.string().required(t("common.errors.required")),
-    passport_expiry: Yup.string().required(t("common.errors.required")),
-    email: Yup.string().required(t("common.errors.required")),
+    // current_address: Yup.string().required(t("common.errors.required")),
+    // phone_number: Yup.string().required(t("common.errors.required")),
+    // passport_number: Yup.string().required(t("common.errors.required")),
+    // passport_expiry: Yup.string().required(t("common.errors.required")),
+    // email: Yup.string().required(t("common.errors.required")),
     has_family: Yup.string().required(t("common.errors.required")),
     family: Yup.array().of(
       Yup.object({
