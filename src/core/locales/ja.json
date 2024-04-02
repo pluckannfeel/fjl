@@ -27,6 +27,7 @@
       "required": "必須",
       "invalid": "無効",
       "urlRequired": "URLが必要です",
+      "imageRequired": "画像が必要です",
       "invalidUrl": "URLが無効です",
       "forbidden": {
         "subTitle": "このページを表示する権限がありません。"

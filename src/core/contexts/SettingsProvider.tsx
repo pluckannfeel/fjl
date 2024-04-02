@@ -85,7 +85,7 @@ const SettingsProvider = ({ children }: SettingsProviderProps) => {
         toggleDrawer,
       }}
     >
-      <MantineProvider theme={theme} withCssVariables>
+      <MantineProvider theme={theme} defaultColorScheme="dark" withCssVariables>
         <DatesProvider
           settings={{
             firstDayOfWeek: 0,

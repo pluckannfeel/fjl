@@ -1,14 +1,15 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Group, Avatar, Menu, Button, Text } from "@mantine/core";
 import { IconUser, IconCamera, IconTrash } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import classes from "../classes/ClickableAvatar.module.css";
 
 interface ClickableAvatarProps {
-  applicant_image: File | null;
+  applicant_image: File | string | null;
   setApplicantImage: (image: File | null) => void;
   applicant_id: string | null | undefined;
   handleFileSelect: (file: File | null) => void;
+  error?: string | boolean; // Optional error message or boolean indicating error state
 }
 
 const ClickableAvatar: React.FC<ClickableAvatarProps> = ({
@@ -16,11 +17,21 @@ const ClickableAvatar: React.FC<ClickableAvatarProps> = ({
   setApplicantImage,
   applicant_id,
   handleFileSelect,
+  error,
 }) => {
   const { t } = useTranslation();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [opened, setOpened] = useState(false);
-  //   const [avatar, setAvatar] = useState<string | null>(applicant_image);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (applicant_image && typeof applicant_image === "string") {
+      setPreviewUrl(applicant_image);
+    } else {
+      // If no image is provided, reset the preview URL
+      setPreviewUrl(null);
+    }
+  }, [applicant_image]);
 
   const handleMenuItemClick = () => {
     fileInputRef.current?.click();
@@ -28,18 +39,13 @@ const ClickableAvatar: React.FC<ClickableAvatarProps> = ({
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] || null;
-    // const file = event.target.files?.[0];
+
     handleFileSelect(file);
-    if (file) {
-      //   setAvatar(URL.createObjectURL(file));
-      //   setApplicantImage(URL.createObjectURL(file));
-      setApplicantImage(file);
-    }
   };
 
   const handleClearImage = () => {
     handleFileSelect(null);
-    // setAvatar(null);
+    setPreviewUrl(null);
   };
 
   return (
@@ -51,24 +57,14 @@ const ClickableAvatar: React.FC<ClickableAvatarProps> = ({
         className={`${classes.avatarButton}`}
       >
         <Avatar
-          src={applicant_image ? URL.createObjectURL(applicant_image) : null}
+          src={previewUrl}
           alt="Applicant Avatar"
           radius="lg"
           className={`${classes.avatarImage}`}
-          //   size={180}
         >
-          {!applicant_image && <IconUser size={50} />}
+          {!previewUrl && <IconUser size={50} />}
         </Avatar>
       </Button>
-
-      {/* <Text
-        size="sm"
-        color="blue"
-        style={{ cursor: "pointer" }}
-        onClick={() => setOpened((o) => !o)}
-      >
-        {t("Upload")}
-      </Text> */}
 
       <Menu opened={opened} onClose={() => setOpened(false)}>
         <Menu.Item
@@ -80,13 +76,13 @@ const ClickableAvatar: React.FC<ClickableAvatarProps> = ({
             ? t("mirairo.form.img.change")
             : t("mirairo.form.img.upload")}
         </Menu.Item>
-        {/* <Menu.Item
-          rightSection={<IconTrash size={14} />}
-          onClick={handleClearImage}
-        >
-          {t("Clear photo")}
-        </Menu.Item> */}
       </Menu>
+
+      {error && (
+        <Text c="red" size="xs">
+          {typeof error === "string" ? error : t("common.errors.imageRequired")}
+        </Text>
+      )}
 
       <input
         ref={fileInputRef}

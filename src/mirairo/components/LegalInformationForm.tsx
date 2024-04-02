@@ -114,7 +114,11 @@ const LegalInformationForm = (props: Props) => {
             required
             withAsterisk
             name="passport_expiry"
-            value={formik.values.passport_expiry}
+            value={
+              formik.values.passport_expiry
+                ? dayjs(formik.values.passport_expiry).toDate()
+                : null
+            }
             error={
               formik.touched.passport_expiry &&
               Boolean(formik.errors.passport_expiry)

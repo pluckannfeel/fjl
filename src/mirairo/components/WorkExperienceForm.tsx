@@ -19,6 +19,7 @@ import { EducationBackground, WorkExperience } from "../types/Information";
 import { IconX } from "@tabler/icons-react";
 import { getNestedError } from "../helpers/constants";
 import { DateInput, DateValue } from "@mantine/dates";
+import dayjs from "dayjs";
 
 const WorkExperienceForm = () => {
   const { t } = useTranslation();
@@ -97,7 +98,8 @@ const WorkExperienceForm = () => {
                             }
                             required
                             name={`work_experience[${index}].from`}
-                            value={item.from}
+                            // value={item.from}
+                            value={item.from ? dayjs(item.from).toDate() : null}
                             error={getNestedError(
                               `work_experience.${index}.from`,
                               formik.errors
@@ -117,7 +119,7 @@ const WorkExperienceForm = () => {
                             }
                             required
                             name={`work_experience[${index}].to`}
-                            value={item.to}
+                            value={item.to ? dayjs(item.to).toDate() : null}
                             error={getNestedError(
                               `work_experience.${index}.to`,
                               formik.errors

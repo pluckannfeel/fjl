@@ -7,6 +7,7 @@ import {
   Radio,
   Group,
   Select,
+  Text,
 } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import commonStyles from "../classes/Common.module.scss";
@@ -28,8 +29,6 @@ const PersonalInformationForm = () => {
 
   // image file change handler
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  // display photo staff
-  const [imageFile, setImageFile] = useState<File | null>(null);
 
   // autocomplete conversions
   // Translate nationality labels
@@ -79,12 +78,18 @@ const PersonalInformationForm = () => {
   };
 
   const handleImageFileSelect = (file: File | null) => {
-    setImageFile(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        formik.setFieldValue("img_url", reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      formik.setFieldValue("img_url", null);
+    }
 
     handleClose();
-
-    // set formik to dirty
-    formik.setFieldTouched("img_url", false);
+    formik.setFieldTouched("img_url", true, false); // Mark img_url as touched
   };
 
   return (
@@ -103,11 +108,12 @@ const PersonalInformationForm = () => {
         <Grid.Col mt={"xs"} span={{ base: 12, md: 3 }}>
           <ClickableAvatar
             applicant_id={formik.values.id}
-            applicant_image={formik.values.img_url as File}
+            applicant_image={formik.values.img_url as string}
             setApplicantImage={(img) => {
               formik.setFieldValue("img_url", img);
             }}
             handleFileSelect={handleImageFileSelect}
+            error={formik.touched.img_url && formik.errors.img_url}
           />
         </Grid.Col>
         <Grid.Col mt={"xs"} span={{ base: 12, md: 9 }}>

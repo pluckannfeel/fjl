@@ -26,6 +26,7 @@ import {
 import { IconX, IconFileInfo, IconCalendarEvent } from "@tabler/icons-react";
 import { getNestedError } from "../helpers/constants";
 import { DateInput, DateValue } from "@mantine/dates";
+import dayjs from "dayjs";
 
 const QualificationAndLicensesForm = () => {
   const { t } = useTranslation();
@@ -106,7 +107,12 @@ const QualificationAndLicensesForm = () => {
                             }
                             required
                             name={`qualifications_licenses[${index}].acquired_date`}
-                            value={item.acquired_date}
+                            // value={item.acquired_date}
+                            value={
+                              item.acquired_date
+                                ? dayjs(item.acquired_date).toDate()
+                                : null
+                            }
                             error={getNestedError(
                               `qualifications_licenses.${index}.acquired_date`,
                               formik.errors

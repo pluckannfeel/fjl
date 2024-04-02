@@ -27,6 +27,7 @@
       "required": "Required",
       "invalid": "Invalid",
       "urlRequired": "URL is required",
+      "imageRequired": "Image is required",
       "invalidUrl": "Invalid URL",
       "forbidden": {
         "subTitle": "You don't haveƒ access to view this page"

@@ -22,6 +22,7 @@ import { FamilyInformation } from "../types/Information";
 import { DateInput, DateValue } from "@mantine/dates";
 import { getNestedError, nationalities } from "../helpers/constants";
 import { IconCalendarEvent, IconX } from "@tabler/icons-react";
+import dayjs from "dayjs";
 
 const FamilyForm = () => {
   const { t } = useTranslation();
@@ -162,7 +163,11 @@ const FamilyForm = () => {
                             }
                             required
                             name={`family[${index}].birth_date`}
-                            value={family.birth_date}
+                            value={
+                              family.birth_date
+                                ? dayjs(family.birth_date).toDate()
+                                : null
+                            }
                             error={getNestedError(
                               `family.${index}.birth_date`,
                               formik.errors

@@ -18,6 +18,7 @@ import { EducationBackground } from "../types/Information";
 import { IconX } from "@tabler/icons-react";
 import { getNestedError } from "../helpers/constants";
 import { DateInput, DateValue } from "@mantine/dates";
+import dayjs from "dayjs";
 
 const EducationalBackgroundForm = () => {
   const { t } = useTranslation();
@@ -131,7 +132,12 @@ const EducationalBackgroundForm = () => {
                             }
                             required
                             name={`education[${index}].from`}
-                            value={background.from}
+                            // value={background.from}
+                            value={
+                              background.from
+                                ? dayjs(background.from).toDate()
+                                : null
+                            }
                             error={getNestedError(
                               `education.${index}.from`,
                               formik.errors
@@ -151,7 +157,12 @@ const EducationalBackgroundForm = () => {
                             }
                             required
                             name={`education[${index}].to`}
-                            value={background.to}
+                            // value={background.to}
+                            value={
+                              background.to
+                                ? dayjs(background.to).toDate()
+                                : null
+                            }
                             error={getNestedError(
                               `education.${index}.to`,
                               formik.errors

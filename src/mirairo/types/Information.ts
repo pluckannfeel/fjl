@@ -1,6 +1,6 @@
 export type PersonalInformation = {
   id?: string;
-  img_url?: File | null;
+  img_url: File | string | null;
   nationality: string;
   name: Name;
   first_name?: string;
@@ -76,7 +76,7 @@ export type QualificationsLicenses = {
   id?: string;
   name: string;
   acquired_date: Date | null;
-  file?: File | null;
+  file: File | null;
 };
 
 export type WorkExperience = {

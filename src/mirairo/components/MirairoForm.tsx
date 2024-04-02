@@ -15,7 +15,10 @@ import {
 } from "@mantine/core";
 import { useFormik, FormikErrors } from "formik";
 import * as Yup from "yup";
-import { PersonalInformation } from "../types/Information";
+import {
+  PersonalInformation,
+  QualificationsLicenses,
+} from "../types/Information";
 import EducationalBackgroundForm from "./EducationalBackgroundForm";
 import FamilyForm from "./FamilyForm";
 import LegalInformationForm from "./LegalInformationForm";
@@ -31,6 +34,7 @@ import { useTranslation } from "react-i18next";
 import FormikContext from "../contexts/FormProvider";
 import {
   allowedURLPattern,
+  convertBase64ToFile,
   days,
   disallowedDomains,
   genders,
@@ -40,7 +44,7 @@ import {
 } from "../helpers/constants";
 import dayjs from "dayjs";
 import UniqueQuestionsForm from "./UniqueQuestionsForm";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useLocalStorage } from "@mantine/hooks";
 import CustomLoader from "../../core/components/Loader";
 
 // Step definitions
@@ -166,57 +170,6 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
   // instance
   const { t } = useTranslation();
 
-  // ----------------- STATE MGMT --------------------------
-
-  const [currentStep, setCurrentStep] = useState<number>(0);
-  const breadcrumbsRef = useRef<HTMLDivElement>(null);
-  const [showError, setShowError] = useState(false);
-
-  // Current form component based on the current step
-  const CurrentFormComponent = formSteps[currentStep].component;
-
-  useEffect(() => {
-    // Automatically scroll to the latest breadcrumb
-    if (breadcrumbsRef.current) {
-      const scrollWidth = breadcrumbsRef.current.scrollWidth;
-      const clientWidth = breadcrumbsRef.current.clientWidth;
-      const maxScrollLeft = scrollWidth - clientWidth;
-      breadcrumbsRef.current.scrollLeft = maxScrollLeft; // Scroll to the right-most element
-    }
-  }, [currentStep]); // Re-run this effect when `currentStep` changes
-
-  // ----------------- STATE MGMT --------------------------
-
-  // ----------------- ANIMATION VARIANTS -------------------
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: 0.2,
-        when: "beforeChildren",
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  // Animation variants for the form container
-  const formContainerVariants = {
-    hidden: { opacity: 0, x: -100 },
-    visible: { opacity: 1, x: 0 },
-  };
-
-  // Animation variants for the navigation buttons
-  // const buttonVariants = {
-  //   hover: { scale: 1.05 },
-  //   tap: { scale: 0.95 },
-  // };
-
-  // ----------------- ANIMATION VARIANTS -------------------
-
-  // ----------------- FORMIK YUP ---------------------
   const initialValues: PersonalInformation = {
     img_url: null,
     nationality: "",
@@ -295,8 +248,11 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
     })),
   };
 
+  // ----------------- FORMIK YUP ---------------------
+
   const informationSchemeValidation = Yup.object({
     nationality: Yup.string().required("Nationality is required"),
+    img_url: Yup.mixed().required("Image is required"),
     // .test(
     //   "isValidNationality",
     //   "Please select a valid nationality",
@@ -369,9 +325,12 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
       Yup.object({
         name: Yup.string().required(t("common.errors.required")),
         acquired_date: Yup.string().required(t("common.errors.required")),
+        file: Yup.mixed().required(t("common.errors.required")),
       })
     ),
     jlpt: Yup.string().required(t("common.errors.required")),
+    jft: Yup.string().required(t("common.errors.required")),
+    nat: Yup.string().required(t("common.errors.required")),
     japanese: Yup.string().required(t("common.errors.required")),
     english: Yup.string().required(t("common.errors.required")),
     // other_languages: Yup.string().required(t("common.errors.required")),
@@ -405,18 +364,115 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
       })
     ),
   });
+  // ----------------- FORMIK YUP ---------------------
+
+  // ----------------- STATE MGMT --------------------------
+
+  const [formValues, setFormValues] = useLocalStorage<PersonalInformation>({
+    key: "formValues",
+    defaultValue: initialValues,
+    getInitialValueInEffect: true,
+  });
 
   const formik = useFormik({
-    initialValues,
+    initialValues: localStorage.getItem("formValues")
+      ? JSON.parse(localStorage.getItem("formValues")!)
+      : formValues,
     validationSchema: informationSchemeValidation,
-    onSubmit: (values: PersonalInformation) => {
-      props.onSubmitApplicant(values);
+    onSubmit: async (values: PersonalInformation) => {
+      const imgName = "applicant_image.jpg";
+      const modifiedValues: PersonalInformation = {
+        ...values,
+        img_url: convertBase64ToFile(values.img_url as string, imgName),
+      };
+
+      props.onSubmitApplicant(modifiedValues);
+
+      setFormValues(initialValues);
+      setCurrentStep(0);
     },
   });
 
-  // This function checks if there's at least one error in the form
-  // const hasErrors = Object.keys(formik.errors).length > 0;
-  // ----------------- FORMIK YUP ---------------------
+  // if one of the fields was changed, set the current step to 1 to avoid the first step
+  const [currentStep, setCurrentStep] = useLocalStorage<number>({
+    key: "currentFormStep",
+    defaultValue: 0,
+    getInitialValueInEffect: true,
+  });
+
+  const breadcrumbsRef = useRef<HTMLDivElement>(null);
+  const [showError, setShowError] = useState(false);
+
+  // Current form component based on the current step
+  const CurrentFormComponent = formSteps[currentStep].component;
+
+  // ----------------- STATE MGMT --------------------------
+
+  // ----------------- ANIMATION VARIANTS -------------------
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: 0.2,
+        when: "beforeChildren",
+        staggerChildren: 0.1,
+      },
+    },
+  };
+  // ----------------- ANIMATION VARIANTS -------------------
+  // Animation variants for the form container
+  const formContainerVariants = {
+    hidden: { opacity: 0, x: -100 },
+    visible: { opacity: 1, x: 0 },
+  };
+
+  // Animation variants for the navigation buttons
+  // const buttonVariants = {
+  //   hover: { scale: 1.05 },
+  //   tap: { scale: 0.95 },
+  // };
+
+  const excludeFileFieldsForStorage = (values: PersonalInformation) => {
+    const valuesCopy = JSON.parse(JSON.stringify(values)); // Deep copy to avoid mutating original values
+
+    // Assuming qualifications_licenses is the only field that contains files, adjust if there are more
+    if (valuesCopy.qualifications_licenses) {
+      valuesCopy.qualifications_licenses.forEach(
+        (qualification: QualificationsLicenses) => {
+          qualification.file = null; // Remove the file object
+        }
+      );
+    }
+
+    if (valuesCopy.photos) {
+      valuesCopy.photos = [];
+    }
+
+    // Add similar blocks for any other fields that might contain File objects
+
+    return valuesCopy;
+  };
+
+  useEffect(() => {
+    // Automatically scroll to the latest breadcrumb
+    if (breadcrumbsRef.current) {
+      const scrollWidth = breadcrumbsRef.current.scrollWidth;
+      const clientWidth = breadcrumbsRef.current.clientWidth;
+      const maxScrollLeft = scrollWidth - clientWidth;
+      breadcrumbsRef.current.scrollLeft = maxScrollLeft; // Scroll to the right-most element
+    }
+
+    // Log to see what's being saved
+    // console.log("Saving form values to local storage", formik.values);
+
+    //formvalue session local storage
+    // setFormValues(formik.values);
+    const valuesToSave = excludeFileFieldsForStorage(formik.values);
+    setFormValues(valuesToSave);
+  }, [currentStep, formik.values, setFormValues]); // Re-run this effect when `currentStep` changes
 
   // ----------------- EVENT HANDLERS -----------------
 
@@ -439,6 +495,13 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
         formik.setFieldTouched(field, true, false);
       }
     });
+
+    // Additional check for the image field, if it's required for the current step
+    if (currentStep === 0 && errors.img_url) {
+      // Assuming the image is required only on the first step
+      isStepValid = false;
+      formik.setFieldTouched("img_url", true, false); // Mark the field as touched to show any validation error
+    }
 
     if (isStepValid) {
       setCurrentStep((s) => Math.min(s + 1, formSteps.length - 1));

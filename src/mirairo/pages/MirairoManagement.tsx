@@ -14,7 +14,11 @@ import { useLocalStorage } from "@mantine/hooks";
 
 const MirairoManagement: React.FC = () => {
   // const theme = useMantineTheme();
-  const [isStarted, setIsStarted] = useState<boolean>(false);
+  const [isStarted, setIsStarted] = useLocalStorage<boolean>({
+    key: "formIsStarted",
+    defaultValue: false,
+    getInitialValueInEffect: true,
+  });
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
   const [submitTimeout, setSubmitTimeout] = useLocalStorage<number | null>({
     key: "submitTimeout",
@@ -31,7 +35,7 @@ const MirairoManagement: React.FC = () => {
   };
 
   // Check if the current time is before the timeout and prevent submission if it is
-  const canSubmit = !submitTimeout || new Date().getTime() > submitTimeout;
+  // const canSubmit = !submitTimeout || new Date().getTime() > submitTimeout;
 
   // Define variants for the animation
   const formVariants = {
@@ -39,27 +43,38 @@ const MirairoManagement: React.FC = () => {
     visible: { opacity: 1, transition: { duration: 0.5 } },
   };
 
+  const localStorageKeys = [
+    "formIsStarted",
+    "formCurrentStep",
+    "formValues",
+    // "submitTimeout",
+  ];
+
   // submit handler
   const submitApplicantHandler = async (
     values: Partial<PersonalInformation>
   ) => {
-    if (!canSubmit) {
-      notifications.show({
-        color: "red",
-        title: "Submission Disabled",
-        message:
-          "You've recently submitted an application. Please wait before submitting again.",
-      });
-      return;
-    }
+    // if (!canSubmit) {
+    //   notifications.show({
+    //     color: "red",
+    //     title: "Submission Disabled",
+    //     message:
+    //       "You've recently submitted an application. Please wait before submitting again.",
+    //   });
+    //   return;
+    // }
 
     const now = new Date().getTime();
 
     submitApplicant(values as PersonalInformation)
       .then(() => {
-        const twoHoursFromNow = now + 2 * 60 * 60 * 1000; // 2 hours timeout
-        setSubmitTimeout(twoHoursFromNow);
+        // const twoHoursFromNow = now + 2 * 60 * 60 * 1000; // 2 hours timeout
+        // setSubmitTimeout(twoHoursFromNow);
+        // temporarily disabled the timeout
+
         setFormSubmitted(true);
+        setIsStarted(false);
+        localStorageKeys.forEach((key) => localStorage.removeItem(key));
       })
       .catch((error) => {
         console.log(error);
@@ -84,7 +99,7 @@ const MirairoManagement: React.FC = () => {
           height: "auto",
         }}
       >
-        {!formSubmitted ? (
+        {/* {!formSubmitted ? (
           <>
             <LandingHeader title="Mirairo 未来路 " />
             {isStarted ? (
@@ -108,7 +123,8 @@ const MirairoManagement: React.FC = () => {
           </>
         ) : (
           <ApplicantSubmitted />
-        )}
+        )} */}
+        <ApplicantSubmitted />
       </Paper>
     </React.Fragment>
   );
