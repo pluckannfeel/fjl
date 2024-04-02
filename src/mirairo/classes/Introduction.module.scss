@@ -1,13 +1,18 @@
 .inner {
+  max-width: rem(1200px);
+
   display: flex;
+
   justify-content: space-between;
   /* padding-top: calc(var(--mantine-spacing-xl) * 4); */
-  padding-bottom: calc(var(--mantine-spacing-xl) * 4);
+  padding-bottom: calc(var(--mantine-spacing-xl) * 8);
 }
 
 .content {
-  max-width: rem(480px);
-  margin-right: calc(var(--mantine-spacing-xl) * 3);
+  padding: var(--mantine-spacing-xl) 0;
+
+  padding-left: calc(var(--mantine-spacing-xl) * 1);
+  padding-right: calc(var(--mantine-spacing-xl) * 1);
 
   @media (max-width: $mantine-breakpoint-md) {
     max-width: 100%;
@@ -37,6 +42,12 @@
   width: rem(376px);
   height: rem(356px);
 
+  @media (max-width: $mantine-breakpoint-md) {
+    display: none;
+  }
+}
+
+.bullets {
   @media (max-width: $mantine-breakpoint-md) {
     display: none;
   }

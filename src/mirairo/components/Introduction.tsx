@@ -43,7 +43,7 @@ export function Introduction({ getStartedHandler }: IntroductionProps) {
   };
 
   return (
-    <Container size="md">
+    <Container>
       <motion.div
         className={styles.inner}
         variants={containerVariants}
@@ -63,10 +63,52 @@ export function Introduction({ getStartedHandler }: IntroductionProps) {
           </motion.div>
 
           <motion.div variants={itemVariants}>
+            <Text c="yellow" fw={700} mt="md">
+              {t("mirairo.introduction.description2")}
+            </Text>
+          </motion.div>
+
+          <motion.div variants={itemVariants}>
+            <Text c="yellow" fw={700} mt="md">
+              {t("mirairo.introduction.description3")}
+            </Text>
+          </motion.div>
+
+          <motion.div variants={itemVariants}>
+            <Text c="yellow" fw={700} mt="md">
+              {t("mirairo.introduction.description4")}
+            </Text>
+          </motion.div>
+
+          <motion.div variants={itemVariants}>
+            <Text c="yellow" fw={700} mt="md">
+              {t("mirairo.introduction.description5")}
+            </Text>
+          </motion.div>
+
+          <motion.div variants={itemVariants}>
+            <Group grow mt={30}>
+              <Button
+                radius="xl"
+                size="xl"
+                c="black"
+                color="action.4"
+                className={styles.control}
+                onClick={getStartedHandler}
+              >
+                {t("mirairo.actions.getStarted")}
+              </Button>
+            </Group>
+          </motion.div>
+        </div>
+        <motion.div variants={itemVariants}>
+          <Image src={JobHuntSvg} className={styles.image} />
+
+          <motion.div className={styles.bullets} variants={itemVariants}>
             <List
               mt={30}
               spacing="sm"
-              size="sm"
+              size="lg"
               icon={
                 <ThemeIcon size={28} bg={theme.colors.yellow[4]} radius="xl">
                   <IconCheck
@@ -82,24 +124,6 @@ export function Introduction({ getStartedHandler }: IntroductionProps) {
               <List.Item>{t("mirairo.introduction.items.2")}</List.Item>
             </List>
           </motion.div>
-
-          <motion.div variants={itemVariants}>
-            <Group mt={30}>
-              <Button
-                radius="xl"
-                size="md"
-                c="black"
-                color="action.4"
-                className={styles.control}
-                onClick={getStartedHandler}
-              >
-                {t("mirairo.actions.getStarted")}
-              </Button>
-            </Group>
-          </motion.div>
-        </div>
-        <motion.div variants={itemVariants}>
-          <Image src={JobHuntSvg} className={styles.image} />
         </motion.div>
       </motion.div>
     </Container>

@@ -116,9 +116,9 @@ const MirairoManagement: React.FC = () => {
                 </Container>
               </motion.div>
             ) : (
-              <Container pt={120}>
+              // <Container pt={50}>
                 <Introduction getStartedHandler={getStartedHandler} />
-              </Container>
+              // </Container>
             )}
           </>
         ) : (

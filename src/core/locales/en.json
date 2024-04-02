@@ -65,8 +65,12 @@
   "mirairo": {
     "name": "Mirairo ",
     "introduction": {
-      "title": "Filipinos For Interview Candidate Site",
-      "description": "Creating a resume for an interview is a document that introduces one's background and skills to the interviewer. It includes education, work history, qualifications, and is organized according to the job applied for. The goal is to effectively self-promote and leave a good impression.",
+      "title": "Interview Candidate Site",
+      "description": "We have interviewed many Filipinos in the past, and noticed that the self-introductions from our Japanese-speaking candidates tend to follow a similar pattern, which charmingly reflects a cultural consistency, though it makes it a bit tricky for us to glimpse the unique personalities behind each one. We realized they use the same format, and we wanted something different.",
+      "description2": "So, we've developed a new kind of resume system that lets us discover not just a candidate's skills but also their personality and uniqueness during the interview. ",
+      "description3": "This innovative resume allows candidates to share their favorite photos, videos, and answer special questions in a dedicated section. By visiting a website and inputting their details, they can create and download a distinctive and personalized resume in PDF format. Moreover, if a candidate is chosen for the position, they can receive an employment contract on their mobile phone within 30 minutes and sign it using digital signature technology. ",
+      "description4": "This means that as soon as a candidate is selected, they can immediately receive and sign the employment contract, enabling them to apply for immigration the following day. Entering personal details into this system, along with uploading a passport copy and the notification of passing the prometric test, allows for the swift preparation of application documents for the Immigration Bureau. ",
+      "description5": "This system was designed to significantly reduce the delay between interviewing, hiring, and visa application processes. We kindly ask for your support in this initiative.",
       "items": {
         "0": "Tell us who you are, Filling Professional and Personal Information",
         "1": "Share Anything! You can upload your favorite photos and videos ",
