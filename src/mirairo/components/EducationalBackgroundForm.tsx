@@ -66,7 +66,7 @@ const EducationalBackgroundForm = () => {
             {formik.values.education &&
               formik.values.education.map(
                 (background: EducationBackground, index: number) => (
-                  <Grid id={background.id} key={index} mt="sm">
+                  <Grid id={background.id?.toString()} key={index} mt="sm">
                     <Grid.Col span={{ base: 12, sm: 11 }}>
                       {/* items */}
                       <Grid>

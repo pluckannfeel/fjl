@@ -68,7 +68,7 @@ const QualificationAndLicensesForm = () => {
             {formik.values.qualifications_licenses &&
               formik.values.qualifications_licenses.map(
                 (item: QualificationsLicenses, index: number) => (
-                  <Grid id={item.id} key={index} mt="sm">
+                  <Grid id={item.id?.toString()} key={index} mt="sm">
                     <Grid.Col span={{ base: 12, sm: 11 }}>
                       <Grid>
                         <Grid.Col span={{ base: 12, sm: 6 }}>

@@ -63,7 +63,7 @@ const WorkExperienceForm = () => {
             {formik.values.work_experience &&
               formik.values.work_experience.map(
                 (item: WorkExperience, index: number) => (
-                  <Grid id={item.id} key={index} mt="sm">
+                  <Grid id={item.id?.toString()} key={index} mt="sm">
                     <Grid.Col span={{ base: 12, sm: 11 }}>
                       {/* items */}
                       <Grid>

@@ -64,7 +64,7 @@ export type FamilyInformation = {
 };
 
 export type EducationBackground = {
-  id?: string;
+  id?: string | number;
   school_name: string;
   faculty?: string;
   major?: string;
@@ -73,14 +73,14 @@ export type EducationBackground = {
 };
 
 export type QualificationsLicenses = {
-  id?: string;
+  id?: string | number;
   name: string;
   acquired_date: Date | null;
   file: File | null;
 };
 
 export type WorkExperience = {
-  id?: string;
+  id?: string | number;
   employer_name: string;
   from: Date | null;
   to: Date | null;

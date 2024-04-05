@@ -8,6 +8,7 @@ import {
   Text,
   Title,
   Button,
+  Group,
 } from "@mantine/core";
 import { motion } from "framer-motion";
 import SubmittedImg from "../../core/assets/submitted.svg";
@@ -15,9 +16,13 @@ import { useNavigate } from "react-router";
 
 type ApplicantSubmittedProps = {
   goBackHandler: () => void;
+  generatePDFHandler: () => void;
 };
 
-const ApplicantSubmitted = ({ goBackHandler }: ApplicantSubmittedProps) => {
+const ApplicantSubmitted = ({
+  goBackHandler,
+  generatePDFHandler,
+}: ApplicantSubmittedProps) => {
   const navigate = useNavigate();
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -77,17 +82,28 @@ const ApplicantSubmitted = ({ goBackHandler }: ApplicantSubmittedProps) => {
             to you soon.
           </Title>
 
-          {/*  this will close the page */}
-          <Button
-            size="lg"
-            color="blue"
-            onClick={() => {
-              // navigate("/mirairo");
-              goBackHandler();
-            }}
-          >
-            Homepage
-          </Button>
+          <Group grow mt="xl" ta="center">
+            <Button
+              size="lg"
+              color="blue"
+              onClick={() => {
+                // navigate("/mirairo");
+                goBackHandler();
+              }}
+            >
+              Back to Homepage
+            </Button>
+            <Button
+              size="lg"
+              color="orange.5"
+              onClick={() => {
+                // navigate("/mirairo");
+                generatePDFHandler();
+              }}
+            >
+              Generate Resume
+            </Button>
+          </Group>
         </Box>
       </motion.div>
     </Container>

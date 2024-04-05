@@ -189,3 +189,20 @@ export const convertBase64ToFile = (
 
   return new File([u8arr], filename, { type: mime });
 };
+
+export function languageLevel(language: string) {
+  switch (language) {
+    case "none":
+      return 1;
+    case "basic":
+      return 2;
+    case "conversational":
+      return 3;
+    case "business":
+      return 4;
+    case "Native":
+      return 5;
+    default:
+      return 0;
+  }
+}

@@ -11,8 +11,10 @@ import { notifications } from "@mantine/notifications";
 import { useFormikContext } from "../contexts/FormProvider";
 
 import { useLocalStorage } from "@mantine/hooks";
+import { useNavigate } from "react-router";
 
 const MirairoManagement: React.FC = () => {
+  const navigate = useNavigate();
   // const theme = useMantineTheme();
   const [isStarted, setIsStarted] = useLocalStorage<boolean>({
     key: "formIsStarted",
@@ -20,11 +22,11 @@ const MirairoManagement: React.FC = () => {
     getInitialValueInEffect: true,
   });
   const [formSubmitted, setFormSubmitted] = useState<boolean>(false);
-  const [submitTimeout, setSubmitTimeout] = useLocalStorage<number | null>({
-    key: "submitTimeout",
-    defaultValue: null,
-  });
-  const formik = useFormikContext();
+  // const [submitTimeout, setSubmitTimeout] = useLocalStorage<number | null>({
+  //   key: "submitTimeout",
+  //   defaultValue: null,
+  // });
+  // const formik = useFormikContext();
 
   // submit hook
   const { isLoading, submitApplicant } = useSubmitApplicant();
@@ -67,7 +69,7 @@ const MirairoManagement: React.FC = () => {
     const now = new Date().getTime();
 
     submitApplicant(values as PersonalInformation)
-      .then(() => {
+      .then((response) => {
         // const twoHoursFromNow = now + 2 * 60 * 60 * 1000; // 2 hours timeout
         // setSubmitTimeout(twoHoursFromNow);
         // temporarily disabled the timeout
@@ -75,6 +77,9 @@ const MirairoManagement: React.FC = () => {
         setFormSubmitted(true);
         setIsStarted(false);
         localStorageKeys.forEach((key) => localStorage.removeItem(key));
+        // console.log(response);
+        //save the id to local storage
+        localStorage.setItem("applicant_id", response.id);
       })
       .catch((error) => {
         console.log(error);
@@ -89,6 +94,10 @@ const MirairoManagement: React.FC = () => {
         // clean up
         // formik.resetForm();
       });
+  };
+
+  const generatePDF = () => {
+    navigate("/mirairo-resume");
   };
 
   return (
@@ -117,12 +126,15 @@ const MirairoManagement: React.FC = () => {
               </motion.div>
             ) : (
               // <Container pt={50}>
-                <Introduction getStartedHandler={getStartedHandler} />
+              <Introduction getStartedHandler={getStartedHandler} />
               // </Container>
             )}
           </>
         ) : (
-          <ApplicantSubmitted goBackHandler={() => setFormSubmitted(false)} />
+          <ApplicantSubmitted
+            generatePDFHandler={generatePDF}
+            goBackHandler={() => setFormSubmitted(false)}
+          />
         )}
       </Paper>
     </React.Fragment>

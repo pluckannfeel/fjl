@@ -1,7 +1,10 @@
 import { lazy } from "react";
-import { 
+import {
   // Navigate,
-   Route, Routes, BrowserRouter } from "react-router-dom";
+  Route,
+  Routes,
+  BrowserRouter,
+} from "react-router-dom";
 
 // import PrivateRoute from "./core/components/PrivateRoute";
 
@@ -14,6 +17,9 @@ const Landing = lazy(() => import("./landing/pages/Landing"));
 const MirairoManagement = lazy(
   () => import("./mirairo/pages/MirairoManagement")
 );
+
+//Generate PDF
+const GenerateResume = lazy(() => import("./mirairo/pages/GenerateResume"));
 
 const NotFound = lazy(() => import("./core/pages/NotFound"));
 
@@ -28,6 +34,7 @@ const AppRoutes = () => {
         <Route path="/" element={<Landing />} />
 
         <Route path="mirairo" element={<MirairoManagement />} />
+        <Route path="mirairo-resume" element={<GenerateResume />} />
 
         {/* <Route path="login" element={<Login />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
