@@ -131,7 +131,6 @@ const SkillsAndLanguagesForm = () => {
       <Grid mt="sm">
         <Grid.Col mt={"xs"} span={{ base: 12, sm: 6 }}>
           <Textarea
-            autoFocus
             minRows={3}
             rows={4}
             resize="vertical"
@@ -150,7 +149,6 @@ const SkillsAndLanguagesForm = () => {
         </Grid.Col>
         <Grid.Col mt={"xs"} span={{ base: 12, sm: 6 }}>
           <Textarea
-            autoFocus
             minRows={3}
             rows={4}
             resize="vertical"

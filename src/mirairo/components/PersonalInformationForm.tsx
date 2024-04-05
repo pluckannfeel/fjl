@@ -119,7 +119,6 @@ const PersonalInformationForm = () => {
         <Grid.Col mt={"xs"} span={{ base: 12, md: 9 }}>
           <SimpleGrid mt={0} cols={{ base: 1, sm: 3 }}>
             <TextInput
-              autoFocus
               label={t("mirairo.form.last_name.label")}
               placeholder={t("mirairo.form.last_name.placeholder")}
               onChange={formik.handleChange("name.last_name")}
@@ -133,7 +132,6 @@ const PersonalInformationForm = () => {
               }
             />
             <TextInput
-              autoFocus
               label={t("mirairo.form.first_name.label")}
               placeholder={t("mirairo.form.first_name.placeholder")}
               onChange={formik.handleChange("name.first_name")}
@@ -147,7 +145,6 @@ const PersonalInformationForm = () => {
               }
             />
             <TextInput
-              autoFocus
               label={t("mirairo.form.middle_name.label")}
               placeholder={t("mirairo.form.middle_name.placeholder")}
               required
@@ -200,7 +197,6 @@ const PersonalInformationForm = () => {
               />
 
               <TextInput
-                autoFocus
                 label={t("mirairo.form.birth_place.label")}
                 placeholder={t("mirairo.form.birth_place.placeholder")}
                 required
@@ -322,7 +318,6 @@ const PersonalInformationForm = () => {
               </Grid.Col>
               <Grid.Col span={2}>
                 <TextInput
-                  autoFocus
                   disabled
                   label={t("mirairo.form.age.label")}
                   placeholder={t("mirairo.form.age.placeholder")}

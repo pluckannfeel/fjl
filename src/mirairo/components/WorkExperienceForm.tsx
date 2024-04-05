@@ -69,7 +69,6 @@ const WorkExperienceForm = () => {
                       <Grid>
                         <Grid.Col span={{ base: 12, sm: 4 }}>
                           <TextInput
-                            autoFocus
                             label={t(
                               "mirairo.form.work_experience.employer_name"
                             )}
@@ -128,7 +127,6 @@ const WorkExperienceForm = () => {
                         </Grid.Col>
                         <Grid.Col span={{ base: 12, sm: 4 }}>
                           <TextInput
-                            autoFocus
                             label={t("mirairo.form.work_experience.position")}
                             onChange={formik.handleChange(
                               `work_experience[${index}].position`
@@ -147,7 +145,6 @@ const WorkExperienceForm = () => {
                       <Grid>
                         <Grid.Col span={{ base: 12, sm: 6 }}>
                           <Textarea
-                            autoFocus
                             label={t(
                               "mirairo.form.work_experience.responsibilities"
                             )}
@@ -160,7 +157,6 @@ const WorkExperienceForm = () => {
                         </Grid.Col>
                         <Grid.Col span={{ base: 12, sm: 6 }}>
                           <Textarea
-                            autoFocus
                             label={t(
                               "mirairo.form.work_experience.achievements"
                             )}

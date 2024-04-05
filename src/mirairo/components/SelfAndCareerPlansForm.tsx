@@ -22,7 +22,6 @@ const SelfAndCareerPlansForm = () => {
 
       <SimpleGrid mt={"sm"}>
         <Textarea
-          autoFocus
           minRows={3}
           rows={3}
           resize="vertical"
@@ -44,7 +43,6 @@ const SelfAndCareerPlansForm = () => {
       <Grid mt="sm">
         <Grid.Col mt={"xs"} span={{ base: 12, sm: 6 }}>
           <Textarea
-            autoFocus
             minRows={3}
             rows={2}
             required
@@ -66,7 +64,6 @@ const SelfAndCareerPlansForm = () => {
         </Grid.Col>
         <Grid.Col mt={"xs"} span={{ base: 12, sm: 6 }}>
           <Textarea
-            autoFocus
             minRows={3}
             rows={2}
             required
@@ -88,7 +85,6 @@ const SelfAndCareerPlansForm = () => {
 
       <SimpleGrid mt={"sm"}>
         <Textarea
-          autoFocus
           minRows={3}
           rows={3}
           resize="vertical"

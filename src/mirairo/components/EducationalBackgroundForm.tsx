@@ -72,7 +72,6 @@ const EducationalBackgroundForm = () => {
                       <Grid>
                         <Grid.Col span={{ base: 12, sm: 4 }}>
                           <TextInput
-                            autoFocus
                             label={t("mirairo.form.education.school_name")}
                             // placeholder={t("mirairo.form.occupation.placeholder")}
                             onChange={formik.handleChange(
@@ -89,7 +88,6 @@ const EducationalBackgroundForm = () => {
                         </Grid.Col>
                         <Grid.Col span={{ base: 6, sm: 2 }}>
                           <TextInput
-                            autoFocus
                             label={t("mirairo.form.education.faculty")}
                             // placeholder={t("mirairo.form.occupation.placeholder")}
                             onChange={formik.handleChange(
@@ -105,7 +103,6 @@ const EducationalBackgroundForm = () => {
                         </Grid.Col>
                         <Grid.Col span={{ base: 6, sm: 2.5 }}>
                           <TextInput
-                            autoFocus
                             label={t("mirairo.form.education.major")}
                             // placeholder={t("mirairo.form.occupation.placeholder")}
                             onChange={formik.handleChange(

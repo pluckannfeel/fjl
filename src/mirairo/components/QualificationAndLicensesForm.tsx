@@ -73,7 +73,6 @@ const QualificationAndLicensesForm = () => {
                       <Grid>
                         <Grid.Col span={{ base: 12, sm: 6 }}>
                           <TextInput
-                            autoFocus
                             label={t(
                               "mirairo.form.qualifications_licenses.name"
                             )}

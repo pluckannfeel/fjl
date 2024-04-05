@@ -27,7 +27,6 @@ const LegalInformationForm = (props: Props) => {
       <Grid mt="sm">
         <Grid.Col mt={"xs"} span={{ base: 12, md: 5 }}>
           <TextInput
-            autoFocus
             label={t("mirairo.form.occupation.label")}
             placeholder={t("mirairo.form.occupation.placeholder")}
             onChange={formik.handleChange("occupation")}
@@ -41,7 +40,6 @@ const LegalInformationForm = (props: Props) => {
         </Grid.Col>
         <Grid.Col mt={"xs"} span={{ base: 12, md: 7 }}>
           <Textarea
-            autoFocus
             maxRows={2}
             label={t("mirairo.form.current_address.label")}
             placeholder={t("mirairo.form.current_address.placeholder")}
@@ -62,7 +60,6 @@ const LegalInformationForm = (props: Props) => {
       <SimpleGrid mt={"md"} cols={{ base: 1, sm: 2 }}>
         <SimpleGrid mt={0} cols={{ base: 1, sm: 2 }}>
           <TextInput
-            autoFocus
             label={t("mirairo.form.phone_number.label")}
             placeholder={t("mirairo.form.phone_number.placeholder")}
             onChange={formik.handleChange("phone_number")}
@@ -75,7 +72,6 @@ const LegalInformationForm = (props: Props) => {
           />
 
           <TextInput
-            autoFocus
             label={t("mirairo.form.email.label")}
             placeholder={t("mirairo.form.email.placeholder")}
             onChange={formik.handleChange("email")}
@@ -88,7 +84,6 @@ const LegalInformationForm = (props: Props) => {
 
         <SimpleGrid mt={0} cols={{ base: 1, sm: 2 }}>
           <TextInput
-            autoFocus
             label={t("mirairo.form.passport_number.label")}
             placeholder={t("mirairo.form.passport_number.placeholder")}
             onChange={formik.handleChange("passport_number")}
@@ -102,7 +97,7 @@ const LegalInformationForm = (props: Props) => {
           />
 
           <DateInput
-            // autoFocus
+            //
             clearable
             label={t("mirairo.form.passport_expiry.label")}
             valueFormat="YYYY/MM"
