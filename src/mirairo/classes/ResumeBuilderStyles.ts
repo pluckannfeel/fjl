@@ -254,4 +254,43 @@ export const ResumeStylesheet = StyleSheet.create({
     textAlign: "center",
     color: "grey",
   },
+  photos: {
+    flexDirection: "column",
+  },
+  photosSection: {
+    padding: 15,
+    marginBottom: 10,
+  },
+  imageContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center", // Center the items on the main axis
+    alignItems: "center", // Center the items on the cross axis
+  },
+  imageWrapper: {
+    width: 150, // Fixed width for the wrapper
+    height: 150, // Fixed height to create square boxes
+    margin: 10, // Add some margin to create space around images
+    display: "flex", // Enable flex layout
+    justifyContent: "center", // Center the image horizontally
+    alignItems: "center", // Center the image vertically
+    overflow: "hidden", // Hide parts of the image that exceed the container
+  },
+  photosImage: {
+    maxWidth: "100%", // Limit the image width to the container's width
+    maxHeight: "100%", // Limit the image height to the container's height
+    objectFit: "contain", // Contain the image within the wrapper without stretching
+  },
+
+  linksSection: {
+    padding: 15,
+    paddingTop: 0,
+    marginBottom: 10,
+  },
+  linkText: {
+    paddingLeft: 25,
+    paddingRight: 15,
+    fontSize: 12,
+    lineHeight: 1.6,
+  },
 });

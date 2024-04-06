@@ -25,9 +25,10 @@ import MulishRegular from "../../core/fonts/Mulish/static/Mulish-Regular.ttf";
 import MulishItalic from "../../core/fonts/Mulish/static/Mulish-Italic.ttf";
 import MulishBold from "../../core/fonts/Mulish/static/Mulish-Bold.ttf";
 import MulishBoldItalic from "../../core/fonts/Mulish/static/Mulish-BoldItalic.ttf";
-import { color } from "framer-motion";
+
 import {
   EducationBackground,
+  Link,
   QualificationsLicenses,
   Questions,
   WorkExperience,
@@ -77,7 +78,7 @@ const WorkExperienceList: React.FC<{ experiences: WorkExperience[] }> = ({
 }) => {
   if (!Array.isArray(experiences)) {
     // console.error("Experiences is not an array", experiences);
-    return ""; // or return an appropriate fallback UI
+    return null; // or return an appropriate fallback UI
   }
 
   return (
@@ -122,11 +123,9 @@ const WorkExperienceList: React.FC<{ experiences: WorkExperience[] }> = ({
 const EducationList: React.FC<{
   educationBackground: EducationBackground[];
 }> = ({ educationBackground }) => {
-  console.log(educationBackground);
-
   if (!Array.isArray(educationBackground)) {
     // console.error("educationBackground is not an array", educationBackground);
-    return ""; // or return an appropriate fallback UI
+    return null; // or return an appropriate fallback UI
   }
 
   return (
@@ -147,8 +146,8 @@ const EducationList: React.FC<{
               <Text style={styles.schoolName}>{education.school_name}</Text>
               {/* major and faculy */}
               <View style={styles.detailsContainer}>
-                {education.major ? `${education.major}, ` : ""}
-                {education.faculty ? `${education.faculty}, ` : ""}
+                <Text>{education.major ? `${education.major}, ` : ""}</Text>
+                <Text>{education.faculty ? `${education.faculty}, ` : ""}</Text>
               </View>
             </View>
           </View>
@@ -163,7 +162,7 @@ const QualificationsLicensesList: React.FC<{
 }> = ({ licenses }) => {
   if (!Array.isArray(licenses)) {
     // console.error("licenses is not an array", licenses);
-    return ""; // or return an appropriate fallback UI
+    return null; // or return an appropriate fallback UI
   }
 
   return (
@@ -233,6 +232,51 @@ const UniqueQuestionsList: React.FC<{
   );
 };
 
+const LinksList: React.FC<{
+  links: Link[] | undefined;
+  darkerColor: string;
+}> = ({ links, darkerColor }) => {
+  const { t } = useTranslation();
+
+  return (
+    <View style={styles.uniqueQuestionsSection}>
+      {links?.map((item, index) => {
+        return (
+          <View key={index}>
+            <Text
+              style={[
+                styles.subtitle,
+                {
+                  color: darkerColor,
+                },
+              ]}
+            >
+              {`Link ${index + 1}`}
+            </Text>
+
+            <Text style={styles.linkText}>{` ${item.link}`}</Text>
+          </View>
+        );
+      })}
+    </View>
+  );
+};
+
+// Gallery component
+const Gallery = ({ photos }: { photos: string[] }) => {
+  const photoElements = photos.map((photo, index) => (
+    <View key={index} style={styles.imageWrapper}>
+      <Image style={styles.photosImage} src={photo} />
+    </View>
+  ));
+
+  return (
+    <View style={styles.photos}>
+      <View style={styles.imageContainer}>{photoElements}</View>
+    </View>
+  );
+};
+
 const darkenColor = (color: string, amount: number) =>
   tinycolor(color).darken(amount).toString();
 
@@ -288,88 +332,6 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
     }
   }
 
-  //   const workExperienceList: WorkExperience[] = [
-  //     {
-  //       id: "0",
-  //       employer_name: "Rhean Marketing Incorporation",
-  //       from: dayjs.utc("2017-06-17T00:00:00.000Z").toDate(),
-  //       to: dayjs.utc("2024-04-30T16:00:00.000Z").toDate(),
-  //       position: "Branch Cashier",
-  //       responsibilities: "Cashiering and making daily and monthly reports.",
-  //       achievements: "Promoted two times.",
-  //     },
-  //     {
-  //       id: "1",
-  //       employer_name: "Hello Kitty Coffeeshop",
-  //       from: dayjs.utc("2016-05-16T00:00:00.000Z").toDate(),
-  //       to: dayjs.utc("2016-07-10T00:00:00.000Z").toDate(),
-  //       position: "Barista/Cashier",
-  //       responsibilities: "Cashiering and making coffee",
-  //       achievements: "",
-  //     },
-  //   ];
-
-  //   const educationList: EducationBackground[] = [
-  //     {
-  //       id: "0",
-  //       school_name: "AMA COMPUTER LEARNING CENTER",
-  //       from: dayjs.utc("2014-06-16T00:00:00.000Z").toDate(),
-  //       to: dayjs.utc("2016-04-15T00:00:00.000Z").toDate(),
-  //       major: "Hotel and Restaurand Services",
-  //     },
-  //     {
-  //       id: "1",
-  //       school_name: "AGUSAN SUR NATIONAL HIGH SCHOOL",
-  //       faculty: "",
-  //       major: "",
-  //       from: dayjs.utc("2010-06-07T00:00:00.000Z").toDate(),
-  //       to: dayjs.utc("2014-04-04T00:00:00.000Z").toDate(),
-  //     },
-  //   ];
-
-  //   const qualificationList: QualificationsLicenses[] = [
-  //     {
-  //       id: "0",
-  //       name: "Caregiving NC 2",
-  //       acquired_date: dayjs.utc("2021-12-23T00:00:00.000Z").toDate(),
-  //       file: null,
-  //     },
-  //     {
-  //       id: 1,
-  //       name: "Nursing Care Japanese Language Evaluation test (English)",
-  //       acquired_date: dayjs.utc("2022-02-07T00:00:00.000Z").toDate(),
-  //       file: null,
-  //     },
-  //     {
-  //       id: 2,
-  //       name: "Nursing Care Skills Evaluation test (English)",
-  //       acquired_date: dayjs.utc("2021-11-04T00:00:00.000Z").toDate(),
-  //       file: null,
-  //     },
-  //     {
-  //       id: 3,
-  //       name: "JLPT N3",
-  //       acquired_date: dayjs.utc("2022-07-03T00:00:00.000Z").toDate(),
-  //       file: null,
-  //     },
-  //   ];
-
-  //   const uniqueQuestionsList: Questions[] = [
-  //     { id: "1", question: "1", answer: "THE JOURNEY" },
-  //     {
-  //       id: "2",
-  //       question: "7",
-  //       answer:
-  //         "The achievement that I am most proud of, is that in my age right now, I am still single which means, I still have a huge freedom to do the the things that I really wanted to do, I still have a chance to travel my dream country (JAPAN)  and experience their culture",
-  //     },
-  //     {
-  //       id: "3",
-  //       question: "8",
-  //       answer:
-  //         "I am responsible and independent.I am also perserver of my dreams and goals in life.",
-  //     },
-  //   ];
-
   // Function to render skill bars
   const renderSkillBars = (skills: { name: string; level: number }[]) => {
     return skills.map((skill) => (
@@ -414,7 +376,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
         >
           <View>
             <Text style={[styles.headerMain, { color: textColor }]}>
-              {`${data?.last_name} ${data?.first_name}`}
+              {`${data?.last_name}, ${data?.first_name}`}
             </Text>
             <Text style={[styles.headerContact, { color: textColor }]}>
               {data?.occupation} {"\n"}
@@ -639,7 +601,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
                     </Text>
                   </View>
                 ) : (
-                  ""
+                  <></>
                 )}
                 {data?.jft !== "none" ? (
                   <View style={styles.row}>
@@ -649,7 +611,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
                     </Text>
                   </View>
                 ) : (
-                  ""
+                  <></>
                 )}
                 {data?.nat !== "none" ? (
                   <View style={styles.row}>
@@ -659,7 +621,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
                     </Text>
                   </View>
                 ) : (
-                  ""
+                  <></>
                 )}
               </View>
             </View>
@@ -673,7 +635,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
                 <Text style={styles.content}>{data?.computer_skills}</Text>
               </>
             ) : (
-              ""
+              <></>
             )}
 
             {/* Computer Skills Section */}
@@ -687,7 +649,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
                 </Text>
               </>
             ) : (
-              ""
+              <></>
             )}
           </View>
         </View>
@@ -783,6 +745,69 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
             darkerColor={darkerColor}
           />
         </View>
+
+        {data?.photos ? (
+          data?.photos?.length > 0 && (
+            <View style={styles.photosSection}>
+              <View
+                style={[
+                  styles.titleContainer,
+                  {
+                    borderBottomColor: darkerColor,
+                    marginBottom: 10,
+                  },
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.title,
+                    {
+                      color: darkerColor,
+                    },
+                  ]}
+                >
+                  Shared Photos
+                </Text>
+              </View>
+            </View>
+          )
+        ) : (
+          <></>
+        )}
+        <Gallery
+          photos={data?.photos ? (data.photos as unknown as string[]) : []}
+        />
+
+        {data?.links ? (
+          data?.links?.length > 0 && (
+            <View style={styles.linksSection}>
+              <View
+                style={[
+                  styles.titleContainer,
+                  {
+                    borderBottomColor: darkerColor,
+                    marginBottom: 10,
+                  },
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.title,
+                    {
+                      color: darkerColor,
+                    },
+                  ]}
+                >
+                  Shared Links
+                </Text>
+              </View>
+            </View>
+          )
+        ) : (
+          <></>
+        )}
+
+        <LinksList links={data?.links} darkerColor={darkerColor} />
 
         {/* <Text
           style={styles.trademark}
