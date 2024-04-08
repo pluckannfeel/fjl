@@ -19,13 +19,15 @@ export const ResumeStylesheet = StyleSheet.create({
     padding: 20,
     height: 140,
     margin: 10,
-    // marginBottom: 10,
+  },
+  headerTextContainer: {
+    width: "60%", // Adjust the width as needed to prevent overflow
+    marginRight: 10, // Add some margin to the right of the text container
   },
   image: {
-    width: 125, // Set the width as needed
-    height: 125, // Set the height as needed
-    borderRadius: 65, // Optional: if you want rounded image corners
-    // borderWidth: 1,
+    width: "auto",
+    height: 125,
+    borderRadius: 65,
   },
   headerMain: {
     fontSize: 26,

@@ -73,6 +73,40 @@ const GenerateResume = () => {
   //   setTheme(themes[color] || theme);
   // };
 
+  function toBase64(url: string): Promise<string> {
+    return fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok.");
+        }
+        return response.blob();
+      })
+      .then((blob) => {
+        return new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result as string);
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        });
+      });
+  }
+
+  useEffect(() => {
+    if (data && "img_url" in data && (data.img_url as any)) {
+      // Convert to Base64 and update state
+      toBase64(data.img_url as unknown as string)
+        .then((base64) => {
+          setData({
+            ...data,
+            img_url: base64, // Now `img_url` is a Base64 string
+          });
+        })
+        .catch((error) => {
+          console.error("Conversion to base64 failed:", error);
+        });
+    }
+  }, []);
+
   const goBackHandler = () => {
     // navigate(-1); // Go back to the previous page
     navigate("/mirairo", { replace: true });
@@ -235,7 +269,7 @@ const GenerateResume = () => {
             </Grid.Col>
             <Grid.Col mt={"xs"} span={{ base: 12, xs: 8.5 }}>
               <PDFViewer
-                showToolbar={false}
+                // showToolbar={false}
                 style={{
                   borderRadius: 10,
                   width: "100%",

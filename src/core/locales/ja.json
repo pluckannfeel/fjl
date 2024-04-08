@@ -292,7 +292,7 @@
         }
       },
       "photosVideosLinks": {
-        "description": "お気に入りの写真や動画URLをアップできる"
+        "description": "あなたの携帯電話で撮影したお気に入りの写真や動画を紹介してください。アップロードはこちらから"
       },
       "uniqueQuestions": {
         "placeholder": {

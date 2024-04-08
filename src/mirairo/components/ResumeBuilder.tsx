@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Page,
-  Text,
-  View,
-  Document,
-  Image,
-  Font,
-  StyleSheet,
-} from "@react-pdf/renderer";
+import { Page, Text, View, Document, Image, Font } from "@react-pdf/renderer";
 import { ResumeBuilderProps, ResumeTheme } from "../types/Resume";
 import tinycolor from "tinycolor2";
 // Roboto
@@ -25,6 +17,12 @@ import MulishRegular from "../../core/fonts/Mulish/static/Mulish-Regular.ttf";
 import MulishItalic from "../../core/fonts/Mulish/static/Mulish-Italic.ttf";
 import MulishBold from "../../core/fonts/Mulish/static/Mulish-Bold.ttf";
 import MulishBoldItalic from "../../core/fonts/Mulish/static/Mulish-BoldItalic.ttf";
+// Yumin
+import YuminRegular from "../../core/fonts/Yu_Mincho/yumin.ttf";
+import YuminBold from "../../core/fonts/Yu_Mincho/yumindb.ttf";
+
+import NotoSansRegular from "../../core/fonts/Noto_Sans_JP/static/NotoSansJP-Regular.ttf";
+import NotoSansBold from "../../core/fonts/Noto_Sans_JP/static/NotoSansJP-Bold.ttf";
 
 import {
   EducationBackground,
@@ -38,11 +36,21 @@ import utc from "dayjs/plugin/utc";
 
 import { ResumeStylesheet as styles } from "../classes/ResumeBuilderStyles";
 import { useTranslation } from "react-i18next";
-import { languageLevel } from "../helpers/constants";
+import { isJapanese, languageLevel } from "../helpers/constants";
+
+Font.register({
+  family: "Noto_Sans",
+  fonts: [
+    { src: NotoSansRegular, fontStyle: "normal" },
+    { src: NotoSansBold, fontWeight: "bold" },
+  ],
+});
 
 Font.register({
   family: "Roboto",
   fonts: [
+    { src: NotoSansBold, fontWeight: "bold" },
+    { src: NotoSansRegular, fontStyle: "normal" },
     { src: RobotoRegular, fontWeight: "normal", fontStyle: "normal" },
     { src: RobotoItalic, fontWeight: "normal", fontStyle: "italic" },
     { src: RobotoBold, fontWeight: "bold", fontStyle: "normal" },
@@ -54,6 +62,8 @@ Font.register({
 Font.register({
   family: "EB_Garamond",
   fonts: [
+    { src: NotoSansBold, fontWeight: "bold" },
+    { src: NotoSansRegular, fontStyle: "normal" },
     { src: EB_GaramondRegular, fontWeight: "normal", fontStyle: "normal" },
     { src: EB_GaramondItalic, fontWeight: "normal", fontStyle: "italic" },
     { src: EB_GaramondBold, fontWeight: "bold", fontStyle: "normal" },
@@ -65,6 +75,8 @@ Font.register({
 Font.register({
   family: "Mulish",
   fonts: [
+    { src: NotoSansBold, fontWeight: "bold" },
+    { src: NotoSansRegular, fontStyle: "normal" },
     { src: MulishRegular, fontWeight: "normal", fontStyle: "normal" },
     { src: MulishItalic, fontWeight: "normal", fontStyle: "italic" },
     { src: MulishBold, fontWeight: "bold", fontStyle: "normal" },
@@ -72,6 +84,28 @@ Font.register({
     // ...add other styles as needed
   ],
 });
+
+// interface TextWithDynamicFontProps {
+//   content: string;
+//   style?: Style;
+// }
+
+// const TextWithDynamicFont: React.FC<TextWithDynamicFontProps> = ({
+//   content,
+//   style = {},
+// }) => {
+//   const fontFamily = isJapanese(content) ? "Noto Sans JP" : "Roboto";
+//   const combinedStyles: Style = { fontFamily, ...style };
+//   return <Text style={combinedStyles}>{content}</Text>;
+// };
+
+// Font.register({
+//   family: "Yumin",
+//   fonts: [
+//     { src: YuminRegular, fontWeight: "normal" },
+//     { src: YuminBold, fontWeight: "bold" },
+//   ],
+// });
 
 const WorkExperienceList: React.FC<{ experiences: WorkExperience[] }> = ({
   experiences,
@@ -353,6 +387,8 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
     ));
   };
 
+  //   console.log(data?.img_url);
+
   return (
     <Document>
       <Page
@@ -374,7 +410,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
             },
           ]}
         >
-          <View>
+          <View style={styles.headerTextContainer}>
             <Text style={[styles.headerMain, { color: textColor }]}>
               {`${data?.last_name}, ${data?.first_name}`}
             </Text>
@@ -385,6 +421,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
               {data?.current_address}
             </Text>
           </View>
+          {/* // base 64 */}
           <Image style={styles.image} src={`${data?.img_url}`} />
         </View>
         <View style={styles.profileSection}>

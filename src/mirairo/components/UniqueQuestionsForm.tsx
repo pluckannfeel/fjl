@@ -106,6 +106,64 @@ const UniqueQuestionsForm = () => {
           }
         />
 
+        <Select
+          mt={"lg"}
+          placeholder={t("mirairo.form.uniqueQuestions.placeholder.select")}
+          onChange={(_value, option) => {
+            formik.setFieldValue(`unique_questions[3].question`, option.value);
+          }}
+          maxDropdownHeight={300}
+          data={uniqueQuestionsListOptions}
+          required
+          name={`unique_questions[3].question`}
+          value={formik.values.unique_questions[3].question}
+          error={getNestedError(`unique_questions[3].question`, formik.errors)}
+        />
+        <Textarea
+          // key={question.id}
+          // autoFocus={index === 0} // Focus only the first question
+          minRows={3}
+          // label={t(`mirairo.form.uniqueQuestions.${question.id}`)}
+          placeholder={t("mirairo.form.uniqueQuestions.placeholder.answer")}
+          required
+          onChange={formik.handleChange(`unique_questions[3].answer`)}
+          name={`unique_questions[3].answer`}
+          value={formik.values.unique_questions[3].answer}
+          error={
+            formik.touched.unique_questions?.[3]?.answer &&
+            getNestedError(`unique_questions.${3}.answer`, formik.errors)
+          }
+        />
+
+        <Select
+          mt={"lg"}
+          placeholder={t("mirairo.form.uniqueQuestions.placeholder.select")}
+          onChange={(_value, option) => {
+            formik.setFieldValue(`unique_questions[4].question`, option.value);
+          }}
+          maxDropdownHeight={300}
+          data={uniqueQuestionsListOptions}
+          required
+          name={`unique_questions[4].question`}
+          value={formik.values.unique_questions[4].question}
+          error={getNestedError(`unique_questions[4].question`, formik.errors)}
+        />
+        <Textarea
+          // key={question.id}
+          // autoFocus={index === 0} // Focus only the first question
+          minRows={3}
+          // label={t(`mirairo.form.uniqueQuestions.${question.id}`)}
+          placeholder={t("mirairo.form.uniqueQuestions.placeholder.answer")}
+          required
+          onChange={formik.handleChange(`unique_questions[4].answer`)}
+          name={`unique_questions[4].answer`}
+          value={formik.values.unique_questions[4].answer}
+          error={
+            formik.touched.unique_questions?.[4]?.answer &&
+            getNestedError(`unique_questions.${4}.answer`, formik.errors)
+          }
+        />
+
         {/* {formik.values.unique_questions.map((question, index) => (
           <Textarea
             key={question.id}
