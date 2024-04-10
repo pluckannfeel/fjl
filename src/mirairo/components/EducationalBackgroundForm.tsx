@@ -3,13 +3,14 @@ import {
   Card,
   CardSection,
   Center,
+  Checkbox,
   Grid,
   Group,
   SimpleGrid,
   TextInput,
   Title,
 } from "@mantine/core";
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import commonStyles from "../classes/Common.module.scss";
 import { useTranslation } from "react-i18next";
@@ -23,6 +24,7 @@ import dayjs from "dayjs";
 const EducationalBackgroundForm = () => {
   const { t } = useTranslation();
   const formik = useFormikContext();
+  const [collegeStates, setCollegeStates] = useState<boolean[]>([]);
 
   // useEffect(() => {
   //   console.log(formik.values);
@@ -41,12 +43,23 @@ const EducationalBackgroundForm = () => {
         to: null,
       },
     ]);
+    setCollegeStates([...collegeStates, false]);
   };
 
   const handleRemoveEducationBackground = (index: number) => {
     const background = [...(formik.values.education ?? [])];
     background.splice(index, 1);
     formik.setFieldValue("education", background);
+
+    const newCollegeStates = [...collegeStates];
+    newCollegeStates.splice(index, 1); // Remove the state associated with the removed entry
+    setCollegeStates(newCollegeStates);
+  };
+
+  const toggleCollegeState = (index: number) => {
+    const newCollegeStates = [...collegeStates];
+    newCollegeStates[index] = !newCollegeStates[index];
+    setCollegeStates(newCollegeStates);
   };
 
   return (
@@ -70,6 +83,13 @@ const EducationalBackgroundForm = () => {
                     <Grid.Col span={{ base: 12, sm: 11 }}>
                       {/* items */}
                       <Grid>
+                        <Grid.Col span={12}>
+                          <Checkbox
+                            label={t("mirairo.form.education.isCollege")}
+                            checked={collegeStates[index]}
+                            onChange={() => toggleCollegeState(index)}
+                          />
+                        </Grid.Col>
                         <Grid.Col span={{ base: 12, sm: 4 }}>
                           <TextInput
                             label={t("mirairo.form.education.school_name")}
@@ -79,43 +99,48 @@ const EducationalBackgroundForm = () => {
                             )}
                             required
                             name={`education[${index}].school_name`}
-                            value={background.school_name}
+                            // value={background.school_name}
+                            value={background.school_name || ""}
                             error={getNestedError(
                               `education.${index}.school_name`,
                               formik.errors
                             )}
                           />
                         </Grid.Col>
-                        <Grid.Col span={{ base: 6, sm: 2 }}>
-                          <TextInput
-                            label={t("mirairo.form.education.faculty")}
-                            // placeholder={t("mirairo.form.occupation.placeholder")}
-                            onChange={formik.handleChange(
-                              `education[${index}].faculty`
-                            )}
-                            name={`education[${index}].faculty`}
-                            value={background.faculty}
-                            // error={getNestedError(
-                            //   `education.${index}.faculty`,
-                            //   formik.errors
-                            // )}
-                          />
-                        </Grid.Col>
-                        <Grid.Col span={{ base: 6, sm: 2.5 }}>
-                          <TextInput
-                            label={t("mirairo.form.education.major")}
-                            // placeholder={t("mirairo.form.occupation.placeholder")}
-                            onChange={formik.handleChange(
-                              `education[${index}].major`
-                            )}
-                            name={`education[${index}].major`}
-                            value={background.major}
-                            error={getNestedError(
-                              `education.${index}.major`,
-                              formik.errors
-                            )}
-                          />
-                        </Grid.Col>
+                        {collegeStates[index] && (
+                          <>
+                            <Grid.Col span={{ base: 6, sm: 2 }}>
+                              <TextInput
+                                label={t("mirairo.form.education.faculty")}
+                                // placeholder={t("mirairo.form.occupation.placeholder")}
+                                onChange={formik.handleChange(
+                                  `education[${index}].faculty`
+                                )}
+                                name={`education[${index}].faculty`}
+                                value={background.faculty}
+                                // error={getNestedError(
+                                //   `education.${index}.faculty`,
+                                //   formik.errors
+                                // )}
+                              />
+                            </Grid.Col>
+                            <Grid.Col span={{ base: 6, sm: 2.5 }}>
+                              <TextInput
+                                label={t("mirairo.form.education.major")}
+                                // placeholder={t("mirairo.form.occupation.placeholder")}
+                                onChange={formik.handleChange(
+                                  `education[${index}].major`
+                                )}
+                                name={`education[${index}].major`}
+                                value={background.major}
+                                error={getNestedError(
+                                  `education.${index}.major`,
+                                  formik.errors
+                                )}
+                              />
+                            </Grid.Col>
+                          </>
+                        )}
                         <Grid.Col span={{ base: 6, sm: 1.75 }}>
                           <DateInput
                             valueFormat="YYYY/MM"

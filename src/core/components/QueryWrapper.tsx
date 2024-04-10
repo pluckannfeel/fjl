@@ -20,7 +20,16 @@ const QueryWrapper = ({ children }: QueryWrapperProps) => {
       fallbackRender={({ resetErrorBoundary }) => (
         <Result
           extra={
-            <Button onClick={() => resetErrorBoundary()} variant="contained">
+            <Button
+              onClick={() => {
+                localStorage.removeItem("formIsStarted");
+                localStorage.removeItem("formValues");
+                localStorage.removeItem("currentFormStep");
+
+                resetErrorBoundary();
+              }}
+              variant="contained"
+            >
               {t("common.retry")}
             </Button>
           }

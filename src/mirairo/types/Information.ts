@@ -35,7 +35,7 @@ export type PersonalInformation = {
   past_experience?: string;
   future_career_plan?: string;
   photos?: File[];
-  links: Link[];
+  links?: Link[];
   unique_questions: Questions[];
 };
 

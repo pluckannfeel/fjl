@@ -86,7 +86,7 @@
       "qualificationsLicenses": "Qualifications & Licenses",
       "skillsLanguages": "Skills & Languages",
       "SelfCareerPlans": "Self Career Plans",
-      "photosVideosLinks": "Favorite Photos, Video/Reel Links",
+      "photosVideosLinks": "Favorite Photos, Short Videos/Reels",
       "uniqueQuestions": "Unique Questions"
     },
     "actions": {
@@ -212,7 +212,8 @@
         "faculty": "Faculty",
         "major": "Major",
         "from": "From",
-        "to": "To"
+        "to": "To",
+        "isCollege": "College/University?"
       },
       "qualifications_licenses": {
         "name": "Name",

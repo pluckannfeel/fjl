@@ -21,6 +21,8 @@ import { PhotoGallery } from "../../core/components/PhotoGallery";
 import { Link } from "../types/Information";
 import { IconLink, IconX } from "@tabler/icons-react";
 import { getNestedError } from "../helpers/constants";
+import { showNotification } from "@mantine/notifications";
+import PhotoVideoGallery from "../../core/components/PhotoVideoGallery";
 
 const PhotosVideoLinksForm = () => {
   const { t } = useTranslation();
@@ -50,6 +52,12 @@ const PhotosVideoLinksForm = () => {
     formik.setFieldValue("links", links);
   };
 
+  const validateFileSize = (files: File[], maxSizeMB: number): boolean => {
+    const maxSizeBytes = maxSizeMB * 1024 * 1024; // Convert MB to Bytes
+    // const maxSizeBytes = maxSizeMB * 2;
+    return files.every((file) => file.size <= maxSizeBytes);
+  };
+
   return (
     <React.Fragment>
       <Title
@@ -75,13 +83,41 @@ const PhotosVideoLinksForm = () => {
       </Title>
 
       <Group grow mt="lg" justify="center">
-        <FileButton
+        {/* <FileButton
           multiple
           resetRef={resetRef}
           onChange={(payload: File[] | null) => {
             formik.setFieldValue("photos", payload);
           }}
-          accept="image/png,image/jpeg"
+          accept="image/png,image/jpeg,video/mp4,video/mov,video/avi"
+        >
+          {(props) => (
+            <Button size="lg" variant="gradient" {...props}>
+              {formik.values.photos?.length
+                ? t("common.change")
+                : t("common.upload")}
+            </Button>
+          )}
+        </FileButton> */}
+        <FileButton
+          multiple
+          // accept="image/png,image/jpeg,video/mp4,video/mov,video/avi"
+          accept="image/png,image/jpeg,video/mp4,video/quicktime,video/x-msvideo,video/avi"
+          onChange={(files) => {
+            if (files) {
+              if (validateFileSize(files, 200)) {
+                formik.setFieldValue("photos", files);
+              } else {
+                showNotification({
+                  title: "File size limit exceeded",
+                  message: "Please upload files up to 200 MB.",
+                  color: "red",
+                });
+                // Optionally reset the file input if needed
+                resetRef.current?.();
+              }
+            }
+          }}
         >
           {(props) => (
             <Button size="lg" variant="gradient" {...props}>
@@ -91,6 +127,7 @@ const PhotosVideoLinksForm = () => {
             </Button>
           )}
         </FileButton>
+
         {formik.values.photos && formik.values.photos.length > 0 && (
           <Button size="lg" color="red.6" onClick={clearFile}>
             Reset
@@ -98,16 +135,16 @@ const PhotosVideoLinksForm = () => {
         )}
       </Group>
 
-      <PhotoGallery photos={formik.values.photos || []} />
+      {/* <PhotoGallery photos={formik.values.photos || []} /> */}
+      <PhotoVideoGallery photos={formik.values.photos || []} />
 
       {/* links */}
-      <Card mt="sm">
+      {/* <Card mt="sm">
         <CardSection>
           {formik.values.links &&
             formik.values.links.map((item: Link, index: number) => (
               <Grid id={item.id} key={index} mt="sm">
                 <Grid.Col span={{ base: 12, sm: 11 }}>
-                  {/* items */}
                   <TextInput
                     rightSection={
                       <IconLink
@@ -152,9 +189,9 @@ const PhotosVideoLinksForm = () => {
               </Grid>
             ))}
         </CardSection>
-      </Card>
+      </Card> */}
 
-      <SimpleGrid mt={"xs"} mb={0} pb={0} cols={{ base: 1, sm: 6 }}>
+      {/* <SimpleGrid mt={"xs"} mb={0} pb={0} cols={{ base: 1, sm: 6 }}>
         <Group grow mt="sm" ta="center">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
@@ -168,7 +205,7 @@ const PhotosVideoLinksForm = () => {
             </Button>
           </motion.div>
         </Group>
-      </SimpleGrid>
+      </SimpleGrid> */}
     </React.Fragment>
   );
 };

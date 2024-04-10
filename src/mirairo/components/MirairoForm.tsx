@@ -135,7 +135,10 @@ const formSteps = [
   {
     name: "mirairo.sections.photosVideosLinks",
     component: PhotosVideoLinksForm,
-    fields: ["photos", "links"],
+    fields: [
+      "photos",
+      // "links"
+    ],
   },
   {
     name: "mirairo.sections.uniqueQuestions",
@@ -239,14 +242,15 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
     past_experience: "",
     future_career_plan: "",
     photos: [],
-    links: [
-      {
-        id: "0",
-        link: "",
-      },
-    ],
+    // links: [
+    //   {
+    //     id: "0",
+    //     link: "",
+    //   },
+    // ],
+    // links: [],
     // unique_questions: [],
-    unique_questions: Array.from({ length: 3 }, (_, i) => ({
+    unique_questions: Array.from({ length: 5 }, (_, i) => ({
       id: (i + 1).toString(),
       question: "",
       answer: "",
@@ -345,29 +349,29 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
     reason_for_application: Yup.string().required(t("common.errors.required")),
     past_experience: Yup.string().required(t("common.errors.required")),
     future_career_plan: Yup.string().required(t("common.errors.required")),
-    links: Yup.array().of(
-      Yup.object({
-        link: Yup.string()
-          .required(t("common.errors.urlRequired"))
-          .matches(allowedURLPattern, t("common.errors.invalidUrl"))
-          .test("is-valid-url", t("common.errors.invalidUrl"), (value) => {
-            try {
-              new URL(value!);
-              return true;
-            } catch {
-              return false;
-            }
-          })
-          .test("is-bad-domain", t("common.errors.invalidUrl"), (value) => {
-            try {
-              const domain = new URL(value!).hostname;
-              return !disallowedDomains.includes(domain);
-            } catch {
-              return false;
-            }
-          }),
-      })
-    ),
+    // links: Yup.array().of(
+    //   Yup.object({
+    //     link: Yup.string()
+    //       .required(t("common.errors.urlRequired"))
+    //       .matches(allowedURLPattern, t("common.errors.invalidUrl"))
+    //       .test("is-valid-url", t("common.errors.invalidUrl"), (value) => {
+    //         try {
+    //           new URL(value!);
+    //           return true;
+    //         } catch {
+    //           return false;
+    //         }
+    //       })
+    //       .test("is-bad-domain", t("common.errors.invalidUrl"), (value) => {
+    //         try {
+    //           const domain = new URL(value!).hostname;
+    //           return !disallowedDomains.includes(domain);
+    //         } catch {
+    //           return false;
+    //         }
+    //       }),
+    //   })
+    // ),
   });
   // ----------------- FORMIK YUP ---------------------
 

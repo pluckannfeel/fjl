@@ -338,6 +338,18 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
     // Add more skills as needed
   ];
 
+  // on data.photos extract all videos
+  // Define image file extensions that we want to keep
+  const imageExtensions = [".jpg", ".jpeg", ".png"];
+  const videoExtensions = [".mp4", ".mov", ".avi"];
+
+  // Filter to only include images based on the specified extensions
+  const filteredPhotos = data?.photos?.filter((photo) => {
+    return imageExtensions.some((extension) =>
+      photo.toString().endsWith(extension)
+    );
+  });
+
   // convert all from and to from string to dayjs.utc(data?.work_experience).toDate() in data?.work_experience
   if (data?.work_experience) {
     if (Array.isArray(data?.work_experience)) {
@@ -812,7 +824,8 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
           <></>
         )}
         <Gallery
-          photos={data?.photos ? (data.photos as unknown as string[]) : []}
+          //   photos={data?.photos ? (data.photos as unknown as string[]) : []}
+          photos={data?.photos ? (filteredPhotos as unknown as string[]) : []}
         />
 
         {data?.links ? (
