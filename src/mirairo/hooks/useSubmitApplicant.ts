@@ -74,17 +74,21 @@ const submitApplicant = async (applicant: Applicant) => {
 
   formData.append("applicant_json", JSON.stringify(applicant_data));
 
-  const { data } = await axiosInstance.post(
-    "/applicant/create_applicant",
-    formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
+  try {
+    const { data } = await axiosInstance.post(
+      "/applicant/create_applicant",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
 
-  return data;
+    return data;
+  } catch (error) {
+    console.error("Error submitting applicant", error);
+  }
 };
 
 export function useSubmitApplicant() {
