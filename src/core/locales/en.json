@@ -10,6 +10,7 @@
     "delete": "Delete",
     "submit": "Submit",
     "close": "Close",
+    "home": "Home",
     "back": "Back",
     "next": "Next",
     "upload": "Upload",
@@ -19,9 +20,19 @@
     "reset": "Reset",
     "retry": "Try Again",
     "selected": "Selected",
+    "login": "Login",
+    "forgotPassword": "Forgot Password?",
     "snackbar": {
       "error": "Error",
       "success": "Success"
+    },
+    "validations": {
+      "email": "Invalid email address",
+      "max": "Must be {{size}} characters or less",
+      "min": "Must be {{size}} characters or more",
+      "onlyNumbers": "Please input digits or numbers only",
+      "passwordMatch": "Password does not match",
+      "required": "Required"
     },
     "errors": {
       "required": "Required",
@@ -342,6 +353,66 @@
         "28": "28. If you were writing your autobiography, which chapter would be the most exciting?",
         "29": "29. What are you most thankful for?",
         "30": "30. What advice would you give to your future self?"
+      },
+      "university_name": {
+        "label": "University Name",
+        "placeholder": "Tokyo University"
+      },
+      "select_interview_date": {
+        "label": "Select Interview Date",
+        "placeholder": "Select Date"
+      }
+    },
+    "interview": {
+      "actions": {
+        "register": {
+          "title": "Register Interview Date",
+          "description": "Please select your preferred interview date and time. We will contact you to confirm the schedule."
+        }
+      },
+      "landing": {
+        "title": "Mirairo part-time job recruitment",
+        "subtitle": "An entry sheet for us to make schedule for your nextinterview."
+      },
+      "entrySheet": {
+        "title": "Part-time Entry Information",
+        "formSubmitted": "Your entry has been submitted successfully."
+      },
+      "residence_card": {
+        "title": "Residence Card Details"
+      },
+      "account_information": {
+        "title": "Account Details"
+      },
+      "residence_card_number": {
+        "label": "Residence Card Number"
+      },
+      "residence_card_expiry": {
+        "label": "Residence Card Expiry"
+      },
+      "residence_card_img": {
+        "label": "Residence Card Image",
+        "description": "Upload a photo of your residence card."
+      },
+      "phone_number": {
+        "label": "Phone Number"
+      },
+      "email": {
+        "label": "Email Address"
+      },
+      "password": {
+        "label": "Password"
+      },
+      "confirm_password": {
+        "label": "Confirm Password"
+      },
+      "interviewDate": {
+        "title": "Select Interview Date and Time",
+        "label": "Desired Date"
+      },
+      "interviewTime": {
+        "title": "Select Interview Time",
+        "label": "Desired Time"
       }
     }
   }

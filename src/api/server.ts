@@ -5,9 +5,9 @@ const determineBaseUrl = () => {
     return "https://a7fsbruh2s3bnibjx6jgb2tvsy0jvlsk.lambda-url.ap-northeast-1.on.aws";
   } else if (import.meta.env.MODE === "development") {
     // Development URL; adjust as needed test-api
-    // return "http://localhost:8001";
+    return "http://localhost:8001";
     // return "http://0.0.0.0:8001";
-    return "http://192.168.179.7:8001";
+    // return "http://192.168.179.7:8001";
   }
 
   return "https://a7fsbruh2s3bnibjx6jgb2tvsy0jvlsk.lambda-url.ap-northeast-1.on.aws";

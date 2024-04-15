@@ -12,8 +12,9 @@ import {
   FileInput,
   Radio,
   RadioGroup,
+  PasswordInput,
 } from "@mantine/core";
-import { DateInput } from "@mantine/dates";
+import { DateInput, TimeInput } from "@mantine/dates";
 
 export const DarkTheme = createTheme({
   primaryColor: "primary",
@@ -117,6 +118,42 @@ export const DarkTheme = createTheme({
         variant: "filled", // Choose 'filled', 'unstyled', or 'default'
       },
       styles: (theme) => ({
+        input: {
+          backgroundColor: "white", // Dark theme background
+          color: "black", // Text color for dark theme
+
+          "&::placeholder": {
+            color: theme.colors.gray[4], // Placeholder color for dark theme
+          },
+        },
+        required: {
+          fontSize: "1.25em",
+        },
+        label: {
+          color: theme.colors.text[9],
+          // Target the required asterisk within label
+          "&[dataRequired]::after": {
+            content: '"*"',
+            marginLeft: 8,
+            color: theme.colors.orange[6], // Change asterisk color if needed
+            fontSize: "1.00em", // Make asterisk larger
+          },
+        },
+        error: {
+          // Customize the error message color
+          color: theme.colors.orange[6], // Use light orange for errors
+        },
+      }),
+    }),
+    PasswordInput: PasswordInput.extend({
+      defaultProps: {
+        // These default props will apply globally to all TextInput components
+        variant: "filled", // Choose 'filled', 'unstyled', or 'default'
+      },
+      styles: (theme) => ({
+        visibilityToggle: {
+          color: theme.colors.orange[6],
+        },
         input: {
           backgroundColor: "white", // Dark theme background
           color: "black", // Text color for dark theme
@@ -261,6 +298,39 @@ export const DarkTheme = createTheme({
         },
       }),
     }),
+    TimeInput: TimeInput.extend({
+      defaultProps: {
+        // These default props will apply globally to all TextInput components
+        variant: "filled", // Choose 'filled', 'unstyled', or 'default'
+      },
+      styles: (theme) => ({
+        input: {
+          backgroundColor: "white", // Dark theme background
+          color: "black", // Text color for dark theme
+
+          "&::placeholder": {
+            color: theme.colors.gray[4], // Placeholder color for dark theme
+          },
+        },
+        required: {
+          fontSize: "1.25em",
+        },
+        label: {
+          color: theme.colors.text[9],
+          // Target the required asterisk within label
+          "&[dataRequired]::after": {
+            content: '"*"',
+            marginLeft: 8,
+            color: theme.colors.orange[6], // Change asterisk color if needed
+            fontSize: "1.00em", // Make asterisk larger
+          },
+        },
+        error: {
+          // Customize the error message color
+          color: theme.colors.orange[6], // Use light orange for errors
+        },
+      }),
+    }),
     DateInput: DateInput.extend({
       defaultProps: {
         // These default props will apply globally to all TextInput components
@@ -309,7 +379,7 @@ export const DarkTheme = createTheme({
           },
         },
         required: {
-          fontSize: "1.25em",
+          fontSize: "1.50em",
         },
         label: {
           color: theme.colors.text[9],

@@ -11,6 +11,7 @@
     "submit": "提出",
     "close": "閉じる",
     "back": "戻る",
+    "home": "ホーム",
     "next": "次へ",
     "optional": "任意",
     "reset": "リセット",
@@ -19,9 +20,19 @@
     "upload": "アップロード",
     "change": "変更",
     "download": "ダウンロード",
+    "login": "ログイン",
+    "forgotPassword": "パスワードをお忘れですか？",
     "snackbar": {
       "error": "エラー",
       "success": "成功"
+    },
+    "validations": {
+      "email": "無効なメールアドレス",
+      "max": "{{size}}文字以下でなければなりません。",
+      "min": "{{size}}文字以上でなければなりません。",
+      "onlyNumbers": "数字または数字のみを入力してください。",
+      "passwordMatch": "パスワードが一致しません",
+      "required": "必須"
     },
     "errors": {
       "required": "必須",
@@ -330,6 +341,66 @@
         "28": "28.  もし自分の伝記を書くとしたら、どの章が最もエキサイティングですか？",
         "29": "29.  あなたが最も感謝していることは何ですか？",
         "30": "30.  未来の自分にどんなアドバイスを送りたいですか？"
+      },
+      "university_name": {
+        "label": "大学名",
+        "placeholder": "東京大学"
+      },
+      "select_interview_date": {
+        "label": "面接日時",
+        "placeholder": "日付を選択"
+      }
+    },
+    "interview": {
+      "actions": {
+        "register": {
+          "title": "面接日時を登録",
+          "description": "面接日時を登録してください。"
+        }
+      },
+      "landing": {
+        "title": "ミライロのアルバイト募集",
+        "subtitle": "次回面接のスケジュールを立てるためのエントリーシートです。"
+      },
+      "entrySheet": {
+        "title": "アルバイト募集エントリーシート",
+        "formSubmitted": "エントリーシートが提出されました。"
+      },
+      "residence_card": {
+        "title": "在留カード情報"
+      },
+      "account_information": {
+        "title": "アカウント情報"
+      },
+      "residence_card_number": {
+        "label": "在留カード番号"
+      },
+      "residence_card_expiry": {
+        "label": "在留カード有効期限"
+      },
+      "residence_card_img": {
+        "label": "在留カード画像",
+        "description": "在留カードの写真をアップロードしてください。"
+      },
+      "phone_number": {
+        "label": "電話番号"
+      },
+      "email": {
+        "label": "メールアドレス"
+      },
+      "password": {
+        "label": "パスワード"
+      },
+      "confirm_password": {
+        "label": "パスワード確認"
+      },
+      "interviewDate": {
+        "title": "面接、候補日日にちと時刻",
+        "label": "面接日時"
+      },
+      "interviewTime": {
+        "title": "面接時間",
+        "label": "面接時間"
       }
     }
   }

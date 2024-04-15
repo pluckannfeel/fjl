@@ -1,4 +1,4 @@
-import { FormikErrors } from "formik";
+import { FormikErrors, FormikTouched } from "formik";
 
 export const genders = [
   { label: "mirairo.form.gender.options.f", value: "Female" },
@@ -152,6 +152,26 @@ export function getNestedError<T>(
   }
 
   return typeof current === "string" ? current : undefined;
+}
+
+export function getNestedTouched<T>(
+  path: string,
+  touched: FormikTouched<T>
+): boolean {
+  const parts = path.split(".");
+  let current: any = touched;
+
+  for (const part of parts) {
+    if (current === null || current === undefined) {
+      return false;
+    } else if (typeof current === "object" && part in current) {
+      current = current[part];
+    } else {
+      return false;
+    }
+  }
+
+  return !!current; // Cast to boolean in case the value is not explicitly true or false
 }
 
 export const allowedURLPattern =

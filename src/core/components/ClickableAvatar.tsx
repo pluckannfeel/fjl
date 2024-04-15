@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Group, Avatar, Menu, Button, Text } from "@mantine/core";
-import { IconUser, IconCamera, IconTrash } from "@tabler/icons-react";
+import {
+  IconUser,
+  IconCamera,
+  IconTrash,
+  IconUserCircle,
+} from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import classes from "../classes/ClickableAvatar.module.css";
 
@@ -62,7 +67,7 @@ const ClickableAvatar: React.FC<ClickableAvatarProps> = ({
           radius="lg"
           className={`${classes.avatarImage}`}
         >
-          {!previewUrl && <IconUser size={50} />}
+          {!previewUrl && <IconUserCircle size={100} />}
         </Avatar>
       </Button>
 
@@ -79,7 +84,7 @@ const ClickableAvatar: React.FC<ClickableAvatarProps> = ({
       </Menu>
 
       {error && (
-        <Text c="red" size="xs">
+        <Text c="orange.6" size="md">
           {typeof error === "string" ? error : t("common.errors.imageRequired")}
         </Text>
       )}

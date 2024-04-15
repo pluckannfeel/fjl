@@ -21,6 +21,11 @@ const MirairoManagement = lazy(
 //Generate PDF
 const GenerateResume = lazy(() => import("./mirairo/pages/GenerateResume"));
 
+//Interview Entry Sheet Part Time
+const InterviewManagement = lazy(
+  () => import("./interview/pages/InterviewManagement")
+);
+
 const NotFound = lazy(() => import("./core/pages/NotFound"));
 
 // Admin
@@ -35,6 +40,9 @@ const AppRoutes = () => {
 
         <Route path="mirairo" element={<MirairoManagement />} />
         <Route path="mirairo-resume" element={<GenerateResume />} />
+
+        <Route path="interview" element={<InterviewManagement />} />
+        {/* <Route path="admin" element={<Admin />} /> */}
 
         {/* <Route path="login" element={<Login />} />
         <Route path="forgot-password" element={<ForgotPassword />} />
