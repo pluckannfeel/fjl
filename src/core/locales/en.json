@@ -366,13 +366,17 @@
     "interview": {
       "actions": {
         "register": {
-          "title": "Register Interview Date",
-          "description": "Please select your preferred interview date and time. We will contact you to confirm the schedule."
+          "title": "WEB Application for Interview",
+          "description": "Please select your preferred interview date and time. We will contact you to confirm the schedule. Please enter valid contact information (email or phone number)."
         }
       },
       "landing": {
-        "title": "Mirairo part-time job recruitment",
-        "subtitle": "An entry sheet for us to make schedule for your nextinterview."
+        "title": "Angel Care Services",
+        "title2": "Part-time job interview application form",
+        "subtitle": "An entry sheet for us to make schedule for your nextinterview.",
+        "subtitle2": "I look forward to meeting you all.",
+        "footer": "Angel Care Services",
+        "footer2": "Mr. Kazuhiro Ito"
       },
       "entrySheet": {
         "title": "Part-time Entry Information",

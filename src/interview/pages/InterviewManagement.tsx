@@ -95,11 +95,23 @@ const InterviewManagement: React.FC = () => {
                         </Text>{" "}
                       </Title>
 
-                      <Text className={classes.description} mt={30}>
+                      <Text className={classes.description} fw={"bolder"} mt={30}>
                         {t("mirairo.interview.landing.subtitle")}
                       </Text>
-                      <Text className={classes.description} mt={20}>
+                      <Text className={classes.description} fw={"bolder"} mt={20}>
                         {t("mirairo.interview.actions.register.description")}
+                      </Text>
+
+                      <Text className={classes.description} fw={"bolder"} mt={20}>
+                        {t("mirairo.interview.landing.subtitle2")}
+                      </Text>
+
+                      <Text className={classes.description} fw={"bolder"} mt={20}>
+                        {t("mirairo.interview.landing.footer")}
+                      </Text>
+
+                      <Text className={classes.description} fw={"bolder"} mt={5}>
+                        {t("mirairo.interview.landing.footer2")}
                       </Text>
                       <Button
                         variant="gradient"
