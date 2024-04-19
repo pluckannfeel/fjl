@@ -93,6 +93,7 @@ const ApplicantAuthForm: React.FC = () => {
           size="lg"
           //   required
           {...formik.getFieldProps("email")}
+          error={formik.touched.email && formik.errors.email}
         />
         <PasswordInput
           label={t("mirairo.interview.password.label")}
@@ -102,6 +103,7 @@ const ApplicantAuthForm: React.FC = () => {
           size="lg"
           mt="md"
           {...formik.getFieldProps("password")}
+          error={formik.touched.password && formik.errors.password}
         />
         <Group justify="space-between" mt="lg">
           <Checkbox

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Page, Text, View, Document, Image, Font } from "@react-pdf/renderer";
 import { ResumeBuilderProps, ResumeTheme } from "../../types/Resume";
 import tinycolor from "tinycolor2";
@@ -36,7 +36,12 @@ import utc from "dayjs/plugin/utc";
 
 import { ResumeStylesheet as styles } from "../../classes/ResumeBuilderStyles";
 import { useTranslation } from "react-i18next";
-import { isJapanese, languageLevel } from "../../helpers/constants";
+import {
+  convertImageToBase64,
+  fetchImageAsFile,
+  isJapanese,
+  languageLevel,
+} from "../../helpers/constants";
 
 Font.register({
   family: "Noto_Sans",
@@ -325,7 +330,19 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
   const { t } = useTranslation();
   const textColor = getReadableTextColor(darkerColor);
 
-  console.log(data);
+  // const [imageFile, setImageFile] = useState<File | null>(null);
+
+  // useEffect(() => {
+  //   if (data?.img_url) {
+  //     // Assuming you want to extract a filename in a simple way
+  //     const filename = data?.img_url.toString().split("/").pop();
+  //     fetchImageAsFile(data?.img_url as string, filename as string)
+  //       .then((file) => setImageFile(file))
+  //       .catch((error) =>
+  //         console.error("Failed to convert image to file:", error)
+  //       );
+  //   }
+  // }, [data?.img_url]);
 
   // Sample skill levels
   const skills = [
@@ -435,8 +452,8 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
               {data?.current_address}
             </Text>
           </View>
-          {/* // base 64 */}
-          <Image style={styles.image} src={`${data?.img_url}`} />
+
+          <Image style={styles.image} src={data?.img_url as string} />
         </View>
         <View style={styles.profileSection}>
           <View

@@ -49,7 +49,7 @@ const updateResume = async (applicant: ApplicantResume) => {
   if (applicantImg && !applicantImg.toString().includes("https://"))
     formData.append("display_photo", applicantImg);
 
-  // licenses append
+  //   licenses append
   if (applicant.qualifications_licenses) {
     applicant.qualifications_licenses.forEach((license) => {
       if (license.file) {

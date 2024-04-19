@@ -232,3 +232,31 @@ export const isJapanese = (text: string) => {
     text
   );
 };
+
+export async function convertImageToBase64(imgUrl: string): Promise<string> {
+  try {
+    const response = await fetch(imgUrl);
+    const blob = await response.blob();
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = reject;
+      reader.onload = () => {
+        // Convert blob to base64
+        resolve(reader.result as string);
+      };
+      reader.readAsDataURL(blob);
+    });
+  } catch (error) {
+    console.error("Error converting image to Base64:", error);
+    throw new Error("Failed to convert image");
+  }
+}
+
+export async function fetchImageAsFile(
+  url: string,
+  filename: string
+): Promise<File> {
+  const response = await fetch(url);
+  const blob = await response.blob();
+  return new File([blob], filename, { type: blob.type });
+}
