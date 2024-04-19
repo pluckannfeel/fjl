@@ -9,6 +9,7 @@ import i18n from "./core/config/i18n";
 import SettingsProvider from "./core/contexts/SettingsProvider";
 import QueryWrapper from "./core/components/QueryWrapper";
 import AppRoutes from "./AppRoutes";
+import ApplicantAuthProvider from "./mirairo/contexts/ApplicantAuthProvider";
 
 // Create a client
 const queryClient = new QueryClient({
@@ -39,7 +40,9 @@ export default function App() {
             <SettingsProvider>
               <QueryWrapper>
                 {/* AuthProvider Before AppRoutes */}
-                <AppRoutes />
+                <ApplicantAuthProvider>
+                  <AppRoutes />
+                </ApplicantAuthProvider>
               </QueryWrapper>
             </SettingsProvider>
           </I18nextProvider>

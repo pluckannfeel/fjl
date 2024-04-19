@@ -1,28 +1,28 @@
 import React from "react";
 import { Page, Text, View, Document, Image, Font } from "@react-pdf/renderer";
-import { ResumeBuilderProps, ResumeTheme } from "../types/Resume";
+import { ResumeBuilderProps, ResumeTheme } from "../../types/Resume";
 import tinycolor from "tinycolor2";
 // Roboto
-import RobotoRegular from "../../core/fonts/Roboto/Roboto-Regular.ttf";
-import RobotoItalic from "../../core/fonts/Roboto/Roboto-Italic.ttf";
-import RobotoBold from "../../core/fonts/Roboto/Roboto-Bold.ttf";
-import RobotoBoldItalic from "../../core/fonts/Roboto/Roboto-BoldItalic.ttf";
+import RobotoRegular from "../../../core/fonts/Roboto/Roboto-Regular.ttf";
+import RobotoItalic from "../../../core/fonts/Roboto/Roboto-Italic.ttf";
+import RobotoBold from "../../../core/fonts/Roboto/Roboto-Bold.ttf";
+import RobotoBoldItalic from "../../../core/fonts/Roboto/Roboto-BoldItalic.ttf";
 // EB_Garamond
-import EB_GaramondRegular from "../../core/fonts/EB_Garamond/static/EBGaramond-Regular.ttf";
-import EB_GaramondItalic from "../../core/fonts/EB_Garamond/static/EBGaramond-Italic.ttf";
-import EB_GaramondBold from "../../core/fonts/EB_Garamond/static/EBGaramond-Bold.ttf";
-import EB_GaramondBoldItalic from "../../core/fonts/EB_Garamond/static/EBGaramond-BoldItalic.ttf";
+import EB_GaramondRegular from "../../../core/fonts/EB_Garamond/static/EBGaramond-Regular.ttf";
+import EB_GaramondItalic from "../../../core/fonts/EB_Garamond/static/EBGaramond-Italic.ttf";
+import EB_GaramondBold from "../../../core/fonts/EB_Garamond/static/EBGaramond-Bold.ttf";
+import EB_GaramondBoldItalic from "../../../core/fonts/EB_Garamond/static/EBGaramond-BoldItalic.ttf";
 // Mulish
-import MulishRegular from "../../core/fonts/Mulish/static/Mulish-Regular.ttf";
-import MulishItalic from "../../core/fonts/Mulish/static/Mulish-Italic.ttf";
-import MulishBold from "../../core/fonts/Mulish/static/Mulish-Bold.ttf";
-import MulishBoldItalic from "../../core/fonts/Mulish/static/Mulish-BoldItalic.ttf";
+import MulishRegular from "../../../core/fonts/Mulish/static/Mulish-Regular.ttf";
+import MulishItalic from "../../../core/fonts/Mulish/static/Mulish-Italic.ttf";
+import MulishBold from "../../../core/fonts/Mulish/static/Mulish-Bold.ttf";
+import MulishBoldItalic from "../../../core/fonts/Mulish/static/Mulish-BoldItalic.ttf";
 // Yumin
-import YuminRegular from "../../core/fonts/Yu_Mincho/yumin.ttf";
-import YuminBold from "../../core/fonts/Yu_Mincho/yumindb.ttf";
+import YuminRegular from "../../../core/fonts/Yu_Mincho/yumin.ttf";
+import YuminBold from "../../../core/fonts/Yu_Mincho/yumindb.ttf";
 
-import NotoSansRegular from "../../core/fonts/Noto_Sans_JP/static/NotoSansJP-Regular.ttf";
-import NotoSansBold from "../../core/fonts/Noto_Sans_JP/static/NotoSansJP-Bold.ttf";
+import NotoSansRegular from "../../../core/fonts/Noto_Sans_JP/static/NotoSansJP-Regular.ttf";
+import NotoSansBold from "../../../core/fonts/Noto_Sans_JP/static/NotoSansJP-Bold.ttf";
 
 import {
   EducationBackground,
@@ -30,13 +30,13 @@ import {
   QualificationsLicenses,
   Questions,
   WorkExperience,
-} from "../types/Information";
+} from "../../types/Information";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 
-import { ResumeStylesheet as styles } from "../classes/ResumeBuilderStyles";
+import { ResumeStylesheet as styles } from "../../classes/ResumeBuilderStyles";
 import { useTranslation } from "react-i18next";
-import { isJapanese, languageLevel } from "../helpers/constants";
+import { isJapanese, languageLevel } from "../../helpers/constants";
 
 Font.register({
   family: "Noto_Sans",
@@ -322,8 +322,10 @@ const getReadableTextColor = (backgroundColor: string) => {
 // Create Document Component
 const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
   const darkerColor = darkenColor(theme.backgroundColor, 20);
-
+  const { t } = useTranslation();
   const textColor = getReadableTextColor(darkerColor);
+
+  console.log(data);
 
   // Sample skill levels
   const skills = [
@@ -454,7 +456,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
                 },
               ]}
             >
-              Profile
+              {t("mirairo.form.self_career_plans.self_introduction.label")}
             </Text>
           </View>
           <Text style={styles.profileText}>{data?.self_introduction}</Text>
@@ -481,28 +483,30 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
                     },
                   ]}
                 >
-                  Personal Information
+                  {t("mirairo.sections.personalInformation")}
                 </Text>
               </View>
               {/* <Text style={styles.content}>... content here ...</Text> */}
               <View style={styles.table}>
                 <View style={styles.row}>
                   <Text style={[styles.contentLeft, styles.column]}>
-                    Nationality
+                    {t("mirairo.form.nationality.label")}
                   </Text>
                   <Text style={[styles.contentRight, styles.column]}>
                     {data?.nationality}
                   </Text>
                 </View>
                 <View style={styles.row}>
-                  <Text style={[styles.contentLeft, styles.column]}>Age</Text>
+                  <Text style={[styles.contentLeft, styles.column]}>
+                    {t("mirairo.form.age.label")}
+                  </Text>
                   <Text style={[styles.contentRight, styles.column]}>
                     {data?.age}
                   </Text>
                 </View>
                 <View style={styles.row}>
                   <Text style={[styles.contentLeft, styles.column]}>
-                    Date of Birth
+                    {t("mirairo.form.birth_date.label")}
                   </Text>
                   <Text style={[styles.contentRight, styles.column]}>
                     {/* April 21, 1995 */}
@@ -515,7 +519,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
                 </View>
                 <View style={styles.row}>
                   <Text style={[styles.contentLeft, styles.column]}>
-                    Birth Place
+                    {t("mirairo.form.birth_place.label")}
                   </Text>
                   <Text style={[styles.contentRight, styles.column]}>
                     {/* Yokohama, Kanagawa */}
@@ -524,7 +528,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
                 </View>
                 <View style={styles.row}>
                   <Text style={[styles.contentLeft, styles.column]}>
-                    Marital Status
+                    {t("mirairo.form.marital_status.label")}
                   </Text>
                   <Text style={[styles.contentRight, styles.column]}>
                     {/* Single */}
@@ -550,7 +554,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
                     },
                   ]}
                 >
-                  Work Experience
+                  {t("mirairo.sections.workExperience")}
                 </Text>
               </View>
               {/* <Text style={styles.content}>... content here ...</Text> */}
@@ -575,7 +579,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
                     },
                   ]}
                 >
-                  Education
+                  {t("mirairo.sections.educationalBackground")}
                 </Text>
               </View>
               {/* <Text style={styles.content}>... content here ...</Text> */}
@@ -600,7 +604,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
                     },
                   ]}
                 >
-                  Qualifications & Licenses
+                  {t("mirairo.sections.qualificationsLicenses")}
                 </Text>
               </View>
               <QualificationsLicensesList
@@ -623,7 +627,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
                 },
               ]}
             >
-              Skills
+              {t("mirairo.sections.skillsLanguages")}
             </Text>
             <View style={styles.skillList}>{renderSkillBars(skills)}</View>
 
@@ -636,7 +640,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
                 },
               ]}
             >
-              Certifications
+              {t("mirairo.sections.certifications")}
             </Text>
             <View style={styles.licenseList}>
               <View style={styles.table}>
@@ -679,7 +683,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
             {data?.computer_skills ? (
               <>
                 <Text style={[styles.otherSkills, { color: darkerColor }]}>
-                  Computer Skills
+                  {t("mirairo.form.skills_languages.computer_skills.label")}
                 </Text>
                 <Text style={styles.content}>{data?.computer_skills}</Text>
               </>
@@ -691,11 +695,9 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
             {data?.other_skills ? (
               <>
                 <Text style={[styles.otherSkills, { color: darkerColor }]}>
-                  Talents, Hobbies
+                  {t("mirairo.form.skills_languages.other_skills.label")}
                 </Text>
-                <Text style={styles.content}>
-                  Cooking, singing, cleaning and baking.
-                </Text>
+                <Text style={styles.content}>{data.other_skills}</Text>
               </>
             ) : (
               <></>
@@ -721,7 +723,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
                 },
               ]}
             >
-              Career Plans / Goals
+              {t("mirairo.sections.SelfCareerPlans")}
             </Text>
           </View>
           {/* SECTIONS GO HERE */}
@@ -733,7 +735,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
               },
             ]}
           >
-            Future Career Plan
+            {t("mirairo.form.self_career_plans.future_career_plan.label")}
           </Text>
 
           <Text style={styles.careerPlansText}>{data?.future_career_plan}</Text>
@@ -746,7 +748,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
               },
             ]}
           >
-            Reason for Applying
+            {t("mirairo.form.self_career_plans.reason_for_application.label")}
           </Text>
 
           <Text style={styles.careerPlansText}>
@@ -761,7 +763,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
               },
             ]}
           >
-            Past Experiences
+            {t("mirairo.form.self_career_plans.past_experience.label")}
           </Text>
 
           <Text style={styles.careerPlansText}>{data?.past_experience}</Text>
@@ -785,7 +787,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
                 },
               ]}
             >
-              Unique Questions
+              {t("mirairo.sections.uniqueQuestions")}
             </Text>
           </View>
 
@@ -815,7 +817,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
                     },
                   ]}
                 >
-                  Shared Photos
+                  {t("mirairo.sections.photos")}
                 </Text>
               </View>
             </View>

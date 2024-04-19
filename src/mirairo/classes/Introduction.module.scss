@@ -1,22 +1,35 @@
 .inner {
   max-width: rem(1200px);
-
   display: flex;
-
+  flex-wrap: wrap; // Allow the items to wrap when needed
   justify-content: space-between;
-  /* padding-top: calc(var(--mantine-spacing-xl) * 4); */
+  align-items: flex-start; // Align items to the start of the container
   padding-bottom: calc(var(--mantine-spacing-xl) * 8);
 }
 
 .content {
+  flex: 1; // Allows the content to fill the available space
   padding: var(--mantine-spacing-xl) 0;
-
-  padding-left: calc(var(--mantine-spacing-xl) * 1);
-  padding-right: calc(var(--mantine-spacing-xl) * 1);
+  padding-right: calc(
+    var(--mantine-spacing-xl) * 2
+  ); // Add some space between columns
 
   @media (max-width: $mantine-breakpoint-md) {
     max-width: 100%;
     margin-right: 0;
+    padding: var(--mantine-spacing-xl); // Full padding on smaller screens
+  }
+}
+
+// Assuming .auth-and-bullets is the container for the login form and bullets
+.auth_bullets {
+  flex: 1; // Takes up the remaining space next to .content
+  max-width: rem(
+    500px
+  ); // Set a max-width for the right column content if necessary
+
+  @media (max-width: $mantine-breakpoint-md) {
+    max-width: 100%; // Full width on smaller screens
   }
 }
 
@@ -39,23 +52,22 @@
 }
 
 .image {
-  width: rem(376px);
-  height: rem(356px);
-
+  // Adjustments for image within the two-column layout
+  @media (min-width: $mantine-breakpoint-md) {
+    width: 50%; // Example to fit within the right column
+    height: auto; // Maintain aspect ratio
+  }
   @media (max-width: $mantine-breakpoint-md) {
     display: none;
   }
 }
 
-.bullets {
-  @media (max-width: $mantine-breakpoint-md) {
-    display: none;
+.bullets, .auth {
+  // Make sure bullets are within .auth-and-bullets and adapt as necessary
+  @media (min-width: $mantine-breakpoint-md) {
+    width: auto; // Adapt width to fit content
   }
-}
-
-.highlight {
-  position: relative;
-  background-color: var(--mantine-color-blue-light);
-  border-radius: var(--mantine-radius-sm);
-  padding: rem(4px) rem(12px);
+  @media (max-width: $mantine-breakpoint-md) {
+    width: 100%; // Full width for mobile
+  }
 }

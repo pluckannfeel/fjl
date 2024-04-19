@@ -93,7 +93,7 @@ const ApplicantSubmitted = ({
             >
               Back to Homepage
             </Button>
-            <Button
+            {/* <Button
               size="lg"
               color="orange.5"
               onClick={() => {
@@ -102,7 +102,7 @@ const ApplicantSubmitted = ({
               }}
             >
               Generate Resume
-            </Button>
+            </Button> */}
           </Group>
         </Box>
       </motion.div>

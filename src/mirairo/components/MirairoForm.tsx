@@ -81,7 +81,9 @@ const formSteps = [
       // "phone_number",
       // "passport_number",
       // "passport_expiry",
-      // "email",
+      "email",
+      "password",
+      "confirm_password",
     ],
   },
   {
@@ -170,6 +172,7 @@ function getFieldError(
 }
 
 interface MirairoFormProps {
+  setIsStarted: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmitApplicant: (values: Partial<PersonalInformation>) => void;
   loading: boolean;
 }
@@ -250,11 +253,14 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
     // ],
     // links: [],
     // unique_questions: [],
-    unique_questions: Array.from({ length: 5 }, (_, i) => ({
+    unique_questions: Array.from({ length: 3 }, (_, i) => ({
       id: (i + 1).toString(),
       question: "",
       answer: "",
     })),
+    // account information
+    password: "",
+    confirm_password: "",
   };
 
   // ----------------- FORMIK YUP ---------------------
@@ -299,7 +305,7 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
     // phone_number: Yup.string().required(t("common.errors.required")),
     // passport_number: Yup.string().required(t("common.errors.required")),
     // passport_expiry: Yup.string().required(t("common.errors.required")),
-    // email: Yup.string().required(t("common.errors.required")),
+    email: Yup.string().required(t("common.errors.required")),
     has_family: Yup.string().required(t("common.errors.required")),
     family: Yup.array().of(
       Yup.object({
@@ -372,6 +378,13 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
     //       }),
     //   })
     // ),
+    password: Yup.string().required(t("common.errors.required")),
+    confirm_password: Yup.string()
+      .oneOf(
+        [Yup.ref("password"), ""], // should be null
+        t("common.validations.passwordMatch")
+      )
+      .required(t("common.validations.required")),
   });
   // ----------------- FORMIK YUP ---------------------
 
@@ -625,6 +638,23 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
 
               {/* Navigation buttons */}
               <Group grow mt="xl" ta="center">
+                {currentStep === 0 && (
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Button
+                      fullWidth
+                      size="lg"
+                      onClick={() => props.setIsStarted(false)}
+                      // disabled={currentStep === formSteps.length - 1}
+                      c="black"
+                      color="orange.5"
+                    >
+                      {t("common.cancel")}
+                    </Button>
+                  </motion.div>
+                )}
                 {currentStep > 0 && (
                   <motion.div
                     whileHover={{ scale: 1.05 }}
@@ -643,23 +673,21 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
                   </motion.div>
                 )}
                 {currentStep < formSteps.length - 1 && (
-                  <>
-                    <motion.div
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Button
+                      fullWidth
+                      size="lg"
+                      onClick={nextStep}
+                      // disabled={currentStep === formSteps.length - 1}
+                      c="black"
+                      color="action.4"
                     >
-                      <Button
-                        fullWidth
-                        size="lg"
-                        onClick={nextStep}
-                        // disabled={currentStep === formSteps.length - 1}
-                        c="black"
-                        color="action.4"
-                      >
-                        {t("common.next")}
-                      </Button>
-                    </motion.div>
-                  </>
+                      {t("common.next")}
+                    </Button>
+                  </motion.div>
                 )}
                 {currentStep === formSteps.length - 1 && (
                   <>

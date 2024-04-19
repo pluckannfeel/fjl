@@ -6,7 +6,7 @@
   border: none; /* Remove the border if you don't need it */
   background: none; /* Transparent background */
   cursor: pointer; /* Mouse pointer on hover */
-
+  text-align: center;
   /* Fixed width on larger screens */
   @media (min-width: 992px) {
     /* Adjust the breakpoint to your project's needs */
@@ -20,7 +20,7 @@
   height: auto; /* Fixed width on larger screens */
   @media (min-width: 992px) {
     /* Adjust the breakpoint to your project's needs */
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
   }
 }

@@ -160,7 +160,7 @@ const QualificationAndLicensesForm = () => {
                           color="red.7"
                           px={6}
                           // c="white"
-                          variant="outline"
+                          // variant="outline"
                           onClick={() => handleRemoveQualification(index)}
                         >
                           {/* {t("common.remove")} */}

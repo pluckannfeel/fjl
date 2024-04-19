@@ -1,9 +1,9 @@
-import { PersonalInformation } from "./Information";
+import { ApplicantResume, PersonalInformation } from "./Information";
 
 export interface ResumeBuilderProps {
   theme: ResumeTheme;
   font: string;
-  data?: PersonalInformation;
+  data?: ApplicantResume;
 }
 
 export interface ResumeTheme {

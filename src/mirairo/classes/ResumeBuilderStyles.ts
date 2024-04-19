@@ -4,6 +4,7 @@ import { StyleSheet } from "@react-pdf/renderer";
 export const ResumeStylesheet = StyleSheet.create({
   page: {
     backgroundColor: "#F4F4F4",
+    height: "100%",
   },
   section: {
     margin: 10,

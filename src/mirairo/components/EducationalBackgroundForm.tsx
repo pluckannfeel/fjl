@@ -204,7 +204,7 @@ const EducationalBackgroundForm = () => {
                           size="sm"
                           color="red.7"
                           px={6}
-                          variant="outline"
+                          // variant="outline"
                           onClick={() => handleRemoveEducationBackground(index)}
                         >
                           <IconX

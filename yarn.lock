@@ -1418,10 +1418,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/js-cookie@npm:^3":
+  version: 3.0.6
+  resolution: "@types/js-cookie@npm:3.0.6"
+  checksum: 173afaf5ea9d86c22395b9d2a00b6adb0006dcfef165d6dcb0395cdc32f5a5dcf9c3c60f97194119963a15849b8f85121e1ae730b03e40bc0c29b84396ba22f9
+  languageName: node
+  linkType: hard
+
 "@types/json-schema@npm:^7.0.12":
   version: 7.0.15
   resolution: "@types/json-schema@npm:7.0.15"
   checksum: a996a745e6c5d60292f36731dd41341339d4eeed8180bb09226e5c8d23759067692b1d88e5d91d72ee83dfc00d3aca8e7bd43ea120516c17922cbcb7c3e252db
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:^4":
+  version: 4.17.0
+  resolution: "@types/lodash@npm:4.17.0"
+  checksum: 4c5b41c9a6c41e2c05d08499e96f7940bcf194dcfa84356235b630da920c2a5e05f193618cea76006719bec61c76617dff02defa9d29934f9f6a76a49291bd8f
   languageName: node
   linkType: hard
 
@@ -3315,6 +3329,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"js-cookie@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "js-cookie@npm:3.0.5"
+  checksum: 04a0e560407b4489daac3a63e231d35f4e86f78bff9d792011391b49c59f721b513411cd75714c418049c8dc9750b20fcddad1ca5a2ca616c3aca4874cce5b3a
+  languageName: node
+  linkType: hard
+
 "js-sha3@npm:0.8.0":
   version: 0.8.0
   resolution: "js-sha3@npm:0.8.0"
@@ -5158,6 +5179,8 @@ __metadata:
     "@sentry/react": "npm:^7.106.0"
     "@tabler/icons-react": "npm:^2.47.0"
     "@types/gh-pages": "npm:^6"
+    "@types/js-cookie": "npm:^3"
+    "@types/lodash": "npm:^4"
     "@types/react": "npm:^18.2.36"
     "@types/react-dom": "npm:^18.2.14"
     "@types/tinycolor2": "npm:^1"
@@ -5176,6 +5199,8 @@ __metadata:
     i18next: "npm:^23.10.1"
     i18next-browser-languagedetector: "npm:^7.2.0"
     i18next-xhr-backend: "npm:^3.2.2"
+    js-cookie: "npm:^3.0.5"
+    lodash: "npm:^4.17.21"
     postcss: "npm:^8.4.32"
     postcss-preset-mantine: "npm:1.13.0"
     postcss-simple-vars: "npm:^7.0.1"

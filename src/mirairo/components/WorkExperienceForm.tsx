@@ -179,7 +179,7 @@ const WorkExperienceForm = () => {
                           size="sm"
                           color="red.7"
                           px={6}
-                          variant="outline"
+                          // variant="outline"
                           onClick={() => handleRemoveWorkExperience(index)}
                         >
                           <IconX

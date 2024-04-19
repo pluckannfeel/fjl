@@ -5,6 +5,7 @@ import {
   Routes,
   BrowserRouter,
 } from "react-router-dom";
+import PrivateRoute from "./core/components/PrivateRoute";
 
 // import PrivateRoute from "./core/components/PrivateRoute";
 
@@ -18,6 +19,17 @@ const MirairoManagement = lazy(
   () => import("./mirairo/pages/MirairoManagement")
 );
 
+const ApplicantAdmin = lazy(() => import("./mirairo/pages/ApplicantAdmin"));
+const ApplicantDashboard = lazy(
+  () => import("./mirairo/pages/ApplicantDashboard")
+);
+const ApplicantForgotPassword = lazy(
+  () => import("./mirairo/pages/ApplicantForgotPassword")
+);
+const ApplicantForgotPasswordSubmit = lazy(
+  () => import("./mirairo/pages/ApplicantForgotPasswordSubmit")
+);
+
 //Generate PDF
 const GenerateResume = lazy(() => import("./mirairo/pages/GenerateResume"));
 
@@ -26,6 +38,7 @@ const InterviewManagement = lazy(
   () => import("./interview/pages/InterviewManagement")
 );
 
+const Forbidden = lazy(() => import("./core/pages/Forbidden"));
 const NotFound = lazy(() => import("./core/pages/NotFound"));
 
 // Admin
@@ -38,8 +51,29 @@ const AppRoutes = () => {
         {/* <Route path="/" element={<Landing />} /> */}
         <Route path="/" element={<Landing />} />
 
+        {/* Applicant */}
         <Route path="mirairo" element={<MirairoManagement />} />
-        <Route path="mirairo-resume" element={<GenerateResume />} />
+        <Route
+          path="mirairo/forgot-password"
+          element={<ApplicantForgotPassword />}
+        />
+        <Route
+          path="mirairo/forgot-password-submit"
+          element={<ApplicantForgotPasswordSubmit />}
+        />
+
+        {/* Mirairo applicant dashboard */}
+        <Route
+          path="applicant-dashboard"
+          element={
+            <PrivateRoute>
+              <ApplicantAdmin />
+            </PrivateRoute>
+          }
+        >
+          <Route index element={<ApplicantDashboard />} />
+          <Route path="mirairo-resume" element={<GenerateResume />} />
+        </Route>
 
         <Route path="interview" element={<InterviewManagement />} />
         {/* <Route path="admin" element={<Admin />} /> */}
@@ -57,6 +91,7 @@ const AppRoutes = () => {
         {/* <Route path="*" element={<Navigate to={`404`} replace />} /> */}
 
         <Route path="404" element={<NotFound />} />
+        <Route path="403" element={<Forbidden />} />
       </Routes>
     </BrowserRouter>
   );

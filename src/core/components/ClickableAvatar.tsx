@@ -15,6 +15,7 @@ interface ClickableAvatarProps {
   applicant_id: string | null | undefined;
   handleFileSelect: (file: File | null) => void;
   error?: string | boolean; // Optional error message or boolean indicating error state
+  imgSizePreview?: number | string;
 }
 
 const ClickableAvatar: React.FC<ClickableAvatarProps> = ({
@@ -23,6 +24,7 @@ const ClickableAvatar: React.FC<ClickableAvatarProps> = ({
   applicant_id,
   handleFileSelect,
   error,
+  imgSizePreview,
 }) => {
   const { t } = useTranslation();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -55,21 +57,15 @@ const ClickableAvatar: React.FC<ClickableAvatarProps> = ({
 
   return (
     <Group>
-      <Button
-        variant="subtle"
+      <Avatar
+        src={previewUrl}
+        alt="Applicant Avatar"
         radius="lg"
-        onClick={() => setOpened((o) => !o)}
-        className={`${classes.avatarButton}`}
+        size={imgSizePreview ? imgSizePreview : 200}
+        // className={`${classes.avatarImage}`}
       >
-        <Avatar
-          src={previewUrl}
-          alt="Applicant Avatar"
-          radius="lg"
-          className={`${classes.avatarImage}`}
-        >
-          {!previewUrl && <IconUserCircle size={100} />}
-        </Avatar>
-      </Button>
+        {!previewUrl && <IconUserCircle size={100} />}
+      </Avatar>
 
       <Menu opened={opened} onClose={() => setOpened(false)}>
         <Menu.Item

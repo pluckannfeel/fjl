@@ -31,3 +31,28 @@
     border-color: #cdd3f1; // Unchecked border color
   }
 }
+
+.fullHeightNoBorderScroll {
+  // margin: "0 30px";
+  padding: "10px 30px";
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: none; // Assuming you want to remove any borders
+}
+
+.fullHeightNoBorderScroll::-webkit-scrollbar {
+  width: 3px; // Adjust the width of the scrollbar
+}
+
+.fullHeightNoBorderScroll::-webkit-scrollbar-track {
+  background: #f1f1f1; // Color of the track
+}
+
+.fullHeightNoBorderScroll::-webkit-scrollbar-thumb {
+  background: #888; // Color of the scrollbar thumb
+}
+
+.fullHeightNoBorderScroll::-webkit-scrollbar-thumb:hover {
+  background: #555; // Color of the scrollbar thumb on hover
+}

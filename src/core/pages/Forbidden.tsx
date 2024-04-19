@@ -7,7 +7,7 @@ import {
   SimpleGrid,
 } from "@mantine/core";
 // import image from './image.svg';
-import image from "../../core/assets/notfound.svg";
+import image from "../../core/assets/403.svg";
 import classes from "../classes/NotFound.module.scss";
 import { useNavigate } from "react-router";
 
@@ -19,11 +19,7 @@ const NotFound = () => {
         <Image src={image} className={classes.mobileImage} />
         <div>
           <Title className={classes.title}>Something is not right...</Title>
-          <Text c="dimmed" size="lg">
-            Page you are trying to open does not exist. You may have mistyped
-            the address, or the page has been moved to another URL. If you think
-            this is an error contact support.
-          </Text>
+          <Text c="dimmed" size="lg"></Text>
           <Button
             // variant="outline"
             size="md"

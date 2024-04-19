@@ -21,7 +21,8 @@ const InterviewAuthForm: React.FC = () => {
     <Paper
       // withBorder shadow="md"
       // p={30}
-      mt={30}
+      // mt={30}
+      mt={15}
       radius="md"
       variant="light"
       bg="transparent"

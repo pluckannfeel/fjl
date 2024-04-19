@@ -1,25 +1,21 @@
 import { useMutation, useQueryClient } from "react-query";
-import { addOne } from "../../core/utils/crudUtils";
-import { PersonalInformation as Applicant } from "../types/Information";
+import { updateOne } from "../../core/utils/crudUtils";
+import {
+  PersonalInformation as Applicant,
+  ApplicantResume,
+} from "../types/Information";
 import { axiosInstance } from "../../api/server";
 import dayjs from "dayjs";
 
-const submitApplicant = async (applicant: Applicant) => {
-  // prepare data
+const updateResume = async (applicant: ApplicantResume) => {
+  const formData = new FormData();
+
   const applicantImg = applicant.img_url;
 
-  // excluded img url
   const applicant_data = {
-    // organization: "mirairo",
-    first_name: applicant.name.first_name,
-    last_name: applicant.name.last_name,
-    middle_name: applicant.name.middle_name,
-    // birthday by dayjs
-    birth_date: dayjs(
-      `${applicant.birth_date.year}-${applicant.birth_date.month}-${applicant.birth_date.day}`
-    ).format("YYYY-MM-DD"),
-    age: applicant.age,
-    gender: applicant.gender,
+    id: applicant.id,
+    first_name: applicant.first_name,
+    last_name: applicant.last_name,
     birth_place: applicant.birth_place,
     marital_status: applicant.marital_status,
     occupation: applicant.occupation,
@@ -50,10 +46,8 @@ const submitApplicant = async (applicant: Applicant) => {
     unique_questions: applicant.unique_questions,
   };
 
-  const formData = new FormData();
-
-  // display photo append
-  if (applicantImg) formData.append("display_photo", applicantImg);
+  if (applicantImg && !applicantImg.toString().includes("https://"))
+    formData.append("display_photo", applicantImg);
 
   // licenses append
   if (applicant.qualifications_licenses) {
@@ -64,20 +58,12 @@ const submitApplicant = async (applicant: Applicant) => {
     });
   }
 
-  //photos append
-  if (applicant.photos) {
-    applicant.photos.forEach((photo) => {
-      formData.append("photos", photo);
-    });
-
-    // delete photos from applicant_data
-  }
-
+  // eliminated photos
   formData.append("applicant_json", JSON.stringify(applicant_data));
 
   try {
-    const { data } = await axiosInstance.post(
-      "/applicant/create_applicant",
+    const { data } = await axiosInstance.put(
+      "/applicant/update_applicant",
       formData,
       {
         headers: {
@@ -88,18 +74,18 @@ const submitApplicant = async (applicant: Applicant) => {
 
     return data;
   } catch (error) {
-    console.error("Error submitting applicant", error);
+    console.error("Error updating resume", error);
   }
 };
 
-export function useSubmitApplicant() {
+export function useUpdateApplicantResume() {
   const queryClient = useQueryClient();
 
-  const { isLoading, mutateAsync } = useMutation(submitApplicant, {
+  const { isLoading, mutateAsync } = useMutation(updateResume, {
     onSuccess: () => {
       queryClient.invalidateQueries("applicants");
     },
   });
 
-  return { isLoading, submitApplicant: mutateAsync };
+  return { isLoading, updateResume: mutateAsync };
 }

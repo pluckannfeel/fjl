@@ -106,15 +106,15 @@ export function LandingHeader({ title }: LandingHeaderProps) {
 
   return (
     <header
-      style={{
-        backgroundColor: theme.colors.primary[4],
-        color: theme.colors.text[4],
-      }}
+      // style={{
+      //   backgroundColor: theme.colors.primary[4],
+      //   color: theme.colors.text[4],
+      // }}
       className={classes.header}
     >
       <Container size="md">
         <div className={classes.inner}>
-          <Text size="xl" c="text." fw={700}>
+          <Text size="xl" c="white" fw={700}>
             {title}
           </Text>
           <Group gap={5} 
@@ -123,7 +123,7 @@ export function LandingHeader({ title }: LandingHeaderProps) {
             {/* {items} */}
 
             <FontSizeToggleAction />
-            <ModeToggleAction />
+            {/* <ModeToggleAction /> */}
             <LanguageToggleAction />
           </Group>
           {/* <Burger

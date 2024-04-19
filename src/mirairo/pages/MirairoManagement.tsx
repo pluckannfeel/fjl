@@ -12,6 +12,7 @@ import { useFormikContext } from "../contexts/FormProvider";
 
 import { useLocalStorage } from "@mantine/hooks";
 import { useNavigate } from "react-router";
+import classes from "../classes/Mirairo.module.scss";
 
 const MirairoManagement: React.FC = () => {
   const navigate = useNavigate();
@@ -102,12 +103,13 @@ const MirairoManagement: React.FC = () => {
 
   return (
     <React.Fragment>
-      <Paper
+      {/* <Paper
         style={{
           // width: "100%",
           height: "auto",
         }}
-      >
+      > */}
+      <div className={classes.root}>
         {!formSubmitted ? (
           <>
             <LandingHeader title="Mirairo 未来路 " />
@@ -119,6 +121,7 @@ const MirairoManagement: React.FC = () => {
               >
                 <Container pt={50}>
                   <MirairoForm
+                    setIsStarted={setIsStarted}
                     loading={isLoading}
                     onSubmitApplicant={submitApplicantHandler}
                   />
@@ -136,7 +139,8 @@ const MirairoManagement: React.FC = () => {
             goBackHandler={() => setFormSubmitted(false)}
           />
         )}
-      </Paper>
+        {/* </Paper> */}
+      </div>
     </React.Fragment>
   );
 };

@@ -13,6 +13,8 @@ import {
   Radio,
   RadioGroup,
   PasswordInput,
+  Card,
+  Modal,
 } from "@mantine/core";
 import { DateInput, TimeInput } from "@mantine/dates";
 
@@ -98,7 +100,20 @@ export const DarkTheme = createTheme({
     }),
     Paper: Paper.extend({
       defaultProps: {
-        bg: "primary.5",
+        bg: "transparent",
+      },
+    }),
+    Card: Card.extend({
+      defaultProps: {
+        bg: "transparent",
+      },
+    }),
+    Modal: Modal.extend({
+      styles: {
+        body: {
+          backgroundColor: "#1A202C",
+          color: "#E2E8F0",
+        },
       },
     }),
     // Container: Container.extend({

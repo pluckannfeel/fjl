@@ -21,6 +21,7 @@
     "change": "変更",
     "download": "ダウンロード",
     "login": "ログイン",
+    "logout": "ログアウト",
     "forgotPassword": "パスワードをお忘れですか？",
     "snackbar": {
       "error": "エラー",
@@ -74,7 +75,61 @@
     }
   },
   "mirairo": {
-    "name": "Mirairo ",
+    "title": "CV作成",
+    "header": {
+      "resumeDetails": "履歴書の詳細",
+      "showExperiences": "経験を表示",
+      "showQualificationsLicenses": "資格・免許を表示",
+      "showEducation": "学歴を表示",
+      "showUniqueQuestions": "ユニーク質問を表示",
+      "colorThemeSelection": "カラーテーマ選択",
+      "fontSelection": "フォント選択"
+    },
+    "alert": {
+      "attention": "注意",
+      "saveChanges": "編集後は必ず変更を保存してください"
+    },
+    "name": "未来路",
+    "links": {
+      "dashboard": "ダッシュボード",
+      "yourResume": "履歴書作成"
+    },
+    "auth": {
+      "forgotPassword": {
+        "form": {
+          "action": "確認の送信",
+          "back": "ログインに戻る",
+          "email": {
+            "label": "メールアドレス"
+          }
+        },
+        "notifications": {
+          "success": "メールが送信されました！"
+        },
+        "subTitle": "バリデーションコードを取得するには、アカウントに関連付けられたEメールアドレスを入力してください。",
+        "title": "バリデーションコードを取得する"
+      },
+      "forgotPasswordSubmit": {
+        "form": {
+          "action": "パスワード再設定",
+          "back": "ログインに戻る",
+          "code": {
+            "label": "コード"
+          },
+          "confirmPassword": {
+            "label": "パスワードの確認"
+          },
+          "newPassword": {
+            "label": "新しいパスワード"
+          }
+        },
+        "notifications": {
+          "success": "パスワードが変更されました"
+        },
+        "subTitle": "郵送で受け取ったコードを入力し、新しいパスワードを選択します。",
+        "title": "パスワードを変更する"
+      }
+    },
     "introduction": {
       "title": "面接候補者用",
       "description": "過去に多くのフィリピン人に面接を行い、日本語を話す候補者の自己紹介が似たようなパターンをたどることに気付きました。それは文化的な一貫性を魅力的に反映していますが、それぞれのユニークな個性を垣間見るのが少し難しくなってしまいます。彼らは同じフォーマットを使用しており、私たちは何か違うものを求めていました。",
@@ -92,18 +147,25 @@
       "personalInformation": "個人情報",
       "legalInformation": "法的情報",
       "family": "在日親族について",
-      "educationalBackground": "最終学歴",
+      "educationalBackground": "学歴",
       "workExperience": "職歴",
       "qualificationsLicenses": "資格・免許",
       "skillsLanguages": "スキル・言語",
+      "certifications": "資格証明書",
+      "photos": "写真",
       "SelfCareerPlans": "自己PR・キャリアプラン",
       "photosVideosLinks": "お気に入りの写真や動画をアップ",
-      "uniqueQuestions": "ユニーク質問集"
+      "uniqueQuestions": "ユニーク質問集",
+      "accountDetails": "アカウント情報"
     },
     "actions": {
-      "getStarted": "はじめる"
+      "getStarted": "はじめる",
+      "updateResume": "履歴書を更新"
     },
     "form": {
+      "notifications": {
+        "updateResumeSuccess": "CVが更新されました。"
+      },
       "img": {
         "label": "写真",
         "description": "お気に入りの写真をアップロードできます。",
@@ -191,6 +253,14 @@
       "email": {
         "label": "メールアドレス",
         "placeholder": "abc123@gmail.com"
+      },
+      "password": {
+        "label": "パスワード",
+        "placeholder": "パスワード"
+      },
+      "confirm_password": {
+        "label": "パスワード確認",
+        "placeholder": "パスワード確認"
       },
       "passport_number": {
         "label": "パスポート番号",

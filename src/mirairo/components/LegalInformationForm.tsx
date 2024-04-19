@@ -1,4 +1,11 @@
-import { Grid, SimpleGrid, TextInput, Textarea, Title } from "@mantine/core";
+import {
+  Grid,
+  PasswordInput,
+  SimpleGrid,
+  TextInput,
+  Textarea,
+  Title,
+} from "@mantine/core";
 import React, { useState } from "react";
 import commonStyles from "../classes/Common.module.scss";
 import { useTranslation } from "react-i18next";
@@ -71,15 +78,15 @@ const LegalInformationForm = (props: Props) => {
             }
           />
 
-          <TextInput
+          {/* <TextInput
             label={t("mirairo.form.email.label")}
             placeholder={t("mirairo.form.email.placeholder")}
             onChange={formik.handleChange("email")}
-            // required
+            required
             name="email"
             value={formik.values.email}
             error={formik.touched.email && Boolean(formik.errors.email)}
-          />
+          /> */}
         </SimpleGrid>
 
         <SimpleGrid mt={0} cols={{ base: 1, sm: 2 }}>
@@ -120,6 +127,60 @@ const LegalInformationForm = (props: Props) => {
           />
         </SimpleGrid>
       </SimpleGrid>
+
+      <Title order={2} c="text" mt={"md"} ta="left">
+        {t("mirairo.sections.accountDetails")}
+      </Title>
+      <Grid>
+        <Grid.Col mt={"xs"} span={{ base: 12, md: 6 }}>
+          <TextInput
+            label={t("mirairo.form.email.label")}
+            placeholder={t("mirairo.form.email.placeholder")}
+            onChange={formik.handleChange("email")}
+            required
+            name="email"
+            value={formik.values.email}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+          />
+        </Grid.Col>
+        <Grid.Col mt={"xs"} span={{ base: 12, md: 6 }}></Grid.Col>
+      </Grid>
+
+      <Grid>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <PasswordInput
+            label={t("mirairo.interview.password.label")}
+            //   placeholder="Your password"
+            placeholder="********"
+            size="md"
+            mt="md"
+            value={formik.values.password}
+            required
+            onChange={formik.handleChange("password")}
+            name="password"
+            error={formik.touched.password && Boolean(formik.errors.password)}
+          />
+        </Grid.Col>
+        <Grid.Col span={{ base: 12, md: 6 }}>
+          <PasswordInput
+            label={t("mirairo.interview.password.label")}
+            //   placeholder="Your password"
+            placeholder="********"
+            rightSection=""
+            size="md"
+            mt="md"
+            required
+            value={formik.values.confirm_password}
+            onChange={formik.handleChange("confirm_password")}
+            name="confirm_password"
+            error={
+              formik.touched.confirm_password &&
+              // Boolean()
+              formik.errors.confirm_password
+            }
+          />
+        </Grid.Col>
+      </Grid>
     </React.Fragment>
   );
 };

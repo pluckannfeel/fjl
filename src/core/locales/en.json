@@ -21,6 +21,7 @@
     "retry": "Try Again",
     "selected": "Selected",
     "login": "Login",
+    "logout": "Logout",
     "forgotPassword": "Forgot Password?",
     "snackbar": {
       "error": "Error",
@@ -74,7 +75,61 @@
     }
   },
   "mirairo": {
-    "name": "Mirairo ",
+    "title": "Generate Resume",
+    "header": {
+      "resumeDetails": "Resume Details",
+      "showExperiences": "Show Work Experiences",
+      "showQualificationsLicenses": "Show Qualifications & Licenses",
+      "showEducation": "Show Educational Background",
+      "showUniqueQuestions": "Show Unique Questions",
+      "colorThemeSelection": "Select Theme",
+      "fontSelection": "Select Font"
+    },
+    "alert": {
+      "attention": "Attention",
+      "saveChanges": "Make sure to save changes after Editing!"
+    },
+    "name": "Mirairo",
+    "links": {
+      "dashboard": "Dashboard",
+      "yourResume": "Your Resume"
+    },
+    "auth": {
+      "forgotPassword": {
+        "form": {
+          "action": "Send Confirmation",
+          "back": "Back to login",
+          "email": {
+            "label": "E-mail Address"
+          }
+        },
+        "notifications": {
+          "success": "Email has been sent!"
+        },
+        "subTitle": "To get a validation code, enter the e-mail address associated to your account.",
+        "title": "Get validation code"
+      },
+      "forgotPasswordSubmit": {
+        "form": {
+          "action": "Reset Password",
+          "back": "Back to login",
+          "code": {
+            "label": "Code"
+          },
+          "confirmPassword": {
+            "label": "Confirm Password"
+          },
+          "newPassword": {
+            "label": "New Password"
+          }
+        },
+        "notifications": {
+          "success": "Your password has been changed!"
+        },
+        "subTitle": "Enter the code you received by mail and choose a new password.",
+        "title": "Change your password"
+      }
+    },
     "introduction": {
       "title": "Interview Candidate Site",
       "description": "We have interviewed many Filipinos in the past, and noticed that the self-introductions from our Japanese-speaking candidates tend to follow a similar pattern, which charmingly reflects a cultural consistency, though it makes it a bit tricky for us to glimpse the unique personalities behind each one. We realized they use the same format, and we wanted something different.",
@@ -96,14 +151,21 @@
       "workExperience": "Work Experience",
       "qualificationsLicenses": "Qualifications & Licenses",
       "skillsLanguages": "Skills & Languages",
+      "certifications": "Certifications",
+      "photos": "Photos",
       "SelfCareerPlans": "Self Career Plans",
       "photosVideosLinks": "Favorite Photos, Short Videos/Reels",
-      "uniqueQuestions": "Unique Questions"
+      "uniqueQuestions": "Unique Questions",
+      "accountDetails": "Account Details"
     },
     "actions": {
-      "getStarted": "Get Started"
+      "getStarted": "Get Started",
+      "updateResume": "Update Resume"
     },
     "form": {
+      "notifications": {
+        "updateResumeSuccess": "Your resume has been updated!"
+      },
       "img": {
         "label": "Image",
         "description": "Upload your favorite photo that describes you.",
@@ -191,6 +253,14 @@
       "email": {
         "label": "Email Address",
         "placeholder": "abc123@gmail.com"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Password"
+      },
+      "confirm_password": {
+        "label": "Confirm Password",
+        "placeholder": "Confirm Password"
       },
       "passport_number": {
         "label": "Passport Number",
