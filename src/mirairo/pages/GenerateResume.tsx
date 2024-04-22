@@ -51,6 +51,7 @@ import {
   NATs,
   getNestedError,
   convertBase64ToFile,
+  convertImageUrlToBase64,
 } from "../helpers/constants";
 import { DateInput, DateValue } from "@mantine/dates";
 import dayjs from "dayjs";
@@ -111,7 +112,6 @@ const GenerateResume = () => {
   // );
 
   const { applicantInfo: applicantData, isDataLoading } = useApplicantAuth();
-
   const { updateResume, isLoading: isResumeUpdating } =
     useUpdateApplicantResume();
   //set a state for applicant_data
@@ -123,7 +123,6 @@ const GenerateResume = () => {
     first_name: applicantData?.first_name ?? "",
     last_name: applicantData?.last_name ?? "",
     middle_name: applicantData?.middle_name ?? "",
-
     birth_date: applicantData?.birth_date ?? "",
     age: applicantData?.age ?? 0,
     gender: applicantData?.gender ?? "",
@@ -165,23 +164,28 @@ const GenerateResume = () => {
     confirm_password: "",
   };
 
+  // console.log("initialValues", applicantData);
+
   const formik = useFormik({
     initialValues,
     onSubmit: async (values) => {
       // console.log(values);
       setResumeDetails(values);
 
-      const imgName = "applicant_image.jpg";
-      const modifiedValues: ApplicantResume = {
-        ...values,
-        // detect if img_url was changed
-        img_url:
-          values.img_url !== applicantData?.img_url
-            ? convertBase64ToFile(values.img_url as string, imgName)
-            : values.img_url,
-      };
+      // const imgName = "applicant_image.jpg";
+      // const modifiedValues: ApplicantResume = {
+      //   ...values,
+      //   // detect if img_url was changed
+      //   // img_url:
+      //   //   values.img_url !== applicantData?.img_url
+      //   //     ? values.img_url
+      //   //     : applicantData?.img_url,
+      //   //   values.img_url !== applicantData?.img_url
+      //   //     ? convertBase64ToFile(values.img_url as string, imgName)
+      //   //     : values.img_url,
+      // };
 
-      updateResume(modifiedValues).then((response) => {
+      updateResume(values).then((response) => {
         showNotification({
           // title: "Resume Updated",
           message: t("mirairo.form.notifications.updateResumeSuccess"),
@@ -189,7 +193,7 @@ const GenerateResume = () => {
         });
       });
 
-      console.log(modifiedValues);
+      console.log(values);
     },
   });
 
@@ -243,6 +247,14 @@ const GenerateResume = () => {
       });
   }
 
+  const [imageBase64, setImageBase64] = useState<string>("");
+
+  useEffect(() => {
+    convertImageUrlToBase64(formik.values.img_url as string)
+      .then((base64) => setImageBase64(base64))
+      .catch((error) => console.error("Failed to convert image:", error));
+  }, [formik.values.img_url]);
+
   // useEffect(() => {
   //   if (formik.values.img_url && "img_url" in  && (formik.values.img_url.img_url as any)) {
   //     // Convert to Base64 and update state
@@ -293,11 +305,12 @@ const GenerateResume = () => {
 
   const handleImageFileSelect = (file: File | null) => {
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        formik.setFieldValue("img_url", reader.result);
-      };
-      reader.readAsDataURL(file);
+      // const reader = new FileReader();
+      // reader.onloadend = () => {
+      //   formik.setFieldValue("img_url", reader.result);
+      // };
+      // reader.readAsDataURL(file);
+      formik.setFieldValue("img_url", file);
     } else {
       formik.setFieldValue("img_url", null);
     }
@@ -869,6 +882,7 @@ const GenerateResume = () => {
                           font={font}
                           theme={theme}
                           data={resumeDetails}
+                          display_photo={imageBase64}
                         />
                       }
                       fileName="CV.pdf"
@@ -886,8 +900,8 @@ const GenerateResume = () => {
                   style={{
                     borderRadius: 10,
                     width: "100%",
-                    // height: "100vh",
-                    height: "100%",
+                    height: "100vh",
+                    // height: "100%",
                     border: "none",
                   }}
                 >
@@ -895,6 +909,7 @@ const GenerateResume = () => {
                     font={font}
                     theme={theme}
                     data={resumeDetails}
+                    display_photo={imageBase64}
                   />
                 </PDFViewer>
               </Grid.Col>

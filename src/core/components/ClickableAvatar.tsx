@@ -34,8 +34,11 @@ const ClickableAvatar: React.FC<ClickableAvatarProps> = ({
   useEffect(() => {
     if (applicant_image && typeof applicant_image === "string") {
       setPreviewUrl(applicant_image);
+    } else if (applicant_image instanceof File) {
+      const fileUrl = URL.createObjectURL(applicant_image);
+      setPreviewUrl(fileUrl);
+      return () => URL.revokeObjectURL(fileUrl);
     } else {
-      // If no image is provided, reset the preview URL
       setPreviewUrl(null);
     }
   }, [applicant_image]);
@@ -44,10 +47,23 @@ const ClickableAvatar: React.FC<ClickableAvatarProps> = ({
     fileInputRef.current?.click();
   };
 
+  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0] || null;
+
+  //   handleFileSelect(file);
+  // };
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] || null;
-
-    handleFileSelect(file);
+    if (file) {
+      // Create a URL for the selected file
+      const fileUrl = URL.createObjectURL(file);
+      setPreviewUrl(fileUrl);
+      handleFileSelect(file);
+    } else {
+      setPreviewUrl(null);
+      handleFileSelect(null);
+    }
   };
 
   const handleClearImage = () => {

@@ -36,12 +36,8 @@ import utc from "dayjs/plugin/utc";
 
 import { ResumeStylesheet as styles } from "../../classes/ResumeBuilderStyles";
 import { useTranslation } from "react-i18next";
-import {
-  convertImageToBase64,
-  fetchImageAsFile,
-  isJapanese,
-  languageLevel,
-} from "../../helpers/constants";
+import { isJapanese, languageLevel } from "../../helpers/constants";
+import { useApplicantAuth } from "../../contexts/ApplicantAuthProvider";
 
 Font.register({
   family: "Noto_Sans",
@@ -302,6 +298,18 @@ const LinksList: React.FC<{
 };
 
 // Gallery component
+// const Gallery = ({ photo }: { photo: string }) => {
+//   return (
+//     <View style={styles.photos}>
+//       <View style={styles.imageContainer}>
+//         <View style={styles.imageWrapper}>
+//           <Image style={styles.photosImage} src={photo} />
+//         </View>
+//       </View>
+//     </View>
+//   );
+// };
+
 const Gallery = ({ photos }: { photos: string[] }) => {
   const photoElements = photos.map((photo, index) => (
     <View key={index} style={styles.imageWrapper}>
@@ -325,24 +333,17 @@ const getReadableTextColor = (backgroundColor: string) => {
 };
 
 // Create Document Component
-const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
+const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
+  theme,
+  font,
+  data,
+  display_photo,
+}) => {
   const darkerColor = darkenColor(theme.backgroundColor, 20);
   const { t } = useTranslation();
   const textColor = getReadableTextColor(darkerColor);
 
-  // const [imageFile, setImageFile] = useState<File | null>(null);
-
-  // useEffect(() => {
-  //   if (data?.img_url) {
-  //     // Assuming you want to extract a filename in a simple way
-  //     const filename = data?.img_url.toString().split("/").pop();
-  //     fetchImageAsFile(data?.img_url as string, filename as string)
-  //       .then((file) => setImageFile(file))
-  //       .catch((error) =>
-  //         console.error("Failed to convert image to file:", error)
-  //       );
-  //   }
-  // }, [data?.img_url]);
+  // console.log(data);
 
   // Sample skill levels
   const skills = [
@@ -418,7 +419,12 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
     ));
   };
 
-  //   console.log(data?.img_url);
+  // const resolveImageUrl = (url: string) => {
+  //   const corsProxy = "https://cors-anywhere.herokuapp.com/";
+  //   // Use proxy only if absolutely needed, you can also implement logic to detect CORS errors
+  //   return `${corsProxy}${url}`;
+  // };
+  // const displayPhoto = resolveImageUrl(data?.img_url as string);
 
   return (
     <Document>
@@ -453,7 +459,10 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
             </Text>
           </View>
 
-          <Image style={styles.image} src={data?.img_url as string} />
+          <Image
+            style={styles.image}
+            src={data?.img_url as unknown as string}
+          />
         </View>
         <View style={styles.profileSection}>
           <View
@@ -506,12 +515,12 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
               {/* <Text style={styles.content}>... content here ...</Text> */}
               <View style={styles.table}>
                 <View style={styles.row}>
-                  <Text style={[styles.contentLeft, styles.column]}>
+                  {/* <Text style={[styles.contentLeft, styles.column]}>
                     {t("mirairo.form.nationality.label")}
                   </Text>
                   <Text style={[styles.contentRight, styles.column]}>
                     {data?.nationality}
-                  </Text>
+                  </Text> */}
                 </View>
                 <View style={styles.row}>
                   <Text style={[styles.contentLeft, styles.column]}>
@@ -846,6 +855,9 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({ theme, font, data }) => {
           //   photos={data?.photos ? (data.photos as unknown as string[]) : []}
           photos={data?.photos ? (filteredPhotos as unknown as string[]) : []}
         />
+        {/* <Gallery
+          photo={data?.img_url ? (data.img_url as unknown as string) : ""}
+        /> */}
 
         {data?.links ? (
           data?.links?.length > 0 && (

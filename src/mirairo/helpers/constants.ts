@@ -252,11 +252,33 @@ export async function convertImageToBase64(imgUrl: string): Promise<string> {
   }
 }
 
-export async function fetchImageAsFile(
-  url: string,
-  filename: string
-): Promise<File> {
-  const response = await fetch(url);
-  const blob = await response.blob();
-  return new File([blob], filename, { type: blob.type });
-}
+/**
+ * Converts an image URL to a base64 string.
+ * @param url The URL of the image to convert.
+ * @returns A promise that resolves with the base64 string of the image.
+ */
+export const convertImageUrlToBase64 = (url: string): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    // Fetch the image
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.blob(); // Convert the response to a Blob
+      })
+      .then((blob) => {
+        // Create a FileReader to convert the Blob into a base64 string
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          // The result attribute contains the data as a base64 encoded string
+          resolve(reader.result as string);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(blob); // Start reading the blob as base64
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};

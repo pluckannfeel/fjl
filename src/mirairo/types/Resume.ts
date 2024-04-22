@@ -4,6 +4,7 @@ export interface ResumeBuilderProps {
   theme: ResumeTheme;
   font: string;
   data?: ApplicantResume;
+  display_photo: string;
 }
 
 export interface ResumeTheme {
