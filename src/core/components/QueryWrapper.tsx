@@ -25,6 +25,7 @@ const QueryWrapper = ({ children }: QueryWrapperProps) => {
                 localStorage.removeItem("formIsStarted");
                 localStorage.removeItem("formValues");
                 localStorage.removeItem("currentFormStep");
+                localStorage.removeItem("applicant_authkey");
 
                 resetErrorBoundary();
               }}

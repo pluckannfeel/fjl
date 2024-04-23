@@ -42,7 +42,8 @@ const Forbidden = lazy(() => import("./core/pages/Forbidden"));
 const NotFound = lazy(() => import("./core/pages/NotFound"));
 
 // Admin
-// const Admin = lazy(() => import("./admin/pages/Admin"));
+const Admin = lazy(() => import("./admin/pages/Admin"));
+const AdminLogin = lazy(() => import("./admin/pages/Login"));
 
 const AppRoutes = () => {
   return (
@@ -76,7 +77,7 @@ const AppRoutes = () => {
         </Route>
 
         <Route path="interview" element={<InterviewManagement />} />
-        {/* <Route path="admin" element={<Admin />} /> */}
+        <Route path="/admin-login" element={<AdminLogin />} />
 
         {/* <Route path="login" element={<Login />} />
         <Route path="forgot-password" element={<ForgotPassword />} />

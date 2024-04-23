@@ -13,7 +13,7 @@ interface AuthContextInterface {
   isLoggingOut: boolean;
   login: (email: string, password: string) => Promise<any>;
   logout: () => Promise<any>;
-  userInfo?: UserInfo;
+  adminInfo?: UserInfo;
   authKey: string;
 }
 
@@ -28,16 +28,16 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const { isLoggingIn, login } = useLogin();
   const { isLoggingOut, logout } = useLogout();
-  const { data: userInfo } = useUserInfo(authKey);
+  const { data: adminInfo } = useUserInfo(authKey);
 
   const hasRole = (roles?: string[]) => {
     if (!roles || roles.length === 0) {
       return true;
     }
-    if (!userInfo) {
+    if (!adminInfo) {
       return false;
     }
-    return roles.includes(userInfo.role);
+    return roles.includes(adminInfo.role);
   };
 
   const handleLogin = async (email: string, password: string) => {
@@ -70,7 +70,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         isLoggingOut,
         login: handleLogin,
         logout: handleLogout,
-        userInfo,
+        adminInfo,
         authKey,
       }}
     >

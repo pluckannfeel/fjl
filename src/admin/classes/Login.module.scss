@@ -1,0 +1,12 @@
+.title {
+  font-family: Greycliff CF, var(--mantine-font-family);
+  font-weight: 900;
+}
+
+.settings {
+  //float top-right
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: rem(20px) rem(30px);
+}
