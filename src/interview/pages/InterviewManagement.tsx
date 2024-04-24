@@ -10,7 +10,6 @@ import {
   Button,
   Grid,
 } from "@mantine/core";
-import { LandingHeader } from "../../core/components/Header";
 import { motion } from "framer-motion"; // Step 1: Import motion
 import { notifications } from "@mantine/notifications";
 
