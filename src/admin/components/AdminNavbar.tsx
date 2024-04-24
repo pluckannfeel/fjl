@@ -9,7 +9,7 @@ import {
   IconUser,
   IconSettings,
 } from "@tabler/icons-react";
-import classes from "./DoubleNavbar.module.css";
+import classes from "@/admin/classes/AdminNavbar.module.scss";
 
 const mainLinksMockdata = [
   { icon: IconHome2, label: "Home" },
