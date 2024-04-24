@@ -24,9 +24,9 @@ import {
   IconSettingsFilled,
 } from "@tabler/icons-react";
 import classes from "../classes/Header.module.css";
-import { ModeToggleAction } from "../../core/components/ModeToggleAction";
-import { FontSizeToggleAction } from "../../core/components/FontSizeToggleAction";
-import { LanguageToggleAction } from "../../core/components/LanguageToggleActions";
+import { ModeToggleAction } from "./ModeToggleAction";
+import { FontSizeToggleAction } from "./FontSizeToggleAction";
+import { LanguageToggleAction } from "./LanguageToggleActions";
 
 interface Link {
   link: string;
@@ -49,7 +49,7 @@ interface LandingHeaderProps {
   title: string;
 }
 
-export function LandingHeader({ title }: LandingHeaderProps) {
+export function Header({ title }: LandingHeaderProps) {
   //   const [opened, { toggle }] = useDisclosure(false);
   //   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
   //     useDisclosure(false);

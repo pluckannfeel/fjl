@@ -1,5 +1,8 @@
 {
   "admin": {},
+  "actions": {
+    "learnMore": "Learn More"
+  },
   "common": {
     "yes": "Yes",
     "no": "No",
@@ -160,6 +163,7 @@
     },
     "actions": {
       "getStarted": "Get Started",
+
       "updateResume": "Update Resume"
     },
     "form": {
@@ -487,6 +491,70 @@
       "interviewTime": {
         "title": "Select Interview Time",
         "label": "Desired Time"
+      }
+    }
+  },
+  "title": "Philippine HR Development Lab",
+  "subTitle": [
+    "Consistent support from Japanese language education to aftercare.",
+    "We provide a one-stop service from talent referral to recruitment."
+  ],
+  "landing": {
+    "home": "Home",
+    "about": "About Us",
+    "services": "Services",
+    "contact": "Contact Us"
+  },
+  "home": {
+    "label": "Home",
+    "description": "hero here"
+  },
+  "about": {
+    "label": "About Us",
+    "description": [
+      "Hello, we at the Philippine Human Resource Development Lab (hereinafter referred to as FJL) primarily focus on the development and placement of Filipino talents who can speak Japanese. Amidst the numerous companies facilitating foreign talent placement, we specialize exclusively in nurturing and placing Filipino talents.",
+      "In our welfare services division's home visit care office, many Filipinos are employed. When collaborating with foreign nationals, it's crucial to understand their culture, customs, religious beliefs, and values. It's important to recognize and respect each other as individuals to build a relationship based on respect and trust. The charm of Filipino talents lies undoubtedly in their carefree smiles and seriousness. Their presence tends to create a bright and fun atmosphere at the workplace, which is one of their many appealing traits.",
+      "By collaborating with foreign workers with these points in mind, you can utilize talents with diverse cultures and values and deepen mutual understanding. In particular, Filipino talents are expected to brighten and enliven the workplace environment due to their cheerful and hardworking nature. FJL supports the recruitment activities of many companies handling foreign talents, offering a wide range of services including training programs and follow-up support that take into account the cultural and customary differences between Japan and the Philippines. Recruiting foreign talent has many challenges and difficulties. However, with the right recruitment mindset, understanding and respecting each other's cultures and customs, you can achieve good results."
+    ],
+    "signature": [
+      "MAKE YOU SMILE Co. Ltd.",
+      "Philippine Human Resource Development Lab",
+      "President and Director / Foreign Employment Labor Consultant",
+      "Kazuhiro Ito"
+    ]
+  },
+  "services": {
+    "label": "Our Business Contents",
+    "description": "lets put a brief description here on what type of services we offer",
+    "links": {
+      "acs": {
+        "title": "Angel Care Services",
+        "description": "A part-time work entry sheet for international students for making schedule to web interview."
+      },
+      "mirairo": {
+        "title": "MIRAIRO",
+        "description": "We've developed a new kind of resume system that lets us discover not just a candidate's skills but also their personality and uniqueness during the interview."
+      }
+    }
+  },
+  "contact": {
+    "label": "Contact Us",
+    "postal_code": "231-0002",
+    "address": "304 YT Bashamichi Bldg, 4-20-2 Kaigandōri, Naka-ku, Yokohama, Kanagawa, Japan",
+    "number": "050-5576-7767",
+    "email": "fjl@makeyousmile.jp",
+    "description": "Leave your email and we will get back to you within 24 hours",
+    "workingHours": "Monday to Friday, 9:00 AM to 6:00 PM",
+    "form": {
+      "title": "Contact Us",
+      "name": {
+        "label": "Name"
+      },
+      "email": {
+        "label": "Email"
+      },
+      "message": {
+        "label": "Message"
       }
     }
   }

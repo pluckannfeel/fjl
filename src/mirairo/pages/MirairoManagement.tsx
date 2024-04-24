@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useMantineTheme, Paper, Container, Center, Box } from "@mantine/core";
-import { LandingHeader } from "../../landing/components/Header";
 import { Introduction } from "../components/Introduction";
 import { motion } from "framer-motion"; // Step 1: Import motion
 import MirairoForm from "../components/MirairoForm";
@@ -13,6 +12,7 @@ import { useFormikContext } from "../contexts/FormProvider";
 import { useLocalStorage } from "@mantine/hooks";
 import { useNavigate } from "react-router";
 import classes from "../classes/Mirairo.module.scss";
+import { Header } from "../../core/components/Header";
 
 const MirairoManagement: React.FC = () => {
   const navigate = useNavigate();
@@ -112,7 +112,7 @@ const MirairoManagement: React.FC = () => {
       <div className={classes.root}>
         {!formSubmitted ? (
           <>
-            <LandingHeader title="Mirairo 未来路 " />
+            <Header title="Mirairo 未来路 " />
             {isStarted ? (
               <motion.div
                 initial="hidden"

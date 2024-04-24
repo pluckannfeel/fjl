@@ -13,7 +13,7 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useApplicantForgotPassword } from "../hooks/useApplicantForgotPassword";
 import { showNotification } from "@mantine/notifications";
 import * as Yup from "yup";
-import { LandingHeader } from "../../landing/components/Header";
+import { Header } from "../../core/components/Header";
 import React from "react";
 import classes from "../classes/Mirairo.module.scss";
 
@@ -60,7 +60,7 @@ const ApplicantForgotPassword: React.FC<ApplicantForgotPasswordProps> = (
 
   return (
     <div className={classes.root}>
-      <LandingHeader title="Mirairo 未来路 " />
+      <Header title="Mirairo 未来路 " />
       <Container pt={50}>
         <Title c={"white"} mb={20}>
           {t("mirairo.auth.forgotPassword.title")}

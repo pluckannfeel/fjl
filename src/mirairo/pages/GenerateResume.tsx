@@ -18,7 +18,7 @@ import {
   CardSection,
   SimpleGrid,
 } from "@mantine/core";
-import { LandingHeader } from "../../landing/components/Header";
+import { Header } from "../../core/components/Header";
 import { PDFDownloadLink, PDFViewer, usePDF } from "@react-pdf/renderer";
 import ResumeBuilder from "../components/Resume/ResumeBuilder";
 import { IconDoorEnter, IconInfoCircle, IconX } from "@tabler/icons-react";
