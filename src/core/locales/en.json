@@ -555,7 +555,13 @@
       },
       "message": {
         "label": "Message"
-      }
+      },
+      "send_message": "Send Message"
+    },
+    "notifications": {
+      "title": "Message Sent",
+      "success": "Your message has been sent!",
+      "failed": "Failed to send message. Please try again later."
     }
   }
 }

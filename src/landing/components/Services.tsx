@@ -46,53 +46,67 @@ const Services = () => {
   const { ref } = useSectionInView("services");
 
   // Motion variants for animation
-  const cardVariants = {
-    hover: {
-      scale: 1.05,
-      backgroundColor: theme.colors.lime[6], // Dynamically adjust to theme color
-      transition: { type: "spring", stiffness: 300 },
-    },
-    initial: {
-      scale: 1,
-      backgroundColor: "transparent", // Default background color
-    },
-  };
+  // const cardVariants = {
+  //   hover: {
+  //     scale: 1.05,
+  //     backgroundColor: theme.colors.lime[6], // Dynamically adjust to theme color
+  //     transition: { type: "spring", stiffness: 300 },
+  //   },
+  //   initial: {
+  //     scale: 1,
+  //     backgroundColor: "transparent", // Default background color
+  //   },
+  // };
 
-  const features = mockdata.map((feature) => (
-    <Card
-      key={feature.title}
-      shadow="md"
-      radius="md"
-      className={classes.cardWrapper}
-      padding={0} // No padding here, padding is handled by .cardContent
-      onClick={() => navigate(feature.link)}
-    >
-      <motion.div
-        variants={{
-          ...cardVariants,
-          hover: {
-            backgroundColor: feature.color,
-            color: feature.textColor,
-          },
-        }}
-        initial="initial"
-        whileHover="hover"
-        className={classes.cardContent} // Apply the class here
+  const features = mockdata.map((feature) => {
+    const cardVariants = {
+      hover: {
+        scale: 1.05,
+        // You could also use template strings to include theme colors dynamically if needed
+        backgroundColor: [feature.color, "rgba(145, 167, 255, 0)"], // Example for a color fading to transparent
+        transition: { type: "spring", stiffness: 300 },
+      },
+      initial: {
+        scale: 1,
+        backgroundColor: "rgba(0, 0, 0, 0)", // Change transparent to this format
+      },
+    };
+    return (
+      <Card
+        key={feature.title}
+        shadow="md"
+        radius="md"
+        className={classes.cardWrapper}
+        padding={0} // No padding here, padding is handled by .cardContent
+        onClick={() => navigate(feature.link)}
       >
-        <feature.icon
-          style={{ width: 48, height: 48 }}
-          stroke={2}
-          color={theme.colors.blue[6]}
-        />
-        <Text size="lg" fw={700} className={classes.cardTitle} mt="md">
-          {t(feature.title)}
-        </Text>
-        <Text size="sm" c="white" mt="sm">
-          {t(feature.description)}
-        </Text>
-      </motion.div>
-    </Card>
-  ));
+        <motion.div
+          variants={{
+            ...cardVariants,
+            hover: {
+              backgroundColor: feature.color,
+              color: feature.textColor,
+            },
+          }}
+          initial="initial"
+          whileHover="hover"
+          className={classes.cardContent} // Apply the class here
+        >
+          <feature.icon
+            style={{ width: 48, height: 48 }}
+            stroke={2}
+            color={theme.colors.blue[6]}
+          />
+          <Text size="lg" fw={700} className={classes.cardTitle} mt="md">
+            {t(feature.title)}
+          </Text>
+          <Text size="sm" c="white" mt="sm">
+            {t(feature.description)}
+          </Text>
+        </motion.div>
+      </Card>
+    );
+  });
 
   return (
     <Container ref={ref} id="services" size="lg" py="lg" my="xl">
