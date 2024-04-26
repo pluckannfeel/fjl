@@ -83,8 +83,10 @@
       "resumeDetails": "履歴書の詳細",
       "showExperiences": "経験を表示",
       "showQualificationsLicenses": "資格・免許を表示",
+      "showFamily": "日本にいる新人、家族、親戚を表示",
       "showEducation": "学歴を表示",
       "showUniqueQuestions": "ユニーク質問を表示",
+      "showRequiredQuestions": "必須質問を表示",
       "colorThemeSelection": "カラーテーマ選択",
       "fontSelection": "フォント選択"
     },
@@ -149,7 +151,7 @@
     "sections": {
       "personalInformation": "個人情報",
       "legalInformation": "法的情報",
-      "family": "在日親族について",
+      "family": "日本に友人、知人、親戚がいますか？",
       "educationalBackground": "学歴",
       "workExperience": "職歴",
       "qualificationsLicenses": "資格・免許",
@@ -159,6 +161,7 @@
       "SelfCareerPlans": "自己PR・キャリアプラン",
       "photosVideosLinks": "お気に入りの写真や動画をアップ",
       "uniqueQuestions": "ユニーク質問集",
+      "requiredQuestions": "必須質問",
       "accountDetails": "アカウント情報"
     },
     "actions": {
@@ -423,6 +426,28 @@
       "select_interview_date": {
         "label": "面接日時",
         "placeholder": "日付を選択"
+      },
+      "requiredQuestions": {
+        "questions": {
+          "1": "外国で仕事をしたことがありますか？",
+          "2": "タバコを吸いますか？",
+          "3": "お酒を飲みますか？",
+          "4": "刺青（いれずみ）がありますか？",
+          "5": "アレルギー・持病はありますか？",
+          "6": "過去に大きな病気、手術はありますか？",
+          "7": "日本で希望給与はいくらですか？"
+        },
+        "answers": {
+          "yes": "はい",
+          "no": "いいえ",
+          "expected_salary": {
+            "1": "50,000 PHP~",
+            "2": "70,000 PHP~",
+            "3": "100,000 PHP~",
+            "4": "150,000 PHP~",
+            "5": "200,000 PHP~"
+          }
+        }
       }
     },
     "interview": {

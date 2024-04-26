@@ -163,7 +163,7 @@ const LegalInformationForm = (props: Props) => {
         </Grid.Col>
         <Grid.Col span={{ base: 12, md: 6 }}>
           <PasswordInput
-            label={t("mirairo.interview.password.label")}
+            label={t("mirairo.interview.confirm_password.label")}
             //   placeholder="Your password"
             placeholder="********"
             rightSection=""

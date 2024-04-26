@@ -44,6 +44,7 @@ const updateResume = async (applicant: ApplicantResume) => {
     future_career_plan: applicant.future_career_plan,
     links: applicant.links,
     unique_questions: applicant.unique_questions,
+    required_questions: applicant.required_questions,
   };
 
   if (applicantImg && !applicantImg.toString().includes("https://"))

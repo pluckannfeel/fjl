@@ -267,6 +267,37 @@ const UniqueQuestionsList: React.FC<{
   );
 };
 
+interface RequiredQuestionsListProps {
+  hasFamily: boolean;
+  requiredQuestions: Questions[] | undefined;
+  darkerColor: string;
+}
+
+const RequiredQuestionsList: React.FC<RequiredQuestionsListProps> = ({
+  hasFamily,
+  requiredQuestions,
+}) => {
+  return (
+    <View>
+      {requiredQuestions?.map((item) => {
+        const questionText = item.question.replace(/^\d+\.\s*/, ""); // Clean the question string
+        return (
+          <View style={styles.rqRow} key={item.id}>
+            <View style={styles.questionContainer}>
+              <Text
+                style={styles.question}
+              >{`${item.id}.)  ${questionText}`}</Text>
+            </View>
+            <View style={styles.answerContainer}>
+              <Text style={styles.answer}>{item.answer}</Text>
+            </View>
+          </View>
+        );
+      })}
+    </View>
+  );
+};
+
 const LinksList: React.FC<{
   links: Link[] | undefined;
   darkerColor: string;
@@ -342,8 +373,6 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
   const darkerColor = darkenColor(theme.backgroundColor, 20);
   const { t } = useTranslation();
   const textColor = getReadableTextColor(darkerColor);
-
-  // console.log(data);
 
   // Sample skill levels
   const skills = [
@@ -819,6 +848,35 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
 
           <UniqueQuestionsList
             uniqueQuestions={data?.unique_questions}
+            darkerColor={darkerColor}
+          />
+        </View>
+
+        <View style={styles.uniqueQuestionsSection}>
+          <View
+            style={[
+              styles.titleContainer,
+              {
+                borderBottomColor: darkerColor,
+                marginBottom: 10,
+              },
+            ]}
+          >
+            <Text
+              style={[
+                styles.title,
+                {
+                  color: darkerColor,
+                },
+              ]}
+            >
+              {t("mirairo.sections.requiredQuestions")}
+            </Text>
+          </View>
+
+          <RequiredQuestionsList
+            hasFamily={(data?.family && data.family.length > 0) as boolean}
+            requiredQuestions={data?.required_questions}
             darkerColor={darkerColor}
           />
         </View>

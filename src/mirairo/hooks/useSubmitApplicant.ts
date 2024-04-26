@@ -48,6 +48,7 @@ const submitApplicant = async (applicant: Applicant) => {
     future_career_plan: applicant.future_career_plan,
     links: applicant.links,
     unique_questions: applicant.unique_questions,
+    required_questions: applicant.required_questions,
   };
 
   const formData = new FormData();

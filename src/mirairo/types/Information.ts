@@ -39,6 +39,7 @@ export type PersonalInformation = {
   photos?: File[];
   links?: Link[];
   unique_questions: Questions[];
+  required_questions: Questions[];
 };
 
 type Name = {
@@ -147,4 +148,5 @@ export type ApplicantResume = {
   photos?: File[];
   links?: Link[];
   unique_questions: Questions[];
+  required_questions: Questions[];
 };

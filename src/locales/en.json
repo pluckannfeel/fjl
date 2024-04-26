@@ -83,7 +83,9 @@
       "resumeDetails": "Resume Details",
       "showExperiences": "Show Work Experiences",
       "showQualificationsLicenses": "Show Qualifications & Licenses",
+      "showFamily": "Show Friends/Family in Japan",
       "showEducation": "Show Educational Background",
+      "showRequiredQuestions": "Show Required Questions",
       "showUniqueQuestions": "Show Unique Questions",
       "colorThemeSelection": "Select Theme",
       "fontSelection": "Select Font"
@@ -149,7 +151,7 @@
     "sections": {
       "personalInformation": "Personal Information",
       "legalInformation": "Legal Information",
-      "family": "Do you have Family/Relatives in Japan?",
+      "family": "Do you have Friends, Family/Relatives in Japan?",
       "educationalBackground": "Educational Background",
       "workExperience": "Work Experience",
       "qualificationsLicenses": "Qualifications & Licenses",
@@ -159,6 +161,7 @@
       "SelfCareerPlans": "Self Career Plans",
       "photosVideosLinks": "Favorite Photos, Short Videos/Reels",
       "uniqueQuestions": "Unique Questions",
+      "requiredQuestions": "Required Questions",
       "accountDetails": "Account Details"
     },
     "actions": {
@@ -435,6 +438,28 @@
       "select_interview_date": {
         "label": "Select Interview Date",
         "placeholder": "Select Date"
+      },
+      "requiredQuestions": {
+        "questions": {
+          "1": "Did you work in overseas before?",
+          "2": "Do you smoke?",
+          "3": "Do you drink alcohol?",
+          "4": "Do you have a tattoo?",
+          "5": "Do you have allergy or chronic disease?",
+          "6": "Did you have major operations (surgery) before?",
+          "7": "How much is your expected salary?"
+        },
+        "answers": {
+          "yes": "Yes",
+          "no": "no",
+          "expected_salary": {
+            "1": "50,000 PHP~",
+            "2": "70,000 PHP~",
+            "3": "100,000 PHP~",
+            "4": "150,000 PHP~",
+            "5": "200,000 PHP~"
+          }
+        }
       }
     },
     "interview": {

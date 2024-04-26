@@ -92,6 +92,29 @@ export const uniqueQuestionsList = [
   { label: "mirairo.form.uniqueQuestions.30", value: "30" },
 ];
 
+export const expectedSalaries = [
+  {
+    label: "mirairo.form.requiredQuestions.answers.expected_salary.1",
+    value: "50,000 PHP~",
+  },
+  {
+    label: "mirairo.form.requiredQuestions.answers.expected_salary.2",
+    value: "70,000 PHP~",
+  },
+  {
+    label: "mirairo.form.requiredQuestions.answers.expected_salary.3",
+    value: "100,000 PHP~",
+  },
+  {
+    label: "mirairo.form.requiredQuestions.answers.expected_salary.4",
+    value: "150,000 PHP~",
+  },
+  {
+    label: "mirairo.form.requiredQuestions.answers.expected_salary.5",
+    value: "200,000 PHP~",
+  },
+];
+
 const currentYear = new Date().getFullYear();
 const startYear = 1975;
 const endYear = currentYear - 10; // Current year minus 10

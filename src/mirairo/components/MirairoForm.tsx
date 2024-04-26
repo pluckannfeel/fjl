@@ -46,6 +46,7 @@ import dayjs from "dayjs";
 import UniqueQuestionsForm from "./UniqueQuestionsForm";
 import { useDisclosure, useLocalStorage } from "@mantine/hooks";
 import CustomLoader from "../../core/components/Loader";
+import RequiredQuestionsForm from "./RequiredQuestionsForm";
 
 // Step definitions
 const formSteps = [
@@ -92,6 +93,11 @@ const formSteps = [
     fields: ["has_family", "family"],
   },
   {
+    name: "mirairo.sections.requiredQuestions",
+    component: RequiredQuestionsForm,
+    fields: ["required_questions"],
+  },
+  {
     name: "mirairo.sections.educationalBackground",
     component: EducationalBackgroundForm,
     fields: ["education"],
@@ -134,6 +140,7 @@ const formSteps = [
       "future_career_plan",
     ],
   },
+
   {
     name: "mirairo.sections.photosVideosLinks",
     component: PhotosVideoLinksForm,
@@ -258,6 +265,47 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
       question: "",
       answer: "",
     })),
+    required_questions: [
+      {
+        id: "1",
+        question:
+          "外国で仕事をしたことがありますか？ ( Did you work in overseas before? )",
+        answer: "",
+      },
+      {
+        id: "2",
+        question: "タバコを吸いますか？ ( Do you smoke? )",
+        answer: "",
+      },
+      {
+        id: "3",
+        question: "お酒を飲みますか？ ( Do you drink alcohol? )",
+        answer: "",
+      },
+      {
+        id: "4",
+        question: "刺青（いれずみ）がありますか？ ( Do you have tattoo? )",
+        answer: "",
+      },
+      {
+        id: "5",
+        question:
+          "アレルギー・持病はありますか？ ( Do you have any allergies or illness? )",
+        answer: "",
+      },
+      {
+        id: "6",
+        question:
+          "過去に大きな病気や手術はありますか？ ( Have you had any major illness or surgery in the past? )",
+        answer: "",
+      },
+      {
+        id: "7",
+        question:
+          "日本での希望給与はいくらですか？ ( How much is your expected salary in Japan? )",
+        answer: "",
+      },
+    ],
     // account information
     password: "",
     confirm_password: "",
@@ -319,6 +367,11 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
         residence_card_number: Yup.string().required(
           t("common.errors.required")
         ),
+      })
+    ),
+    required_questions: Yup.array().of(
+      Yup.object({
+        answer: Yup.string().required(t("common.errors.required")),
       })
     ),
     education: Yup.array().of(

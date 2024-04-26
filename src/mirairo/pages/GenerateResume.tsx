@@ -62,6 +62,9 @@ import UniqueQuestionsModal from "../components/Resume/UniqueQuestionsModal";
 import ClickableAvatar from "../../core/components/ClickableAvatar";
 import { useUpdateApplicantResume } from "../hooks/useUpdateApplicantResume";
 import { showNotification } from "@mantine/notifications";
+import RequiredQuestionsModal from "../components/Resume/RequiredQuestionsModal";
+import { modifyRequiredQuestions } from "../helpers/functions";
+import FamilyModal from "../components/Resume/FamilyModal";
 
 const GenerateResume = () => {
   const navigate = useNavigate();
@@ -77,6 +80,11 @@ const GenerateResume = () => {
   ] = useDisclosure();
 
   const [
+    familyModalOpened,
+    { open: familyModalOpen, close: familyModalClose },
+  ] = useDisclosure();
+
+  const [
     educationModalOpened,
     { open: educationModalOpen, close: educationModalClose },
   ] = useDisclosure();
@@ -89,6 +97,11 @@ const GenerateResume = () => {
   const [
     uniqueQuestionsModalOpened,
     { open: uniqueQuestionsModalOpen, close: uniqueQuestionsModalClose },
+  ] = useDisclosure();
+
+  const [
+    requiredQuestionsModalOpened,
+    { open: requiredQuestionsModalOpen, close: requiredQuestionsModalClose },
   ] = useDisclosure();
 
   const [theme, setTheme] = useLocalStorage<ResumeTheme>({
@@ -160,40 +173,43 @@ const GenerateResume = () => {
     // links: [],
     // unique_questions: [],
     unique_questions: applicantData?.unique_questions ?? [],
+    required_questions: applicantData?.required_questions ?? [],
     password: "",
     confirm_password: "",
   };
 
-  // console.log("initialValues", applicantData);
-
   const formik = useFormik({
     initialValues,
     onSubmit: async (values) => {
-      // console.log(values);
-      setResumeDetails(values);
+      const updatedRequiredQuestions = values.required_questions.map(
+        (question) => {
+          // Check if it's the question we want to update
+          if (question.id === "4") {
+            return {
+              ...question,
+              answer: values.family.length > 0 ? "yes" : "no",
+            };
+          }
+          // For all other questions, return them unchanged
+          return question;
+        }
+      );
 
-      // const imgName = "applicant_image.jpg";
-      // const modifiedValues: ApplicantResume = {
-      //   ...values,
-      //   // detect if img_url was changed
-      //   // img_url:
-      //   //   values.img_url !== applicantData?.img_url
-      //   //     ? values.img_url
-      //   //     : applicantData?.img_url,
-      //   //   values.img_url !== applicantData?.img_url
-      //   //     ? convertBase64ToFile(values.img_url as string, imgName)
-      //   //     : values.img_url,
-      // };
+      // Create a new object with the updated array
+      const updatedValues = {
+        ...values,
+        required_questions: updatedRequiredQuestions,
+      };
 
-      updateResume(values).then((response) => {
+      setResumeDetails(updatedValues);
+
+      updateResume(updatedValues).then((response) => {
         showNotification({
           // title: "Resume Updated",
           message: t("mirairo.form.notifications.updateResumeSuccess"),
           color: "teal",
         });
       });
-
-      console.log(values);
     },
   });
 
@@ -771,6 +787,50 @@ const GenerateResume = () => {
                         // className={commonStyles.title}
                         c="text"
                       >
+                        {t("mirairo.sections.family")}
+                      </Title>
+                      <Group mt="sm" ta="center">
+                        <Button
+                          // fullWidth
+                          size="auto"
+                          c="black"
+                          // color="action.4"
+                          color="cyan.4"
+                          onClick={familyModalOpen}
+                        >
+                          {t("mirairo.header.showFamily")}
+                        </Button>
+                      </Group>
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12 }}>
+                      <Title
+                        order={3}
+                        // className={commonStyles.title}
+                        c="text"
+                      >
+                        {t("mirairo.sections.requiredQuestions")}
+                      </Title>
+                      <Group mt="sm" ta="center">
+                        <Button
+                          // fullWidth
+                          size="auto"
+                          c="black"
+                          // color="action.4"
+                          color="cyan.4"
+                          onClick={requiredQuestionsModalOpen}
+                        >
+                          {t("mirairo.header.showRequiredQuestions")}
+                        </Button>
+                      </Group>
+                    </Grid.Col>
+
+                    <Grid.Col span={{ base: 12 }}>
+                      <Title
+                        order={3}
+                        // className={commonStyles.title}
+                        c="text"
+                      >
                         {t("mirairo.sections.workExperience")}
                       </Title>
                       <Group mt="sm" ta="center">
@@ -917,6 +977,17 @@ const GenerateResume = () => {
           </form>
         </Container>
       </Paper>
+
+      <FamilyModal
+        formik={formik}
+        opened={familyModalOpened}
+        close={familyModalClose}
+      />
+      <RequiredQuestionsModal
+        formik={formik}
+        opened={requiredQuestionsModalOpened}
+        close={requiredQuestionsModalClose}
+      />
 
       <WorkExperienceModal
         formik={formik}

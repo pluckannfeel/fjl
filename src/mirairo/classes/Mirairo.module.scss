@@ -1,12 +1,12 @@
 .root {
   /* Other properties remain unchanged */
   background-color: #11284b; /* Fallback color */
-  background: linear-gradient(200deg, rgba(130, 201, 30, 0) 0%, #062343 100%),
+  background: linear-gradient(200deg, rgba(130, 201, 30, 0) -50%, #062343 100%),
     url(https://fjl-bucket.s3.ap-northeast-1.amazonaws.com/uploads/interview/static/mirairo.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed; /* This will make the background fixed during scroll */
-//   padding-top: calc(var(--mantine-spacing-xl) * 3);
+  //   padding-top: calc(var(--mantine-spacing-xl) * 3);
   padding-bottom: calc(var(--mantine-spacing-xl) * 3);
   /* Remove the height restriction to allow the background to extend with content */
 }

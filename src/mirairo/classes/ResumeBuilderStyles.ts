@@ -296,4 +296,30 @@ export const ResumeStylesheet = StyleSheet.create({
     fontSize: 12,
     lineHeight: 1.6,
   },
+
+  rqRow: {
+    flexDirection: "row",
+    paddingTop: 5, // Adjust for space between rows
+    paddingBottom: 5, // Adjust for space between rows
+    borderBottomWidth: 0.3,
+  },
+  questionContainer: {
+    width: "70%",
+  },
+  answerContainer: {
+    width: "30%",
+    position: "absolute", // Position the answers absolutely relative to the row
+    right: 0, // Align to the right
+    top: 0, // Align to the top
+  },
+  question: {
+    fontSize: 10,
+    fontWeight: "bold",
+  },
+  answer: {
+    
+    fontSize: 12,
+    textAlign: "center", // Align answers to the right
+    paddingTop: 1, // Adjust if needed to vertically align with questions
+  },
 });

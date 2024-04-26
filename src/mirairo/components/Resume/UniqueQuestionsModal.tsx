@@ -27,7 +27,7 @@ const UniqueQuestionsModal: React.FC<UniqueQuestionsModalProps> = ({
     <Modal
       opened={opened}
       onClose={close}
-      size={"md"}
+      size={"xl"}
       style={{
         fontSize: "1.6rem",
       }}

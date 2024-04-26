@@ -2,12 +2,25 @@ import { useQuery } from "react-query";
 import { ApplicantResume, PersonalInformation } from "../types/Information";
 import { axiosInstance } from "../../api/server";
 
+// const fetchApplicantData = async (token: string): Promise<ApplicantResume> => {
+//   const { data } = await axiosInstance.get(`/applicant/get_applicant_info`, {
+//     params: {
+//       token: token,
+//     },
+//   });
+
+//   return data;
+// };
+
 const fetchApplicantData = async (token: string): Promise<ApplicantResume> => {
-  const { data } = await axiosInstance.get(`/applicant/get_applicant_info`, {
-    params: {
-      token: token,
-    },
-  });
+  const { data } = await axiosInstance.get<ApplicantResume>(
+    `/applicant/get_applicant_info`,
+    {
+      params: {
+        token: token,
+      },
+    }
+  );
 
   return data;
 };
