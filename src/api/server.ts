@@ -33,7 +33,7 @@ instance.interceptors.request.use(
   (error) => {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     console.error(
-      "Axios Error:",
+      "Server Error:",
       JSON.stringify(
         {
           message: error.message,

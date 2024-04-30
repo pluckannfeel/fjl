@@ -10,6 +10,7 @@ import SettingsProvider from "./core/contexts/SettingsProvider";
 import QueryWrapper from "./core/components/QueryWrapper";
 import AppRoutes from "./AppRoutes";
 import ApplicantAuthProvider from "./mirairo/contexts/ApplicantAuthProvider";
+import AuthProvider from "./auth/contexts/AuthProvider";
 
 // Create a client
 const queryClient = new QueryClient({
@@ -40,9 +41,11 @@ export default function App() {
             <SettingsProvider>
               <QueryWrapper>
                 {/* AuthProvider Before AppRoutes */}
-                <ApplicantAuthProvider>
-                  <AppRoutes />
-                </ApplicantAuthProvider>
+                <AuthProvider>
+                  <ApplicantAuthProvider>
+                    <AppRoutes />
+                  </ApplicantAuthProvider>
+                </AuthProvider>
               </QueryWrapper>
             </SettingsProvider>
           </I18nextProvider>

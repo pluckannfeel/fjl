@@ -1,6 +1,6 @@
-import { useMutation } from 'react-query';
-import { UserInfo } from '../types/userInfo';
-import { axiosInstance } from '../../api/server';
+import { useMutation } from "react-query";
+import { UserInfo } from "../types/userInfo";
+import { axiosInstance } from "../../api/server";
 
 const register = async (userInfo: UserInfo): Promise<UserInfo> => {
   // console.log(userInfo);
@@ -11,11 +11,12 @@ const register = async (userInfo: UserInfo): Promise<UserInfo> => {
     first_name: userInfo.first_name,
     last_name: userInfo.last_name,
     email: userInfo.email,
+    invitation_code: userInfo.invitation_code,
     password: userInfo.password,
     role: userInfo.role,
   };
 
-  const { data } = await axiosInstance.post('/users/register', formData);
+  const { data } = await axiosInstance.post("/users/register", formData);
 
   return data;
 };

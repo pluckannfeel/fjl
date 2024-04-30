@@ -11,8 +11,10 @@ const AdminRoute = ({ children }: AdminRouteProps) => {
   const { adminInfo } = useAuth();
 
   if (!adminInfo) {
-    return <Navigate to="/admin" replace />;
+    return <Navigate to="/admin-login" replace />;
   }
+
+  // check if there is auth key
 
   //   if (roles && !hasRole(roles)) {
   //     return <Navigate to="/403" replace />;

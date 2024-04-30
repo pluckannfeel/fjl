@@ -1,5 +1,56 @@
 {
-  "admin": {},
+  "admin": {
+    "header": {
+      "register": {
+        "title": "新規登録",
+        "subTitle": "ログインへ"
+      },
+      "login": {
+        "title": "FJL管理者ログイン",
+        "subTitle": "",
+        "registerLink": "新規登録へ"
+      }
+    },
+    "form": {
+      "login": {
+        "email": "メールアドレス",
+        "password": "パスワード"
+      },
+      "register": {
+        "first_name": "名",
+        "last_name": "姓",
+        "email": "メールアドレス",
+        "role": {
+          "label": "役割",
+          "options": {
+            "admin": "管理者",
+            "manager": "マネージャー"
+          }
+        },
+        "invitation_code": "招待コード",
+        "password": "パスワード",
+        "confirm_password": "パスワード確認"
+      },
+      "actions": {
+        "register": "登録",
+        "login": "ログイン",
+        "submit": "提出"
+      },
+      "rememberMe": "ログイン情報を保存する",
+      "forgotPassword": "パスワードをお忘れですか？"
+    },
+    "notifications": {
+      "success": "アカウントは正常に作成されました!",
+      "invalid_invitation_code": {
+        "title": "エラー",
+        "subTitle": "招待コードが無効です。"
+      },
+      "email_exists": {
+        "title": "エラー",
+        "subTitle": "このメールアドレスは既に登録されています。"
+      }
+    }
+  },
   "actions": {
     "learnMore": "もっと詳しく"
   },

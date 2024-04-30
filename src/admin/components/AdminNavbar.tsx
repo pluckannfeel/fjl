@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { UnstyledButton, Tooltip, Title, rem } from "@mantine/core";
+import {
+  UnstyledButton,
+  Tooltip,
+  Title,
+  rem,
+  Button,
+  Group,
+} from "@mantine/core";
 import {
   IconHome2,
   IconGauge,
@@ -10,6 +17,8 @@ import {
   IconSettings,
 } from "@tabler/icons-react";
 import classes from "@/admin/classes/AdminNavbar.module.scss";
+import { useAuth } from "@/auth/contexts/AuthProvider";
+import { useTranslation } from "react-i18next";
 
 const mainLinksMockdata = [
   { icon: IconHome2, label: "Home" },
@@ -38,6 +47,17 @@ const linksMockdata = [
 export function AdminNavbar() {
   const [active, setActive] = useState("Releases");
   const [activeLink, setActiveLink] = useState("Settings");
+  const { logout } = useAuth();
+  const { t } = useTranslation();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      // Redirect or perform additional actions post-logout
+    } catch (error) {
+      console.error("Logout failed: ", error);
+    }
+  };
 
   const mainLinks = mainLinksMockdata.map((link) => (
     <Tooltip
@@ -81,12 +101,19 @@ export function AdminNavbar() {
           </div>
           {mainLinks}
         </div>
+
         <div className={classes.main}>
           <Title order={4} className={classes.title}>
             {active}
           </Title>
 
           {links}
+
+          <Group p={20}>
+            <Button fullWidth mt={"xl"} onClick={handleLogout}>
+              {t("common.logout")}
+            </Button>
+          </Group>
         </div>
       </div>
     </nav>

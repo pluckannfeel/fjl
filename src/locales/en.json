@@ -1,5 +1,60 @@
 {
-  "admin": {},
+  "admin": {
+    "header": {
+      "register": {
+        "title": "Register New Admin/Staff",
+        "subTitle": "Already registerd? Log In here."
+      },
+      "login": {
+        "title": "Admin Panel Login",
+        "subTitle": "Do not have an account yet?",
+        "registerLink": "Create Account"
+      }
+    },
+    "form": {
+      "login": {
+        "email": "Email Address",
+        "password": "Password"
+      },
+      "register": {
+        "first_name": "First Name",
+        "last_name": "Last Name",
+        "email": "Email Address",
+        "role": {
+          "label": "Role",
+          "options": {
+            "admin": "Admin",
+            "manager": "Manager"
+          }
+        },
+        "invitation_code": "Invitation Code",
+        "password": "Password",
+        "confirm_password": "Confirm Password"
+      },
+      "actions": {
+        "register": "Register",
+        "login": "Login",
+        "submit": "Submit"
+      },
+      "rememberMe": "Remember Me",
+      "forgotPassword": "Forgot Password?"
+    },
+    "notifications": {
+      "success": "Your account has been created successfully!",
+      "invalid_invitation_code": {
+        "title": "Unauthorized",
+        "subTitle": "Invalid invitation code"
+      },
+      "email_exists": {
+        "title": "Unauthorized",
+        "subTitle": "Email already exists. Please try again with a different email."
+      },
+      "invalid_credentials": {
+        "title": "Unauthorized",
+        "subTitle": "Invalid email or password"
+      }
+    }
+  },
   "actions": {
     "learnMore": "Learn More"
   },

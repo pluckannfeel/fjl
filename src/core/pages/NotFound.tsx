@@ -28,7 +28,7 @@ const NotFound = () => {
             // variant="outline"
             size="md"
             mt="xl"
-            onClick={() => navigate("/mirairo")}
+            onClick={() => navigate("/")}
             className={classes.control}
           >
             Go Back
