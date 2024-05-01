@@ -8,6 +8,11 @@
   flex-direction: column;
   border-right: rem(1.5px) solid
     light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  position: fixed; // This keeps the navbar fixed during scrolling
+  top: 0; // Aligns the navbar at the top of the viewport
+  left: 0; // Aligns the navbar on the left side of the viewport
+  overflow-y: auto; // Allows scrolling within the navbar if content overflows
+  // z-index: 1000; // Ensures it stays on top of other content
 }
 
 .navbarMain {

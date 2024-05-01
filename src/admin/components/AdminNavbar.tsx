@@ -19,6 +19,7 @@ import { useNavigate } from "react-router";
 import { FontSizeToggleAction } from "@/core/components/FontSizeToggleAction";
 import { ModeToggleAction } from "@/core/components/ModeToggleAction";
 import ThemeSwitch from "@/core/components/ThemeSwitch";
+import { useLocalStorage } from "@mantine/hooks";
 
 const mockdata = [
   { icon: IconHome2, label: "admin.drawer.menu.home", path: "/admin" },
@@ -95,7 +96,12 @@ const NavbarLink = ({
 const AdminNavbar = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [active, setActive] = useState(0);
+  // const [active, setActive] = useState(0);
+  const [active, setActive] = useLocalStorage({
+    key: "activeNavbarLink",
+    defaultValue: 0,
+    getInitialValueInEffect: true,
+  });
   const { logout } = useAuth();
 
   const links = mockdata.map((link, index) => (

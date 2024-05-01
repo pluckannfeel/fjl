@@ -17,6 +17,7 @@ const Admin = () => {
         component="main"
         style={{
           flexGrow: 1,
+          marginLeft: "80px",
           // paddingBottom: "2rem",
         }}
         // px={{
