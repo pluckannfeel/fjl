@@ -18,15 +18,15 @@ const Home = () => {
   return (
     <div className={classes.wrapper}>
       <Container size={920} ref={ref} id="home" className={classes.inner}>
-        <h1 className={classes.title}>
-          <Text component="span" inherit>
+        <h1 className={classes.title} >
+          <Text component="span" inherit  c={"gray.1"}>
             {t("title")}
           </Text>{" "}
         </h1>
 
         <div className={classes.description}>
           {(subTitles as string[]).map((line, index) => (
-            <Text component="div" size="xl" key={index}>
+            <Text component="div" size="xl" key={index} c={"gray.1"}>
               {line}
             </Text>
           ))}

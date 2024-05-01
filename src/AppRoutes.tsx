@@ -46,6 +46,9 @@ const NotFound = lazy(() => import("./core/pages/NotFound"));
 // Admin
 const Admin = lazy(() => import("./admin/pages/Admin"));
 const AdminDashboard = lazy(() => import("./admin/pages/Dashboard"));
+const AdminApplicantManagement = lazy(
+  () => import("./admin/pages/ApplicantManagement")
+);
 const AdminLogin = lazy(() => import("./admin/pages/Login"));
 const AdminRegister = lazy(() => import("./admin/pages/Register"));
 // This component redirects the user to admin dashboard if they are authenticated and try to access the login page
@@ -111,6 +114,7 @@ const AppRoutes = () => {
           }
         >
           <Route index element={<AdminDashboard />} />
+          <Route path="applicants" element={<AdminApplicantManagement />} />
         </Route>
 
         {/* <Route path="login" element={<Login />} />

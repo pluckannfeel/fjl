@@ -1,5 +1,16 @@
 {
   "admin": {
+    "drawer": {
+      "menu": {
+        "home": "Home",
+        "dashboard": "Dashboard",
+        "applicants": "Applicants",
+        "analytics": "Analytics",
+        "account": "Account",
+        "settings": "Settings",
+        "logout": "Logout"
+      }
+    },
     "header": {
       "register": {
         "title": "Register New Admin/Staff",

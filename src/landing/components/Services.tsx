@@ -100,7 +100,7 @@ const Services = () => {
           <Text size="lg" fw={700} className={classes.cardTitle} mt="md">
             {t(feature.title)}
           </Text>
-          <Text size="sm" c="white" mt="sm">
+          <Text size="sm"  mt="sm">
             {t(feature.description)}
           </Text>
         </motion.div>

@@ -3,23 +3,27 @@ import React, { useState } from "react";
 import { Outlet } from "react-router";
 import QueryWrapper from "../../core/components/QueryWrapper";
 import { useSettings } from "../../core/contexts/SettingsProvider";
-import { AdminNavbar } from "../components/AdminNavbar";
+import AdminNavbar from "../components/AdminNavbar";
 
 const Admin = () => {
   return (
-    <Box>
+    <Box
+      style={{
+        display: "flex",
+      }}
+    >
+      <AdminNavbar />
       <Box
         component="main"
         style={{
           flexGrow: 1,
-          paddingBottom: "2rem",
+          // paddingBottom: "2rem",
         }}
-        px={{
-          "@sm": "2rem",
-          "@lg": "4rem",
-        }}
+        // px={{
+        //   "@sm": "2rem",
+        //   "@lg": "4rem",
+        // }}
       >
-        <AdminNavbar />
         <QueryWrapper>
           <Outlet />
         </QueryWrapper>

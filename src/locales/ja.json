@@ -1,5 +1,16 @@
 {
   "admin": {
+    "drawer": {
+      "menu": {
+        "home": "ホーム",
+        "dashboard": "ダッシュボード",
+        "applicants": "応募者",
+        "analytics": "分析",
+        "account": "アカウント",
+        "settings": "設定",
+        "logout": "ログアウト"
+      }
+    },
     "header": {
       "register": {
         "title": "新規登録",

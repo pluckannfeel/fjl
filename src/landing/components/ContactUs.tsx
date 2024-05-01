@@ -127,8 +127,10 @@ const ContactUs = () => {
                 classNames={{ input: classes.input, label: classes.inputLabel }}
               />
 
-              <Group justify="flex-end" mt="md">
+              <Group justify="flex-end" mt="lg">
                 <Button
+                  c={"gray.1"}
+                  size="md"
                   disabled={!formik.isSubmitting && !formik.dirty}
                   className={classes.control}
                   type="submit"

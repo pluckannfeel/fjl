@@ -1,15 +1,16 @@
 import React from "react";
 import { Text } from "@mantine/core";
-// type Props = {};
 
-const Dashboard: React.FC = () => {
+type Props = {};
+
+const ApplicantManagement = (props: Props) => {
   return (
     <React.Fragment>
       <Text ta="center" size="xl" style={{ marginTop: "2rem" }}>
-        This is the Dashboard
+        Applicant Management
       </Text>
     </React.Fragment>
   );
 };
 
-export default Dashboard;
+export default ApplicantManagement;

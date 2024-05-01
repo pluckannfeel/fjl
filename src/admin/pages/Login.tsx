@@ -45,7 +45,17 @@ const Login = () => {
       })
       .catch((error) => {
         console.log(error);
+
+        if (error.code === "ERR_NETWORK") {
+          showNotification({
+            title: t("common.errors.unexpected.title"),
+            message: t("common.errors.unexpected.subTitle"),
+            color: "red",
+          });
+        }
+
         const code = error.response.data["detail"];
+
         if (code === "invalid_credentials") {
           showNotification({
             title: t("common.errors.wrongCredentials.title"),
@@ -143,7 +153,7 @@ const Login = () => {
               {t("admin.form.forgotPassword")}
             </Anchor>
           </Group>
-          <Button fullWidth mt="xl" bg={"teal.6"} type="submit">
+          <Button fullWidth size="md" mt="xl" bg={"teal.6"} type="submit">
             {t("admin.form.actions.login")}
           </Button>
         </form>

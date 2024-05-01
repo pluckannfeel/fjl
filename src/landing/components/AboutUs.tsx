@@ -22,6 +22,7 @@ const AboutUs = () => {
           {/* A{" "} */}
           <Text
             component="span"
+            c={"gray.1"}
             // variant="gradient"
             // gradient={{ from: "blue", to: "cyan" }}
             inherit
@@ -34,10 +35,12 @@ const AboutUs = () => {
         <Text
           className={classes.description}
           // c="dimmed"
+          c={"gray.1"}
           component="div"
         >
           {(subTitles as string[]).map((line, index) => (
             <Text
+            c={"gray.1"}
               component="div"
               size="lg"
               style={{ marginBottom: "10px" }}
@@ -56,6 +59,7 @@ const AboutUs = () => {
         >
           {(signatures as string[]).map((line, index) => (
             <Text
+            c={"gray.1"}
               component="div"
               size="lg"
               style={{ marginBottom: "1px" }}
