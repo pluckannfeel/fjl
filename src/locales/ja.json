@@ -639,5 +639,11 @@
       "success": "メッセージが送信されました。後ほどご連絡いたします。",
       "failed": "メッセージの送信に失敗しました。"
     }
+  },
+  "dashboard": {
+    "title": "ダッシュボード"
+  },
+  "applicantManagement": {
+    "title": "応募者管理"
   }
 }

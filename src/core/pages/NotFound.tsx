@@ -46,6 +46,8 @@ const NotFound = () => {
           </Text>
           <Button
             // variant="outline"
+            variant="gradient"
+            gradient={{ from: "pink", to: "red" }}
             size="md"
             mt="xl"
             onClick={handleClick}

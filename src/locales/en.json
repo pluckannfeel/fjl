@@ -654,5 +654,11 @@
       "success": "Your message has been sent!",
       "failed": "Failed to send message. Please try again later."
     }
+  },
+  "dashboard": {
+    "title": "Dashboard"
+  },
+  "applicantManagement": {
+    "title": "Applicant Management"
   }
 }
