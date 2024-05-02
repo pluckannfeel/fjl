@@ -7,9 +7,9 @@ import {
   DataTableProps,
   DataTableSortStatus,
 } from "mantine-datatable";
-import { Box } from "@mantine/core";
+import { ActionIcon, Box, Group, useMantineTheme } from "@mantine/core";
 import classes from "../classes/ApplicantTable.module.scss";
-import { IconChevronUp, IconMoodSad, IconSelector } from "@tabler/icons-react";
+import { IconChevronUp, IconEdit, IconEye, IconMoodSad, IconSelector, IconTrash } from "@tabler/icons-react";
 import { sortBy } from "lodash";
 import { showNotification } from "@mantine/notifications";
 import dayjs from "dayjs";
@@ -30,6 +30,44 @@ type ApplicantTableProps = {
 // PDF
 
 const columns: DataTableColumn<ApplicantRecords>[] = [
+  { accessor: "id", hidden: true },
+  {
+    accessor: "actions",
+    title: <Box></Box>,
+    // width: 150,
+    textAlign: "left",
+    render: (company) => (
+      <Group gap={4} justify="left" wrap="nowrap">
+        <ActionIcon
+          size="sm"
+          variant="subtle"
+          color="green"
+          // onClick={() => showModal({ company, action: "view" })}
+          onClick={() => console.log("clicked view" )}
+        >
+          <IconEye size={16} />
+        </ActionIcon>
+        <ActionIcon
+          size="sm"
+          variant="subtle"
+          color="blue"
+          // onClick={() => showModal({ company, action: "edit" })}
+          onClick={() => console.log("clicked edit" )}
+        >
+          <IconEdit size={16} />
+        </ActionIcon>
+        <ActionIcon
+          size="sm"
+          variant="subtle"
+          color="red"
+          // onClick={() => showModal({ company, action: "delete" })}
+          onClick={() => console.log("clicked delete" )}
+        >
+          <IconTrash size={16} />
+        </ActionIcon>
+      </Group>
+    ),
+  },
   {
     accessor: "registered_date",
     title: "登録日",
@@ -49,6 +87,7 @@ const columns: DataTableColumn<ApplicantRecords>[] = [
 const PAGE_SIZE = 10;
 
 function ApplicantTable({ data: applicant }: ApplicantTableProps) {
+  const theme = useMantineTheme();
   //   const [page, setPage] = useState(1);
   //   const [sortStatus, setSortStatus] = useState<
   //     DataTableSortStatus<ApplicantRecords>
@@ -78,20 +117,21 @@ function ApplicantTable({ data: applicant }: ApplicantTableProps) {
 
   return (
     <DataTable
-      //   height={500}
-      //   scrollAreaProps={{ type: "never" }}
+      height={800}
+      scrollAreaProps={{ type: "never" }}
       idAccessor={(record) => record.id || ""}
       className={classes.root}
       selectedRecords={selectedRecords}
       onSelectedRecordsChange={setSelectedRecords}
-      //   textSelectionDisabled
+      textSelectionDisabled
       withTableBorder
       borderRadius="sm"
       withColumnBorders
       striped
       highlightOnHover
       horizontalSpacing="sm"
-      //   fz="sm"
+      selectionTrigger="cell"
+      fz="sm"
       verticalAlign="top"
       columns={columns}
       records={applicant}
@@ -122,6 +162,20 @@ function ApplicantTable({ data: applicant }: ApplicantTableProps) {
       // 👇 uncomment the next lines to use custom pagination colors
       // paginationActiveBackgroundColor="green"
       // paginationActiveTextColor="#e6e348"
+      styles={{
+        // 👇 this is a function that receives the current theme as argument
+        root: (theme) => ({
+          // border: `1px solid ${theme.colors.orange[6]}`,
+        }),
+        table: {
+          // color: "#666",
+        },
+        header: {
+          color: `${theme.colors.orange[6]}`,
+          fontSize: "125%",
+        },
+      }}
+      // ...
     />
   );
 }

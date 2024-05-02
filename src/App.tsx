@@ -1,5 +1,7 @@
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
+import "@mantine/core/styles.layer.css";
+import "mantine-datatable/styles.layer.css";
 import React from "react";
 import CustomLoader from "./core/components/Loader";
 import * as Sentry from "@sentry/react";

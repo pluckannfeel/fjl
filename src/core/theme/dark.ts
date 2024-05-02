@@ -19,7 +19,7 @@ import {
 import { DateInput, TimeInput } from "@mantine/dates";
 
 export const DarkTheme = createTheme({
-  primaryColor: "primary",
+  // primaryColor: "primary",
   defaultGradient: {
     from: "orange.7", // Example dark mode gradient start
     to: "yellow.4", // Example dark mode gradient end

@@ -3,6 +3,7 @@ import {
   MenuItem,
   Paper,
   Radio,
+  RadioGroup,
   Text,
   TextInput,
   createTheme,
@@ -10,7 +11,7 @@ import {
 import { t } from "i18next";
 
 export const LightTheme = createTheme({
-  primaryColor: "primary",
+  // primaryColor: "primary",
   defaultGradient: {
     from: "blue.9", // Example light mode gradient start
     to: "cyan.5", // Example light mode gradient end
@@ -139,7 +140,6 @@ export const LightTheme = createTheme({
       },
       styles: (theme) => ({
         // ...
-        
         // root: {
         //   // The root style applies to the entire radio component
         //   // Custom styles for the root element
@@ -163,6 +163,19 @@ export const LightTheme = createTheme({
         //   // Styles for the label, if needed
         // },
         // Add any other part styles if needed
+      }),
+    }),
+    RadioGroup: RadioGroup.extend({
+      defaultProps: {
+        // These default props will apply globally to all TextInput components
+        // variant: "filled", // Choose 'filled', 'unstyled', or 'default'
+      },
+      styles: (theme) => ({
+        error: {
+          marginTop: 8,
+          // Customize the error message color
+          color: theme.colors.orange[6], // Use light orange for errors
+        },
       }),
     }),
   },
