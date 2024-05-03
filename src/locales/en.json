@@ -42,6 +42,23 @@
         "password": "Password",
         "confirm_password": "Confirm Password"
       },
+      "recruiter": {
+        "label": "Recruiter",
+        "options": {
+          "mys": "Introduced by MYS",
+          "aqium": "AQIUM",
+          "mardel": "MARDEL"
+        }
+      },
+      "interview_date": {
+        "label": "Interview Date"
+      },
+      "result": {
+        "label": "Result"
+      },
+      "organization": {
+        "label": "Organization"
+      },
       "actions": {
         "register": "Register",
         "login": "Login",
@@ -49,6 +66,29 @@
       },
       "rememberMe": "Remember Me",
       "forgotPassword": "Forgot Password?"
+    },
+    "table": {
+      "headers": {
+        "registered_date": "Registered Date",
+        "name": "Name",
+        "age": "Age",
+        "gender": "Gender",
+        "recruiter": "Recruiter",
+        "interview_date": "Interview Date",
+        "result": "Result",
+        "organization": "Organization",
+        "visa": "VISA",
+        "actions": "Actions"
+      },
+      "filtering": {
+        "search": "Search",
+        "reset": "Reset",
+        "name": {
+          "label": "Applicant",
+          "description": "Show applicants whose names include the specified text",
+          "placeholder": "Search by name..."
+        }
+      }
     },
     "notifications": {
       "success": "Your account has been created successfully!",

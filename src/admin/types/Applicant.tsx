@@ -52,14 +52,18 @@ export type Applicant = {
   organization?: string;
   visa?: string;
   result?: string;
-  interview_date?: Date;
+  interview_date?: Date | null;
   created_at?: Date;
 };
 
 export type ApplicantRecords = {
   id: string | undefined;
-  registered_date: Date | string | undefined;
+  img_url: string | File | null;
+  registered_date: Date | string | null;
   name: string;
+  age: string | number | undefined;
+  gender: string;
+  interview_date: Date | string |  null;
   recruiter: string;
   organization: string;
   result: string;

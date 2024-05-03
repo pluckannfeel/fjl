@@ -25,8 +25,8 @@ i18n
     // },
     resources,
     // lng: 'en',
-    lng: "en",
-    fallbackLng: "en",
+    lng: "ja",
+    fallbackLng: "ja",
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
     },

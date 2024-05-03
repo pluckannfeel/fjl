@@ -1,358 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { Page, Text, View, Document, Image, Font } from "@react-pdf/renderer";
-import { ResumeBuilderProps, ResumeTheme } from "../../types/Resume";
+import { Applicant } from "../types/Applicant";
 import tinycolor from "tinycolor2";
-// Roboto
-import RobotoRegular from "../../../core/fonts/Roboto/Roboto-Regular.ttf";
-import RobotoItalic from "../../../core/fonts/Roboto/Roboto-Italic.ttf";
-import RobotoBold from "../../../core/fonts/Roboto/Roboto-Bold.ttf";
-import RobotoBoldItalic from "../../../core/fonts/Roboto/Roboto-BoldItalic.ttf";
-// EB_Garamond
-import EB_GaramondRegular from "../../../core/fonts/EB_Garamond/static/EBGaramond-Regular.ttf";
-import EB_GaramondItalic from "../../../core/fonts/EB_Garamond/static/EBGaramond-Italic.ttf";
-import EB_GaramondBold from "../../../core/fonts/EB_Garamond/static/EBGaramond-Bold.ttf";
-import EB_GaramondBoldItalic from "../../../core/fonts/EB_Garamond/static/EBGaramond-BoldItalic.ttf";
-// Mulish
-import MulishRegular from "../../../core/fonts/Mulish/static/Mulish-Regular.ttf";
-import MulishItalic from "../../../core/fonts/Mulish/static/Mulish-Italic.ttf";
-import MulishBold from "../../../core/fonts/Mulish/static/Mulish-Bold.ttf";
-import MulishBoldItalic from "../../../core/fonts/Mulish/static/Mulish-BoldItalic.ttf";
-// Yumin
-import YuminRegular from "../../../core/fonts/Yu_Mincho/yumin.ttf";
-import YuminBold from "../../../core/fonts/Yu_Mincho/yumindb.ttf";
-
-import NotoSansRegular from "../../../core/fonts/Noto_Sans_JP/static/NotoSansJP-Regular.ttf";
-import NotoSansBold from "../../../core/fonts/Noto_Sans_JP/static/NotoSansJP-Bold.ttf";
-
-import {
-  EducationBackground,
-  Link,
-  QualificationsLicenses,
-  Questions,
-  WorkExperience,
-} from "../../types/Information";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
-
-import { ResumeStylesheet as styles } from "../../classes/ResumeBuilderStyles";
 import { useTranslation } from "react-i18next";
-import { isJapanese, languageLevel } from "../../helpers/constants";
-import { useApplicantAuth } from "../../contexts/ApplicantAuthProvider";
+import {
+  convertImageUrlToBase64,
+  languageLevel,
+} from "@/mirairo/helpers/constants";
+import { ResumeStylesheet as styles } from "@/mirairo/classes/ResumeBuilderStyles";
+import dayjs from "dayjs";
+import {
+  WorkExperienceList,
+  EducationList,
+  QualificationsLicensesList,
+  UniqueQuestionsList,
+  RequiredQuestionsList,
+  Gallery,
+  LinksList,
+} from "@/mirairo/components/Resume/ResumeBuilder";
 
-Font.register({
-  family: "Noto_Sans",
-  fonts: [
-    { src: NotoSansRegular, fontStyle: "normal" },
-    { src: NotoSansBold, fontWeight: "bold" },
-  ],
-});
-
-Font.register({
-  family: "Roboto",
-  fonts: [
-    { src: NotoSansBold, fontWeight: "bold" },
-    { src: NotoSansRegular, fontStyle: "normal" },
-    { src: RobotoRegular, fontWeight: "normal", fontStyle: "normal" },
-    { src: RobotoItalic, fontWeight: "normal", fontStyle: "italic" },
-    { src: RobotoBold, fontWeight: "bold", fontStyle: "normal" },
-    { src: RobotoBoldItalic, fontWeight: "bold", fontStyle: "italic" },
-    // ...add other styles as needed
-  ],
-});
-
-Font.register({
-  family: "EB_Garamond",
-  fonts: [
-    { src: NotoSansBold, fontWeight: "bold" },
-    { src: NotoSansRegular, fontStyle: "normal" },
-    { src: EB_GaramondRegular, fontWeight: "normal", fontStyle: "normal" },
-    { src: EB_GaramondItalic, fontWeight: "normal", fontStyle: "italic" },
-    { src: EB_GaramondBold, fontWeight: "bold", fontStyle: "normal" },
-    { src: EB_GaramondBoldItalic, fontWeight: "bold", fontStyle: "italic" },
-    // ...add other styles as needed
-  ],
-});
-
-Font.register({
-  family: "Mulish",
-  fonts: [
-    { src: NotoSansBold, fontWeight: "bold" },
-    { src: NotoSansRegular, fontStyle: "normal" },
-    { src: MulishRegular, fontWeight: "normal", fontStyle: "normal" },
-    { src: MulishItalic, fontWeight: "normal", fontStyle: "italic" },
-    { src: MulishBold, fontWeight: "bold", fontStyle: "normal" },
-    { src: MulishBoldItalic, fontWeight: "bold", fontStyle: "italic" },
-    // ...add other styles as needed
-  ],
-});
-
-// interface TextWithDynamicFontProps {
-//   content: string;
-//   style?: Style;
-// }
-
-// const TextWithDynamicFont: React.FC<TextWithDynamicFontProps> = ({
-//   content,
-//   style = {},
-// }) => {
-//   const fontFamily = isJapanese(content) ? "Noto Sans JP" : "Roboto";
-//   const combinedStyles: Style = { fontFamily, ...style };
-//   return <Text style={combinedStyles}>{content}</Text>;
-// };
-
-// Font.register({
-//   family: "Yumin",
-//   fonts: [
-//     { src: YuminRegular, fontWeight: "normal" },
-//     { src: YuminBold, fontWeight: "bold" },
-//   ],
-// });
-
-export const WorkExperienceList: React.FC<{ experiences: WorkExperience[] }> = ({
-  experiences,
-}) => {
-  if (!Array.isArray(experiences)) {
-    // console.error("Experiences is not an array", experiences);
-    return null; // or return an appropriate fallback UI
-  }
-
-  return (
-    <View>
-      {experiences.map((experience, index) => (
-        <View key={index} style={styles.experienceContainer}>
-          <View style={styles.dateAndTitleContainer}>
-            <View style={styles.dateContainer}>
-              <Text style={styles.dateRange}>
-                {dayjs.utc(experience.from).format("MMM YYYY")} -
-                {experience.to
-                  ? dayjs.utc(experience.to).format("MMM YYYY")
-                  : "Present"}
-              </Text>
-            </View>
-            <View style={styles.experiencetitleContainer}>
-              <Text style={styles.jobTitle}>
-                {experience.position} at {experience.employer_name}
-              </Text>
-
-              {/* Render responsibilities and achievements */}
-              <View style={styles.detailsContainer}>
-                {experience.responsibilities && (
-                  <Text style={styles.responsibilities}>
-                    • {experience.responsibilities}
-                  </Text>
-                )}
-                {experience.achievements && (
-                  <Text style={styles.achievements}>
-                    • {experience.achievements}
-                  </Text>
-                )}
-              </View>
-            </View>
-          </View>
-        </View>
-      ))}
-    </View>
-  );
-};
-
-export const EducationList: React.FC<{
-  educationBackground: EducationBackground[];
-}> = ({ educationBackground }) => {
-  if (!Array.isArray(educationBackground)) {
-    // console.error("educationBackground is not an array", educationBackground);
-    return null; // or return an appropriate fallback UI
-  }
-
-  return (
-    <View style={styles.educationListContainer}>
-      {educationBackground.map((education, index) => (
-        <View key={education.id || index} style={styles.educationContainer}>
-          <View style={styles.dateAndTitleContainer}>
-            <View style={styles.dateContainer}>
-              <Text style={styles.dateRange}>
-                {education.from && dayjs.utc(education.from).format("MMM YYYY")}{" "}
-                -
-                {education.to
-                  ? dayjs.utc(education.to).format("MMM YYYY")
-                  : "Present"}
-              </Text>
-            </View>
-            <View style={styles.educationTitleContainer}>
-              <Text style={styles.schoolName}>{education.school_name}</Text>
-              {/* major and faculy */}
-              <View style={styles.detailsContainer}>
-                <Text>{education.major ? `${education.major}, ` : ""}</Text>
-                <Text>{education.faculty ? `${education.faculty}, ` : ""}</Text>
-              </View>
-            </View>
-          </View>
-        </View>
-      ))}
-    </View>
-  );
-};
-
-export const QualificationsLicensesList: React.FC<{
-  licenses: QualificationsLicenses[];
-}> = ({ licenses }) => {
-  if (!Array.isArray(licenses)) {
-    // console.error("licenses is not an array", licenses);
-    return null; // or return an appropriate fallback UI
-  }
-
-  return (
-    <View>
-      {licenses.map((license, index) => (
-        <View key={index} style={styles.qualificationContainer}>
-          <View style={styles.dateAndTitleContainer}>
-            {/* <View style={styles.dateContainer}> */}
-            <View
-              style={[
-                {
-                  width: "20%",
-                },
-              ]}
-            >
-              <Text style={styles.dateRange}>
-                {dayjs.utc(license.acquired_date).format("MMM YYYY")}
-              </Text>
-            </View>
-            <View style={styles.qualificationstitleContainer}>
-              <Text style={styles.jobTitle}>{license.name}</Text>
-
-              {/* Render responsibilities and achievements */}
-              {/* <View style={styles.detailsContainer}></View> */}
-            </View>
-          </View>
-        </View>
-      ))}
-    </View>
-  );
-};
-
-export const UniqueQuestionsList: React.FC<{
-  uniqueQuestions: Questions[] | undefined;
-  darkerColor: string;
-}> = ({ uniqueQuestions, darkerColor }) => {
-  const { t } = useTranslation();
-
-  return (
-    <View style={styles.uniqueQuestionsSection}>
-      {uniqueQuestions?.map((item, index) => {
-        let translatedString = t(
-          `mirairo.form.uniqueQuestions.${item.question}`
-        );
-
-        // Remove the leading number and period from the translated string
-        translatedString = translatedString.replace(/^\d+\.\s*/, ""); // Regex to match the number and period at the start
-
-        return (
-          <View key={index}>
-            <Text
-              style={[
-                styles.subtitle,
-                {
-                  color: darkerColor,
-                },
-              ]}
-            >
-              {translatedString}
-            </Text>
-
-            <Text style={styles.UQanswer}>{`= ${item.answer}`}</Text>
-          </View>
-        );
-      })}
-    </View>
-  );
-};
-
-interface RequiredQuestionsListProps {
-  hasFamily: boolean;
-  requiredQuestions: Questions[] | undefined;
-  darkerColor: string;
-}
-
-export const RequiredQuestionsList: React.FC<RequiredQuestionsListProps> = ({
-  hasFamily,
-  requiredQuestions,
-}) => {
-  return (
-    <View>
-      {requiredQuestions?.map((item) => {
-        const questionText = item.question.replace(/^\d+\.\s*/, ""); // Clean the question string
-        return (
-          <View style={styles.rqRow} key={item.id}>
-            <View style={styles.questionContainer}>
-              <Text
-                style={styles.question}
-              >{`${item.id}.)  ${questionText}`}</Text>
-            </View>
-            <View style={styles.answerContainer}>
-              <Text style={styles.answer}>{item.answer}</Text>
-            </View>
-          </View>
-        );
-      })}
-    </View>
-  );
-};
-
-export const LinksList: React.FC<{
-  links: Link[] | undefined;
-  darkerColor: string;
-}> = ({ links, darkerColor }) => {
-  const { t } = useTranslation();
-
-  return (
-    <View style={styles.uniqueQuestionsSection}>
-      {links?.map((item, index) => {
-        return (
-          <View key={index}>
-            <Text
-              style={[
-                styles.subtitle,
-                {
-                  color: darkerColor,
-                },
-              ]}
-            >
-              {`Link ${index + 1}`}
-            </Text>
-
-            <Text style={styles.linkText}>{` ${item.link}`}</Text>
-          </View>
-        );
-      })}
-    </View>
-  );
-};
-
-// Gallery component
-// const Gallery = ({ photo }: { photo: string }) => {
-//   return (
-//     <View style={styles.photos}>
-//       <View style={styles.imageContainer}>
-//         <View style={styles.imageWrapper}>
-//           <Image style={styles.photosImage} src={photo} />
-//         </View>
-//       </View>
-//     </View>
-//   );
-// };
-
-export const Gallery = ({ photos }: { photos: string[] }) => {
-  const photoElements = photos.map((photo, index) => (
-    <View key={index} style={styles.imageWrapper}>
-      <Image style={styles.photosImage} src={photo} />
-    </View>
-  ));
-
-  return (
-    <View style={styles.photos}>
-      <View style={styles.imageContainer}>{photoElements}</View>
-    </View>
-  );
+type ApplicantResumeBuilderProps = {
+  data?: Applicant;
 };
 
 const darkenColor = (color: string, amount: number) =>
@@ -363,16 +31,13 @@ const getReadableTextColor = (backgroundColor: string) => {
   return tinycolor(backgroundColor).isDark() ? "#FFFFFF" : "#000000";
 };
 
-// Create Document Component
-const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
-  theme,
-  font,
+const ApplicantResumeBuilder: React.FC<ApplicantResumeBuilderProps> = ({
   data,
-  display_photo,
 }) => {
-  const darkerColor = darkenColor(theme.backgroundColor, 20);
+  const darkerColor = darkenColor("#E4E4E4", 20);
   const { t } = useTranslation();
   const textColor = getReadableTextColor(darkerColor);
+  const [displayPhoto, setDisplayPhoto] = useState("");
 
   // Sample skill levels
   const skills = [
@@ -427,6 +92,14 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
     }
   }
 
+  useEffect(() => {
+    if (data?.img_url) {
+      convertImageUrlToBase64(data.img_url as string).then((base64) => {
+        setDisplayPhoto(base64);
+      });
+    }
+  }, [data?.img_url]);
+
   // Function to render skill bars
   const renderSkillBars = (skills: { name: string; level: number }[]) => {
     return skills.map((skill) => (
@@ -438,7 +111,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
               styles.skillBarFilled,
               {
                 width: `${skill.level * 20}%`,
-                backgroundColor: theme.backgroundColor,
+                backgroundColor: "#E4E4E4",
               },
             ]}
           />
@@ -462,7 +135,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
         style={[
           styles.page,
           {
-            fontFamily: font,
+            fontFamily: "Roboto",
           },
         ]}
       >
@@ -470,7 +143,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
           style={[
             styles.header,
             {
-              backgroundColor: theme.backgroundColor,
+              backgroundColor: "#E4E4E4",
               color: textColor,
               opacity: 0.95,
             },
@@ -490,7 +163,8 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
 
           <Image
             style={styles.image}
-            src={data?.img_url as unknown as string}
+            // src={data?.img_url as unknown as string}
+            src={displayPhoto}
           />
         </View>
         <View style={styles.profileSection}>
@@ -545,11 +219,11 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
               <View style={styles.table}>
                 <View style={styles.row}>
                   {/* <Text style={[styles.contentLeft, styles.column]}>
-                    {t("mirairo.form.nationality.label")}
-                  </Text>
-                  <Text style={[styles.contentRight, styles.column]}>
-                    {data?.nationality}
-                  </Text> */}
+                      {t("mirairo.form.nationality.label")}
+                    </Text>
+                    <Text style={[styles.contentRight, styles.column]}>
+                      {data?.nationality}
+                    </Text> */}
                 </View>
                 <View style={styles.row}>
                   <Text style={[styles.contentLeft, styles.column]}>
@@ -914,8 +588,8 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
           photos={data?.photos ? (filteredPhotos as unknown as string[]) : []}
         />
         {/* <Gallery
-          photo={data?.img_url ? (data.img_url as unknown as string) : ""}
-        /> */}
+            photo={data?.img_url ? (data.img_url as unknown as string) : ""}
+          /> */}
 
         {data?.links ? (
           data?.links?.length > 0 && (
@@ -949,12 +623,12 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
         <LinksList links={data?.links} darkerColor={darkerColor} />
 
         {/* <Text
-          style={styles.trademark}
-          render={({ pageNumber, totalPages }) =>
-            `${pageNumber} / ${totalPages}`
-          }
-          fixed
-        /> */}
+            style={styles.trademark}
+            render={({ pageNumber, totalPages }) =>
+              `${pageNumber} / ${totalPages}`
+            }
+            fixed
+          /> */}
         <Text
           style={styles.trademark}
           // fixed
@@ -966,4 +640,4 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
   );
 };
 
-export default ResumeBuilder;
+export default ApplicantResumeBuilder;

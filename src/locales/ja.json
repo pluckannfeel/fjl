@@ -42,6 +42,23 @@
         "password": "パスワード",
         "confirm_password": "パスワード確認"
       },
+      "recruiter": {
+        "label": "紹介者",
+        "options": {
+          "mys": "MYSの紹介",
+          "aqium": "AQIUM",
+          "mardel": "MARDEL"
+        }
+      },
+      "interview_date": {
+        "label": "面接日"
+      },
+      "result": {
+        "label": "結果"
+      },
+      "organization": {
+        "label": "所属機関"
+      },
       "actions": {
         "register": "登録",
         "login": "ログイン",
@@ -49,6 +66,29 @@
       },
       "rememberMe": "ログイン情報を保存する",
       "forgotPassword": "パスワードをお忘れですか？"
+    },
+    "table": {
+      "headers": {
+        "registered_date": "登録日",
+        "name": "名前",
+        "age": "年齢",
+        "gender": "性別",
+        "recruiter": "紹介者",
+        "interview_date": "面接日",
+        "result": "結果",
+        "organization": "所属機関",
+        "visa": "VISA",
+        "actions": "アクション"
+      },
+      "filtering": {
+        "search": "検索",
+        "reset": "リセット",
+        "name": {
+          "label": "応募者",
+          "description": "名前に指定したテキストが含まれる応募者を表示します",
+          "placeholder": "名前を検索"
+        }
+      }
     },
     "notifications": {
       "success": "アカウントは正常に作成されました!",
@@ -59,6 +99,10 @@
       "email_exists": {
         "title": "エラー",
         "subTitle": "このメールアドレスは既に登録されています。"
+      },
+      "saveChanges": {
+        "title": "変更",
+        "subTitle": "変更を保存しました"
       }
     }
   },
