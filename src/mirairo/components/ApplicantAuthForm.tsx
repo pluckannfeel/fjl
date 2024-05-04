@@ -113,6 +113,7 @@ const ApplicantAuthForm: React.FC = () => {
           />
           <Anchor
             component="button"
+            type="button"
             size="sm"
             c="text"
             onClick={() => navigate("forgot-password")}

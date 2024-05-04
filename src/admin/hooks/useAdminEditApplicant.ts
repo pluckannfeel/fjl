@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "react-query";
-import { updateOne } from "../../core/utils/crudUtils";
-import { Applicant, ApplicantRecords } from "../types/Applicant";
+// import { updateOne } from "../../core/utils/crudUtils";
+import { Applicant } from "../types/Applicant";
 import { axiosInstance } from "../../api/server";
 
 const editApplicant = async (applicant: Applicant) => {

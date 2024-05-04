@@ -1,3 +1,5 @@
+/* eslint-disable no-useless-escape */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FormikErrors, FormikTouched } from "formik";
 
 export const genders = [
@@ -256,24 +258,24 @@ export const isJapanese = (text: string) => {
   );
 };
 
-export async function convertImageToBase64(imgUrl: string): Promise<string> {
-  try {
-    const response = await fetch(imgUrl);
-    const blob = await response.blob();
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onerror = reject;
-      reader.onload = () => {
-        // Convert blob to base64
-        resolve(reader.result as string);
-      };
-      reader.readAsDataURL(blob);
-    });
-  } catch (error) {
-    console.error("Error converting image to Base64:", error);
-    throw new Error("Failed to convert image");
-  }
-}
+// export async function convertImageToBase64(imgUrl: string): Promise<string> {
+//   try {
+//     const response = await fetch(imgUrl);
+//     const blob = await response.blob();
+//     return new Promise((resolve, reject) => {
+//       const reader = new FileReader();
+//       reader.onerror = reject;
+//       reader.onload = () => {
+//         // Convert blob to base64
+//         resolve(reader.result as string);
+//       };
+//       reader.readAsDataURL(blob);
+//     });
+//   } catch (error) {
+//     console.error("Error converting image to Base64:", error);
+//     throw new Error("Failed to convert image");
+//   }
+// }
 
 /**
  * Converts an image URL to a base64 string.

@@ -4,26 +4,23 @@ import { useTranslation } from "react-i18next";
 import ApplicantTable from "../components/ApplicantTable";
 import { useGetApplicants } from "@/mirairo/hooks/useGetApplicants";
 import { Applicant, ApplicantRecords } from "../types/Applicant";
-import dayjs from "dayjs";
-import { readLocalStorageValue, useDisclosure } from "@mantine/hooks";
+import { useDisclosure } from "@mantine/hooks";
 import ApplicantModal from "../components/ApplicantModal";
 import ImageViewer from "@/core/components/ImageViewer";
 import { useAdminEditApplicant } from "../hooks/useAdminEditApplicant";
 import { showNotification } from "@mantine/notifications";
-import { pdf, usePDF } from "@react-pdf/renderer";
-import ResumeBuilder from "@/mirairo/components/Resume/ResumeBuilder";
-import { ResumeTheme } from "@/mirairo/types/Resume";
-import { convertImageUrlToBase64 } from "@/mirairo/helpers/constants";
-import ApplicantResumeBuilder from "../components/ApplicantResumeBuilder";
+// import { useGeneratePDFApplicantCV } from "../hooks/useAdminGenerateApplicant";
+import ApplicantPDFModal from "../components/ApplicantPDFModal";
+// import { convertImageUrlToBase64 } from "@/mirairo/helpers/constants";
 
-type Props = {};
-
-const ApplicantManagement = (props: Props) => {
+const ApplicantManagement = () => {
   const { t } = useTranslation();
   const { isLoading, data: applicants } = useGetApplicants();
   const { isEditing, editApplicant } = useAdminEditApplicant();
+  // const { isGenerating, generatePDFApplicant } = useGeneratePDFApplicantCV();
 
   const [selectedApplicants, setSelectedApplicants] = useState<Applicant[]>([]);
+
   // const [openApplicantModal, setOpenApplicantModal] = useState<boolean>(false);
   const [
     applicantModalOpened,
@@ -32,9 +29,17 @@ const ApplicantManagement = (props: Props) => {
   const [applicantUpdated, setApplicantUpdated] = useState<
     ApplicantRecords | undefined
   >(undefined);
+  const [
+    applicantPDFModalOpened,
+    { open: applicantPDFModalOpen, close: applicantPDFModalClose },
+  ] = useDisclosure();
+  const [showApplicantPDF, setShowApplicantPDF] = useState<
+    Applicant | undefined
+  >(undefined);
+  // const [applicantImage64, setApplicantImage64] = useState<string>("");
 
   // const theme = readLocalStorageValue({ key: "resume-theme" });
-  const [pdfImageBase64, setPdfImageBase64] = useState<string>("");
+  // const [pdfImageBase64, setPdfImageBase64] = useState<string>("");
 
   const [
     imageViewerOpened,
@@ -68,7 +73,33 @@ const ApplicantManagement = (props: Props) => {
     applicantModalOpen();
   };
 
-  // const handleDownloadPDF = (record: Applicant) => {};
+  const handleDownloadPDF = (record: Applicant) => {
+    setShowApplicantPDF(record);
+
+    // if (record.img_url) {
+    //   convertImageUrlToBase64(record.img_url as string)
+    //     .then((data) => {
+    //       setApplicantImage64(data);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // }
+
+    applicantPDFModalOpen();
+    // console.log(record);
+    // generatePDFApplicant(record).then((data) => {
+    //   const url = window.URL.createObjectURL(new Blob([data]));
+    //   const link = document.createElement("a");
+    //   link.href = url;
+    //   link.setAttribute(
+    //     "download",
+    //     `${record.first_name}_${record.last_name}CV.pdf`
+    //   );
+    //   document.body.appendChild(link);
+    //   link.click();
+    // });
+  };
 
   const handleOpenImageViewer = (img_url: string) => {
     // setOpenImageViewer(true);
@@ -110,7 +141,7 @@ const ApplicantManagement = (props: Props) => {
         onSelectedChange={setSelectedApplicants}
         data={applicants || []}
         onEdit={handleOpenEditApplicantModal}
-        // onViewPDF={handleDownloadPDF}
+        onViewPDF={handleDownloadPDF}
         onViewImage={handleOpenImageViewer}
       />
       <ApplicantModal
@@ -121,6 +152,16 @@ const ApplicantManagement = (props: Props) => {
         processing={processing}
         applicant={applicantUpdated}
       />
+
+      {showApplicantPDF && (
+        <ApplicantPDFModal
+          open={applicantPDFModalOpened}
+          onClose={applicantPDFModalClose}
+          processing={processing}
+          applicant={showApplicantPDF}
+          // displayPhoto={applicantImage64}
+        />
+      )}
       <ImageViewer
         open={imageViewerOpened}
         onClose={imageViewerClose}

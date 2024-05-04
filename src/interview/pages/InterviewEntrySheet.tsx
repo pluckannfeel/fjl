@@ -2,22 +2,17 @@ import {
   SimpleGrid,
   Title,
   TextInput,
-  Autocomplete,
   Grid,
-  Radio,
   Group,
   Select,
   Text,
-  PasswordInput,
   Container,
   Button,
   FileInput,
-  rem,
-  ActionIcon,
 } from "@mantine/core";
 import { motion } from "framer-motion";
 import classes from "../classes/login.module.scss";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ClickableAvatar from "../../core/components/ClickableAvatar";
 import { useFormik } from "formik";
@@ -35,16 +30,11 @@ import {
   nationalities,
   years,
 } from "../../mirairo/helpers/constants";
-import {
-  IconCalendarEvent,
-  IconClock,
-  IconFileInfo,
-} from "@tabler/icons-react";
-import { DateInput, DateValue, TimeInput } from "@mantine/dates";
+import { IconCalendarEvent, IconFileInfo } from "@tabler/icons-react";
+import { DateInput, DateValue } from "@mantine/dates";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import { InterviewTimeSlots } from "../helpers/constants";
-import { useRegister } from "../../auth/hooks/useRegister";
 import { useRegisterInterviewee } from "../hooks/useRegisterInterviewee";
 import i18n from "../../core/config/i18n";
 import CustomLoader from "../../core/components/Loader";
@@ -182,7 +172,7 @@ const InterviewEntrySheet: React.FC<EntrySheetProps> = ({ setIsStarted }) => {
 
   const handleSubmitEntrySheet = async (values: Partial<Interviewee>) => {
     registerInterviewee(values as Interviewee)
-      .then((data) => {
+      .then(() => {
         // console.log(data);
         showNotification({
           title: "Entry Sheet Submitted",

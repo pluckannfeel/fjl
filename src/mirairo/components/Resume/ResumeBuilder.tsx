@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Page, Text, View, Document, Image, Font } from "@react-pdf/renderer";
-import { ResumeBuilderProps, ResumeTheme } from "../../types/Resume";
+import { ResumeBuilderProps } from "../../types/Resume";
 import tinycolor from "tinycolor2";
 // Roboto
 import RobotoRegular from "../../../core/fonts/Roboto/Roboto-Regular.ttf";
@@ -18,8 +18,8 @@ import MulishItalic from "../../../core/fonts/Mulish/static/Mulish-Italic.ttf";
 import MulishBold from "../../../core/fonts/Mulish/static/Mulish-Bold.ttf";
 import MulishBoldItalic from "../../../core/fonts/Mulish/static/Mulish-BoldItalic.ttf";
 // Yumin
-import YuminRegular from "../../../core/fonts/Yu_Mincho/yumin.ttf";
-import YuminBold from "../../../core/fonts/Yu_Mincho/yumindb.ttf";
+// import YuminRegular from "../../../core/fonts/Yu_Mincho/yumin.ttf";
+// import YuminBold from "../../../core/fonts/Yu_Mincho/yumindb.ttf";
 
 import NotoSansRegular from "../../../core/fonts/Noto_Sans_JP/static/NotoSansJP-Regular.ttf";
 import NotoSansBold from "../../../core/fonts/Noto_Sans_JP/static/NotoSansJP-Bold.ttf";
@@ -32,12 +32,12 @@ import {
   WorkExperience,
 } from "../../types/Information";
 import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
+// import utc from "dayjs/plugin/utc";
 
 import { ResumeStylesheet as styles } from "../../classes/ResumeBuilderStyles";
 import { useTranslation } from "react-i18next";
-import { isJapanese, languageLevel } from "../../helpers/constants";
-import { useApplicantAuth } from "../../contexts/ApplicantAuthProvider";
+import { languageLevel } from "../../helpers/constants";
+// import { useApplicantAuth } from "../../contexts/ApplicantAuthProvider";
 
 Font.register({
   family: "Noto_Sans",
@@ -108,9 +108,9 @@ Font.register({
 //   ],
 // });
 
-export const WorkExperienceList: React.FC<{ experiences: WorkExperience[] }> = ({
-  experiences,
-}) => {
+export const WorkExperienceList: React.FC<{
+  experiences: WorkExperience[];
+}> = ({ experiences }) => {
   if (!Array.isArray(experiences)) {
     // console.error("Experiences is not an array", experiences);
     return null; // or return an appropriate fallback UI
@@ -274,7 +274,7 @@ interface RequiredQuestionsListProps {
 }
 
 export const RequiredQuestionsList: React.FC<RequiredQuestionsListProps> = ({
-  hasFamily,
+  // hasFamily,
   requiredQuestions,
 }) => {
   return (
@@ -302,7 +302,7 @@ export const LinksList: React.FC<{
   links: Link[] | undefined;
   darkerColor: string;
 }> = ({ links, darkerColor }) => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   return (
     <View style={styles.uniqueQuestionsSection}>
@@ -368,7 +368,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
   theme,
   font,
   data,
-  display_photo,
+  // display_photo,
 }) => {
   const darkerColor = darkenColor(theme.backgroundColor, 20);
   const { t } = useTranslation();
@@ -390,7 +390,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
   // on data.photos extract all videos
   // Define image file extensions that we want to keep
   const imageExtensions = [".jpg", ".jpeg", ".png"];
-  const videoExtensions = [".mp4", ".mov", ".avi"];
+  // const videoExtensions = [".mp4", ".mov", ".avi"];
 
   // Filter to only include images based on the specified extensions
   const filteredPhotos = data?.photos?.filter((photo) => {
@@ -566,9 +566,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
                   <Text style={[styles.contentRight, styles.column]}>
                     {/* April 21, 1995 */}
                     {data?.birth_date
-                      ? dayjs
-                          .utc(data.birth_date as any)
-                          .format("MMMM DD, YYYY")
+                      ? dayjs.utc(data.birth_date).format("MMMM DD, YYYY")
                       : ""}
                   </Text>
                 </View>

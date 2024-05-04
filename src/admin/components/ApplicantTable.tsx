@@ -1,10 +1,9 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Applicant, ApplicantRecords } from "../types/Applicant";
 import {
   DataTable,
   DataTableColumn,
-  DataTableProps,
   DataTableSortStatus,
 } from "mantine-datatable";
 import {
@@ -15,30 +14,22 @@ import {
   useMantineTheme,
   Text,
   Avatar,
-  Loader,
 } from "@mantine/core";
 import classes from "../classes/ApplicantTable.module.scss";
 import {
-  IconChevronUp,
   IconEdit,
-  IconEye,
   IconMoodSad,
-  IconSelector,
-  IconTrash,
   IconSearch,
   IconX,
   IconPdf,
 } from "@tabler/icons-react";
-import { debounce, sortBy } from "lodash";
-import { showNotification } from "@mantine/notifications";
+import { sortBy } from "lodash";
+// import { showNotification } from "@mantine/notifications";
 import dayjs from "dayjs";
-import { useDebouncedValue, useDisclosure } from "@mantine/hooks";
+import { useDebouncedValue } from "@mantine/hooks";
 import { useTranslation } from "react-i18next";
 import CustomLoader from "@/core/components/Loader";
-import ImageViewer from "@/core/components/ImageViewer";
 import i18n from "@/core/config/i18n";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import ApplicantResumeBuilder from "./ApplicantResumeBuilder";
 
 type ApplicantTableProps = {
   loading: boolean;
@@ -46,7 +37,8 @@ type ApplicantTableProps = {
   onSelectedChange: (selected: Applicant[]) => void;
   selected: Applicant[];
   onEdit: (record: ApplicantRecords) => void;
-  // onViewPDF: (record: Applicant) => void;
+  onViewPDF: (record: Applicant) => void;
+  // onViewPDF: (id: string) => void;
   onViewImage: (img_url: string) => void;
 };
 
@@ -61,7 +53,7 @@ type ApplicantTableProps = {
 // VISA
 // PDF
 
-const PAGE_SIZE = 10;
+// const PAGE_SIZE = 10;
 
 const ApplicantTable: React.FC<ApplicantTableProps> = ({
   loading,
@@ -69,7 +61,7 @@ const ApplicantTable: React.FC<ApplicantTableProps> = ({
   selected,
   onSelectedChange,
   onEdit,
-  // onViewPDF,
+  onViewPDF,
   onViewImage,
 }) => {
   const { t } = useTranslation();
@@ -81,12 +73,12 @@ const ApplicantTable: React.FC<ApplicantTableProps> = ({
   });
 
   // Handling change in sort status
-  const handleSortChange = useCallback(
-    (newSortStatus: DataTableSortStatus<Applicant>) => {
-      setSortStatus(newSortStatus);
-    },
-    []
-  );
+  // const handleSortChange = useCallback(
+  //   (newSortStatus: DataTableSortStatus<Applicant>) => {
+  //     setSortStatus(newSortStatus);
+  //   },
+  //   []
+  // );
 
   const [records, setRecords] = useState<Applicant[]>(applicant);
 
@@ -142,15 +134,15 @@ const ApplicantTable: React.FC<ApplicantTableProps> = ({
       textAlign: "left",
       render: (applicant) => (
         <Group gap={4} justify="left" wrap="nowrap">
-          {/* <ActionIcon
+          <ActionIcon
             size="md"
             variant="subtle"
             color="orange.6"
             // onClick={() => showModal({ applicant, action: "view" })}
-            // onClick={() => onViewPDF(applicant)}
+            onClick={() => onViewPDF(applicant)}
           >
-             <IconPdf size={20} />
-          </ActionIcon> */}
+            <IconPdf size={20} />
+          </ActionIcon>
           {/* <PDFDownloadLink
             document={<ApplicantResumeBuilder data={applicant} />}
             fileName={`CV-${applicant?.first_name}-${applicant?.last_name}.pdf`}
@@ -335,9 +327,9 @@ const ApplicantTable: React.FC<ApplicantTableProps> = ({
         }
         styles={{
           // 👇 this is a function that receives the current theme as argument
-          root: (theme) => ({
-            // border: `1px solid ${theme.colors.orange[6]}`,
-          }),
+          // root: (theme) => ({
+          //   // border: `1px solid ${theme.colors.orange[6]}`,
+          // }),
           table: {
             // color: "#666",
             // backgroundColor: `${theme.colors.gray[0]}`,

@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Page, Text, View, Document, Image, Font } from "@react-pdf/renderer";
+import React from "react";
+import { Page, Text, View, Document, Image } from "@react-pdf/renderer";
 import { Applicant } from "../types/Applicant";
 import tinycolor from "tinycolor2";
 import { useTranslation } from "react-i18next";
-import {
-  convertImageUrlToBase64,
-  languageLevel,
-} from "@/mirairo/helpers/constants";
+import { languageLevel } from "@/mirairo/helpers/constants";
 import { ResumeStylesheet as styles } from "@/mirairo/classes/ResumeBuilderStyles";
 import dayjs from "dayjs";
 import {
@@ -20,7 +17,8 @@ import {
 } from "@/mirairo/components/Resume/ResumeBuilder";
 
 type ApplicantResumeBuilderProps = {
-  data?: Applicant;
+  // displayPhoto: string;
+  data: Applicant;
 };
 
 const darkenColor = (color: string, amount: number) =>
@@ -31,22 +29,34 @@ const getReadableTextColor = (backgroundColor: string) => {
   return tinycolor(backgroundColor).isDark() ? "#FFFFFF" : "#000000";
 };
 
+export const DisplayPhoto = ({ photo }: { photo: string }) => {
+  return (
+    <View style={styles.photos}>
+      <View style={styles.imageContainer}>
+        <View style={styles.imageWrapper}>
+          <Image style={styles.photosImage} source={photo} />
+        </View>
+      </View>
+    </View>
+  );
+};
+
 const ApplicantResumeBuilder: React.FC<ApplicantResumeBuilderProps> = ({
+  // displayPhoto,
   data,
 }) => {
-  const darkerColor = darkenColor("#E4E4E4", 20);
+  const darkerColor = darkenColor("#1864AB", 20);
   const { t } = useTranslation();
   const textColor = getReadableTextColor(darkerColor);
-  const [displayPhoto, setDisplayPhoto] = useState("");
 
   // Sample skill levels
   const skills = [
     {
-      name: "Japanese",
+      name: "日本語",
       level: languageLevel(data?.japanese as string) as number,
     },
     {
-      name: "English",
+      name: "英語",
       level: languageLevel(data?.english as string) as number,
     },
     // Add more skills as needed
@@ -55,7 +65,7 @@ const ApplicantResumeBuilder: React.FC<ApplicantResumeBuilderProps> = ({
   // on data.photos extract all videos
   // Define image file extensions that we want to keep
   const imageExtensions = [".jpg", ".jpeg", ".png"];
-  const videoExtensions = [".mp4", ".mov", ".avi"];
+  // const videoExtensions = [".mp4", ".mov", ".avi"];
 
   // Filter to only include images based on the specified extensions
   const filteredPhotos = data?.photos?.filter((photo) => {
@@ -92,14 +102,6 @@ const ApplicantResumeBuilder: React.FC<ApplicantResumeBuilderProps> = ({
     }
   }
 
-  useEffect(() => {
-    if (data?.img_url) {
-      convertImageUrlToBase64(data.img_url as string).then((base64) => {
-        setDisplayPhoto(base64);
-      });
-    }
-  }, [data?.img_url]);
-
   // Function to render skill bars
   const renderSkillBars = (skills: { name: string; level: number }[]) => {
     return skills.map((skill) => (
@@ -111,7 +113,7 @@ const ApplicantResumeBuilder: React.FC<ApplicantResumeBuilderProps> = ({
               styles.skillBarFilled,
               {
                 width: `${skill.level * 20}%`,
-                backgroundColor: "#E4E4E4",
+                backgroundColor: "#1864AB",
               },
             ]}
           />
@@ -143,7 +145,7 @@ const ApplicantResumeBuilder: React.FC<ApplicantResumeBuilderProps> = ({
           style={[
             styles.header,
             {
-              backgroundColor: "#E4E4E4",
+              backgroundColor: "#1864AB",
               color: textColor,
               opacity: 0.95,
             },
@@ -164,8 +166,9 @@ const ApplicantResumeBuilder: React.FC<ApplicantResumeBuilderProps> = ({
           <Image
             style={styles.image}
             // src={data?.img_url as unknown as string}
-            src={displayPhoto}
+            src={data?.img_url as unknown as string}
           />
+          {/* <DisplayPhoto photo={data?.img_url as string} /> */}
         </View>
         <View style={styles.profileSection}>
           <View
@@ -240,9 +243,7 @@ const ApplicantResumeBuilder: React.FC<ApplicantResumeBuilderProps> = ({
                   <Text style={[styles.contentRight, styles.column]}>
                     {/* April 21, 1995 */}
                     {data?.birth_date
-                      ? dayjs
-                          .utc(data.birth_date as any)
-                          .format("MMMM DD, YYYY")
+                      ? dayjs.utc(data.birth_date).format("MMMM DD, YYYY")
                       : ""}
                   </Text>
                 </View>

@@ -1,28 +1,16 @@
 import {
   Button,
-  Card,
-  CardSection,
-  Center,
   Grid,
   Group,
-  SimpleGrid,
   TextInput,
-  Textarea,
-  Title,
   Text,
   Modal,
-  Paper,
-  Container,
-  ModalTitle,
-  ModalHeader,
   Autocomplete,
   Avatar,
 } from "@mantine/core";
 import React from "react";
-import commonStyles from "../classes/Common.module.scss";
+// import commonStyles from "../classes/Common.module.scss";
 import { useTranslation } from "react-i18next";
-import { IconX } from "@tabler/icons-react";
-import { getNestedError } from "@/mirairo/helpers/constants";
 import { DateInput, DateValue } from "@mantine/dates";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
@@ -45,11 +33,11 @@ interface ApplicantModalProps {
 }
 
 const ApplicantModal: React.FC<ApplicantModalProps> = ({
-  onAdd,
+  // onAdd,
   onClose,
   onEdit,
   open,
-  processing,
+  // processing,
   applicant,
 }) => {
   const { t } = useTranslation();

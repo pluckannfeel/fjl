@@ -1,10 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  useMantineTheme,
   Paper,
   Container,
-  Center,
-  Box,
   Grid,
   ColorPicker,
   Title,
@@ -14,47 +11,41 @@ import {
   Textarea,
   Alert,
   Select,
-  Card,
-  CardSection,
-  SimpleGrid,
+  Radio,
 } from "@mantine/core";
-import { Header } from "../../core/components/Header";
-import { PDFDownloadLink, PDFViewer, usePDF } from "@react-pdf/renderer";
+import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import ResumeBuilder from "../components/Resume/ResumeBuilder";
-import { IconDoorEnter, IconInfoCircle, IconX } from "@tabler/icons-react";
+import { IconInfoCircle } from "@tabler/icons-react";
 
 // css
 import commonStyles from "../classes/Common.module.scss";
 
 // Import the components for color selection
-import { RadioGroup, Radio } from "@mantine/core";
 import { ResumeTheme } from "../types/Resume";
 import { useDisclosure, useLocalStorage } from "@mantine/hooks";
 import CustomLoader from "../../core/components/Loader";
-import { useNavigate } from "react-router";
-import { useFormikContext } from "../contexts/FormProvider";
-import { useApplicantData } from "../hooks/useApplicantData";
+// import { useNavigate } from "react-router";
+// import { useFormikContext } from "../contexts/FormProvider";
+// import { useApplicantData } from "../hooks/useApplicantData";
 import {
   ApplicantResume,
-  PersonalInformation,
-  WorkExperience,
+  // PersonalInformation,
+  // WorkExperience,
 } from "../types/Information";
 import { useApplicantAuth } from "../contexts/ApplicantAuthProvider";
 import { useTranslation } from "react-i18next";
-import { debounce } from "lodash";
+// import { debounce } from "lodash";
 import { useFormik } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 import {
   languageLevels,
   JLPTs,
   JFTs,
   NATs,
-  getNestedError,
-  convertBase64ToFile,
   convertImageUrlToBase64,
 } from "../helpers/constants";
-import { DateInput, DateValue } from "@mantine/dates";
-import dayjs from "dayjs";
+// import { DateInput, DateValue } from "@mantine/dates";
+// import dayjs from "dayjs";
 import WorkExperienceModal from "../components/Resume/WorkExperienceModal";
 import QualificationsAndLicensesModal from "../components/Resume/QualificationAndLicensesModal";
 import EducationModal from "../components/Resume/EducationModal";
@@ -63,14 +54,15 @@ import ClickableAvatar from "../../core/components/ClickableAvatar";
 import { useUpdateApplicantResume } from "../hooks/useUpdateApplicantResume";
 import { showNotification } from "@mantine/notifications";
 import RequiredQuestionsModal from "../components/Resume/RequiredQuestionsModal";
-import { modifyRequiredQuestions } from "../helpers/functions";
+// import { modifyRequiredQuestions } from "../helpers/functions";
 import FamilyModal from "../components/Resume/FamilyModal";
 
 const GenerateResume = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { t } = useTranslation();
 
   // image file change handler
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   //modal
@@ -203,7 +195,7 @@ const GenerateResume = () => {
 
       setResumeDetails(updatedValues);
 
-      updateResume(updatedValues).then((response) => {
+      updateResume(updatedValues).then(() => {
         showNotification({
           // title: "Resume Updated",
           message: t("mirairo.form.notifications.updateResumeSuccess"),
@@ -245,24 +237,6 @@ const GenerateResume = () => {
   //   setTheme(themes[color] || theme);
   // };
 
-  function toBase64(url: string): Promise<string> {
-    return fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok.");
-        }
-        return response.blob();
-      })
-      .then((blob) => {
-        return new Promise<string>((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onloadend = () => resolve(reader.result as string);
-          reader.onerror = reject;
-          reader.readAsDataURL(blob);
-        });
-      });
-  }
-
   const [imageBase64, setImageBase64] = useState<string>("");
 
   useEffect(() => {
@@ -287,10 +261,10 @@ const GenerateResume = () => {
   //   }
   // }, []);
 
-  const goBackHandler = () => {
-    // navigate(-1); // Go back to the previous page
-    navigate("/mirairo", { replace: true });
-  };
+  // const goBackHandler = () => {
+  //   // navigate(-1); // Go back to the previous page
+  //   navigate("/mirairo", { replace: true });
+  // };
 
   // Check if any field has been touched
   // const anyTouched = Object.values(formik.touched).some((t) => t === true);
@@ -514,7 +488,7 @@ const GenerateResume = () => {
                       <TextInput
                         label={t("mirairo.form.occupation.label")}
                         placeholder={t("mirairo.form.occupation.placeholder")}
-                        onChange={(e) => formik.handleChange("occupation")}
+                        onChange={formik.handleChange("occupation")}
                         name="occupation"
                         value={formik.values.occupation}
                       />
@@ -524,7 +498,7 @@ const GenerateResume = () => {
                       <TextInput
                         label={t("mirairo.form.email.label")}
                         placeholder={t("mirairo.form.email.placeholder")}
-                        onChange={(e) => formik.handleChange("email")}
+                        onChange={formik.handleChange("email")}
                         name="email"
                         value={formik.values.email}
                       />
@@ -947,7 +921,7 @@ const GenerateResume = () => {
                       }
                       fileName="CV.pdf"
                     >
-                      {({ blob, url, loading, error }) =>
+                      {({ loading }) =>
                         loading ? <CustomLoader /> : t("common.download")
                       }
                     </PDFDownloadLink>
