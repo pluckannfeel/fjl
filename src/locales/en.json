@@ -132,6 +132,7 @@
     "login": "Login",
     "logout": "Logout",
     "forgotPassword": "Forgot Password?",
+    "translate": "PDF Translate",
     "snackbar": {
       "error": "Error",
       "success": "Success"
@@ -150,6 +151,7 @@
       "urlRequired": "URL is required",
       "imageRequired": "Image is required",
       "invalidUrl": "Invalid URL",
+      "failedTranslate": "Failed to translate PDF",
       "forbidden": {
         "subTitle": "You don't haveƒ access to view this page"
       },
@@ -699,6 +701,9 @@
     "title": "Dashboard"
   },
   "applicantManagement": {
-    "title": "Applicant Management"
+    "title": "Applicant Management",
+    "notification": {
+      "translated": "PDF has been translated successfully!"
+    }
   }
 }

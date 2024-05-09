@@ -37,6 +37,8 @@ import dayjs from "dayjs";
 import { ResumeStylesheet as styles } from "../../classes/ResumeBuilderStyles";
 import { useTranslation } from "react-i18next";
 import { languageLevel } from "../../helpers/constants";
+import { yesNoLocalize } from "@/admin/helpers/constants";
+import i18n from "@/core/config/i18n";
 // import { useApplicantAuth } from "../../contexts/ApplicantAuthProvider";
 
 Font.register({
@@ -289,7 +291,9 @@ export const RequiredQuestionsList: React.FC<RequiredQuestionsListProps> = ({
               >{`${item.id}.)  ${questionText}`}</Text>
             </View>
             <View style={styles.answerContainer}>
-              <Text style={styles.answer}>{item.answer}</Text>
+              <Text style={styles.answer}>
+                {yesNoLocalize(item.answer, i18n.language)}
+              </Text>
             </View>
           </View>
         );
@@ -389,7 +393,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
 
   // on data.photos extract all videos
   // Define image file extensions that we want to keep
-  const imageExtensions = [".jpg", ".jpeg", ".png"];
+  const imageExtensions = [".jpg", ".jpeg", ".png", ".JPG", ".JPEG", ".PNG"];
   // const videoExtensions = [".mp4", ".mov", ".avi"];
 
   // Filter to only include images based on the specified extensions

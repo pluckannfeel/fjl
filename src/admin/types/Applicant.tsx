@@ -53,6 +53,17 @@ export type Applicant = {
   visa?: string;
   result?: string;
   interview_date?: Date | null;
+  // newly added ja fields
+  ja_first_name?: string;
+  ja_last_name?: string;
+  ja_middle_name?: string;
+  ja_other_skills?: string;
+  ja_self_introduction?: string;
+  ja_reason_for_application?: string;
+  ja_past_experience?: string;
+  ja_future_career_plan?: string;
+  ja_unique_questions?: Questions[];
+  is_translated?: boolean;
   created_at?: Date;
 };
 
@@ -63,7 +74,7 @@ export type ApplicantRecords = {
   name: string;
   age: string | number | undefined;
   gender: string;
-  interview_date: Date | string |  null;
+  interview_date: Date | string | null;
   recruiter: string;
   organization: string;
   result: string;

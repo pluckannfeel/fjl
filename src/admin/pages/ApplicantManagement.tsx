@@ -159,6 +159,7 @@ const ApplicantManagement = () => {
           onClose={applicantPDFModalClose}
           processing={processing}
           applicant={showApplicantPDF}
+          setApplicant={setShowApplicantPDF}
           // displayPhoto={applicantImage64}
         />
       )}

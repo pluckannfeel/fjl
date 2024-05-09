@@ -1,11 +1,20 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import { Page, Text, View, Document, Image } from "@react-pdf/renderer";
+import {
+  Page,
+  Text,
+  View,
+  Document,
+  Image as PDFImage,
+} from "@react-pdf/renderer";
 import { Applicant } from "../types/Applicant";
 import tinycolor from "tinycolor2";
 import { useTranslation } from "react-i18next";
 import { languageLevel } from "@/mirairo/helpers/constants";
 import { ResumeStylesheet as styles } from "@/mirairo/classes/ResumeBuilderStyles";
 import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone";
+
 import {
   WorkExperienceList,
   EducationList,
@@ -15,11 +24,18 @@ import {
   Gallery,
   LinksList,
 } from "@/mirairo/components/Resume/ResumeBuilder";
+import { maritalStatusLocalize } from "../helpers/constants";
+import i18n from "@/core/config/i18n";
+import { Questions } from "@/mirairo/types/Information";
 
 type ApplicantResumeBuilderProps = {
   // displayPhoto: string;
   data: Applicant;
 };
+
+dayjs.extend(timezone);
+// asia/tokyo
+dayjs.tz.setDefault("Asia/Tokyo");
 
 const darkenColor = (color: string, amount: number) =>
   tinycolor(color).darken(amount).toString();
@@ -29,27 +45,39 @@ const getReadableTextColor = (backgroundColor: string) => {
   return tinycolor(backgroundColor).isDark() ? "#FFFFFF" : "#000000";
 };
 
-export const DisplayPhoto = ({ photo }: { photo: string }) => {
-  return (
-    <View style={styles.photos}>
-      <View style={styles.imageContainer}>
-        <View style={styles.imageWrapper}>
-          <Image style={styles.photosImage} source={photo} />
-        </View>
-      </View>
-    </View>
-  );
-};
+// const toBase64 = (
+//   url: string,
+//   callback: (base64Img: string | null) => void
+// ): void => {
+//   const proxyUrl = `https://cors-anywhere.herokuapp.com/${url}`;
+//   const xhr = new XMLHttpRequest();
+//   xhr.onload = function () {
+//     const reader = new FileReader();
+//     reader.onloadend = function () {
+//       callback(reader.result as string | null);
+//     };
+//     reader.onerror = () => callback(null); // Handle FileReader error
+//     reader.readAsDataURL(xhr.response);
+//   };
+//   xhr.onerror = () => callback(null); // Handle XMLHttpRequest error
+//   xhr.open("GET", proxyUrl);
+//   xhr.responseType = "blob";
+//   xhr.send();
+// };
 
 const ApplicantResumeBuilder: React.FC<ApplicantResumeBuilderProps> = ({
-  // displayPhoto,
   data,
 }) => {
   const darkerColor = darkenColor("#1864AB", 20);
   const { t } = useTranslation();
   const textColor = getReadableTextColor(darkerColor);
 
-  // Sample skill levels
+  // useEffect(() => {
+  //   toBase64(data.img_url as string, (base64Img) => {
+  //     setImageSrc(base64Img);
+  //   });
+  // }, [data.img_url]);
+
   const skills = [
     {
       name: "日本語",
@@ -73,6 +101,8 @@ const ApplicantResumeBuilder: React.FC<ApplicantResumeBuilderProps> = ({
       photo.toString().endsWith(extension)
     );
   });
+
+  // check also img_url if its in imageExtensions, if not convert to jpg, jpeg, png dont add to filteredPhotos
 
   // convert all from and to from string to dayjs.utc(data?.work_experience).toDate() in data?.work_experience
   if (data?.work_experience) {
@@ -123,13 +153,6 @@ const ApplicantResumeBuilder: React.FC<ApplicantResumeBuilderProps> = ({
     ));
   };
 
-  // const resolveImageUrl = (url: string) => {
-  //   const corsProxy = "https://cors-anywhere.herokuapp.com/";
-  //   // Use proxy only if absolutely needed, you can also implement logic to detect CORS errors
-  //   return `${corsProxy}${url}`;
-  // };
-  // const displayPhoto = resolveImageUrl(data?.img_url as string);
-
   return (
     <Document>
       <Page
@@ -153,7 +176,14 @@ const ApplicantResumeBuilder: React.FC<ApplicantResumeBuilderProps> = ({
         >
           <View style={styles.headerTextContainer}>
             <Text style={[styles.headerMain, { color: textColor }]}>
-              {`${data?.last_name}, ${data?.first_name}`}
+              {/* {i18n.language === "en"
+                ? `${data?.last_name}, ${data?.first_name}`
+                : `${data?.ja_last_name} ${data?.ja_first_name}`} */}
+              {data?.ja_last_name && data?.ja_first_name
+                ? i18n.language === "en"
+                  ? `${data?.last_name}, ${data?.first_name}`
+                  : `${data?.ja_last_name} ${data?.ja_first_name}`
+                : `${data?.last_name}, ${data?.first_name}`}
             </Text>
             <Text style={[styles.headerContact, { color: textColor }]}>
               {data?.occupation} {"\n"}
@@ -163,12 +193,13 @@ const ApplicantResumeBuilder: React.FC<ApplicantResumeBuilderProps> = ({
             </Text>
           </View>
 
-          <Image
+          {/* <View style={styles.photosImage}>
+            >
+          </View> */}
+          <PDFImage
             style={styles.image}
-            // src={data?.img_url as unknown as string}
-            src={data?.img_url as unknown as string}
+            src={data.img_url ? (data.img_url as string) : ""}
           />
-          {/* <DisplayPhoto photo={data?.img_url as string} /> */}
         </View>
         <View style={styles.profileSection}>
           <View
@@ -191,7 +222,13 @@ const ApplicantResumeBuilder: React.FC<ApplicantResumeBuilderProps> = ({
               {t("mirairo.form.self_career_plans.self_introduction.label")}
             </Text>
           </View>
-          <Text style={styles.profileText}>{data?.self_introduction}</Text>
+          <Text style={styles.profileText}>
+            {data.ja_self_introduction
+              ? i18n.language === "en"
+                ? data.self_introduction
+                : data.ja_self_introduction
+              : data.self_introduction}
+          </Text>
         </View>
 
         <View style={styles.gridContainer}>
@@ -262,7 +299,10 @@ const ApplicantResumeBuilder: React.FC<ApplicantResumeBuilderProps> = ({
                   </Text>
                   <Text style={[styles.contentRight, styles.column]}>
                     {/* Single */}
-                    {data?.marital_status}
+                    {maritalStatusLocalize(
+                      data?.marital_status as string,
+                      i18n.language
+                    )}
                   </Text>
                 </View>
               </View>
@@ -427,7 +467,13 @@ const ApplicantResumeBuilder: React.FC<ApplicantResumeBuilderProps> = ({
                 <Text style={[styles.otherSkills, { color: darkerColor }]}>
                   {t("mirairo.form.skills_languages.other_skills.label")}
                 </Text>
-                <Text style={styles.content}>{data.other_skills}</Text>
+                <Text style={styles.content}>
+                  {data.ja_other_skills
+                    ? i18n.language === "en"
+                      ? data.other_skills
+                      : data.ja_other_skills
+                    : data.other_skills}
+                </Text>
               </>
             ) : (
               <></>
@@ -468,7 +514,13 @@ const ApplicantResumeBuilder: React.FC<ApplicantResumeBuilderProps> = ({
             {t("mirairo.form.self_career_plans.future_career_plan.label")}
           </Text>
 
-          <Text style={styles.careerPlansText}>{data?.future_career_plan}</Text>
+          <Text style={styles.careerPlansText}>
+            {data.ja_future_career_plan
+              ? i18n.language === "en"
+                ? data.future_career_plan
+                : data.ja_future_career_plan
+              : data.future_career_plan}
+          </Text>
 
           <Text
             style={[
@@ -482,7 +534,12 @@ const ApplicantResumeBuilder: React.FC<ApplicantResumeBuilderProps> = ({
           </Text>
 
           <Text style={styles.careerPlansText}>
-            {data?.reason_for_application}
+            {/* {data?.reason_for_application} */}
+            {data.ja_reason_for_application
+              ? i18n.language === "en"
+                ? data.reason_for_application
+                : data.ja_reason_for_application
+              : data.reason_for_application}
           </Text>
 
           <Text
@@ -496,7 +553,14 @@ const ApplicantResumeBuilder: React.FC<ApplicantResumeBuilderProps> = ({
             {t("mirairo.form.self_career_plans.past_experience.label")}
           </Text>
 
-          <Text style={styles.careerPlansText}>{data?.past_experience}</Text>
+          <Text style={styles.careerPlansText}>
+            {/* // {data?.past_experience} */}
+            {data.ja_past_experience
+              ? i18n.language === "en"
+                ? data.past_experience
+                : data.ja_past_experience
+              : data.past_experience}
+          </Text>
         </View>
 
         <View style={styles.uniqueQuestionsSection}>
@@ -522,7 +586,13 @@ const ApplicantResumeBuilder: React.FC<ApplicantResumeBuilderProps> = ({
           </View>
 
           <UniqueQuestionsList
-            uniqueQuestions={data?.unique_questions}
+            uniqueQuestions={
+              data.ja_unique_questions
+                ? i18n.language === "en"
+                  ? (data.unique_questions as Questions[])
+                  : (data.ja_unique_questions as Questions[])
+                : (data.unique_questions as Questions[])
+            }
             darkerColor={darkerColor}
           />
         </View>
@@ -585,12 +655,8 @@ const ApplicantResumeBuilder: React.FC<ApplicantResumeBuilderProps> = ({
           <></>
         )}
         <Gallery
-          //   photos={data?.photos ? (data.photos as unknown as string[]) : []}
           photos={data?.photos ? (filteredPhotos as unknown as string[]) : []}
         />
-        {/* <Gallery
-            photo={data?.img_url ? (data.img_url as unknown as string) : ""}
-          /> */}
 
         {data?.links ? (
           data?.links?.length > 0 && (

@@ -132,6 +132,7 @@
     "login": "ログイン",
     "logout": "ログアウト",
     "forgotPassword": "パスワードをお忘れですか？",
+    "translate": "PDF 翻訳",
     "snackbar": {
       "error": "エラー",
       "success": "成功"
@@ -150,6 +151,7 @@
       "urlRequired": "URLが必要です",
       "imageRequired": "画像が必要です",
       "invalidUrl": "URLが無効です",
+      "failedTranslate": "PDFの翻訳に失敗しました。",
       "forbidden": {
         "subTitle": "このページを表示する権限がありません。"
       },
@@ -688,6 +690,9 @@
     "title": "ダッシュボード"
   },
   "applicantManagement": {
-    "title": "応募者管理"
+    "title": "応募者管理",
+    "notification": {
+      "translated": "PDFは翻訳されました"
+    }
   }
 }

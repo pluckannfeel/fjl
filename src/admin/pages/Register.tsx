@@ -2,14 +2,12 @@ import React from "react";
 import {
   TextInput,
   PasswordInput,
-  Checkbox,
   Anchor,
   Paper,
   Title,
   Text,
   Container,
   Group,
-  Button,
   SimpleGrid,
   Select,
 } from "@mantine/core";
@@ -218,16 +216,6 @@ const Register = () => {
             Forgot password?
           </Anchor> */}
           </Group>
-          <Button
-            variant="gradient"
-            gradient={{ from: "pink", to: "red" }}
-            fullWidth
-            mt="md"
-            size="lg"
-            type="submit"
-          >
-            {t("admin.form.actions.register")}
-          </Button>
         </Paper>
       </form>
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const InterviewTimeSlots = [
   // add time slots here with object e.g{ "label": "11:00-12:00", "value": "11:00-12:00" }
   // {

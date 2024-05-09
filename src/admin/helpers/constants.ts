@@ -16,3 +16,33 @@ export const resultOptions = [
   { label: "×", value: "×" },
   { label: "△", value: "△" },
 ];
+
+export const maritalStatusLocalize = (value: string, lang: string) => {
+  if (lang === "ja") {
+    switch (value) {
+      case "single":
+        return "独身";
+      case "married":
+        return "既婚";
+      default:
+        return value;
+    }
+  }
+
+  return value;
+};
+
+export const yesNoLocalize = (value: string, lang: string) => {
+  if (lang === "ja") {
+    switch (value) {
+      case "yes":
+        return "はい";
+      case "no":
+        return "いいえ";
+      default:
+        return value;
+    }
+  }
+
+  return value;
+};

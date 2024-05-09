@@ -194,7 +194,13 @@ const ApplicantTable: React.FC<ApplicantTableProps> = ({
     {
       accessor: "name",
       title: t("admin.table.headers.name"),
-      render: ({ first_name, last_name, img_url }) => {
+      render: ({
+        first_name,
+        last_name,
+        ja_first_name,
+        ja_last_name,
+        img_url,
+      }) => {
         return (
           <div
             style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
@@ -207,7 +213,12 @@ const ApplicantTable: React.FC<ApplicantTableProps> = ({
               alt="applicant_image"
             />
             <Text fw="bolder" ml="md">
-              {`${last_name}, ${first_name}`}
+              {/* {`${last_name}, ${first_name}`} */}
+              {ja_last_name && ja_first_name
+                ? i18n.language === "en"
+                  ? `${last_name}, ${first_name}`
+                  : `${ja_last_name} ${ja_first_name}`
+                : `${last_name}, ${first_name}`}
             </Text>
           </div>
         );
