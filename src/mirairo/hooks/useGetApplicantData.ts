@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { ApplicantResume, PersonalInformation } from "../types/Information";
+import { ApplicantResume } from "../types/Information";
 import { axiosInstance } from "../../api/server";
 
 // const fetchApplicantData = async (token: string): Promise<ApplicantResume> => {

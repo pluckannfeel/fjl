@@ -37,11 +37,15 @@ export const yesNoLocalize = (value: string, lang: string) => {
     switch (value) {
       case "yes":
         return "はい";
-      case "no":
+      case "none":
         return "いいえ";
       default:
         return value;
     }
+  }
+
+  if (value === "none") {
+    return "No";
   }
 
   return value;

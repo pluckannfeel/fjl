@@ -150,6 +150,7 @@
       "invalid": "Invalid",
       "urlRequired": "URL is required",
       "imageRequired": "Image is required",
+      "sizeLimit": "Image size must be less than 5MB",
       "invalidUrl": "Invalid URL",
       "failedTranslate": "Failed to translate PDF",
       "forbidden": {

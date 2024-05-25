@@ -130,7 +130,7 @@ export type ApplicantResume = {
   password: string;
   confirm_password?: string;
   family: FamilyInformation[];
-  has_family: "yes" | "none";
+  has_family?: "yes" | "none";
   education: EducationBackground[];
   work_experience: WorkExperience[];
   qualifications_licenses: QualificationsLicenses[];
@@ -147,6 +147,6 @@ export type ApplicantResume = {
   future_career_plan?: string;
   photos?: File[];
   links?: Link[];
-  unique_questions: Questions[];
-  required_questions: Questions[];
+  unique_questions?: Questions[];
+  required_questions?: Questions[];
 };
