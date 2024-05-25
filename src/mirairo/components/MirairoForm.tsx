@@ -7,11 +7,11 @@ import {
   Container,
   Group,
   Paper,
-  Title,
+  // Title,
   Text,
   CloseButton,
-  Box,
-  LoadingOverlay,
+  // Box,
+  // LoadingOverlay,
 } from "@mantine/core";
 import { useFormik, FormikErrors } from "formik";
 import * as Yup from "yup";
@@ -19,34 +19,37 @@ import {
   PersonalInformation,
   QualificationsLicenses,
 } from "../types/Information";
-import EducationalBackgroundForm from "./EducationalBackgroundForm";
-import FamilyForm from "./FamilyForm";
+// import EducationalBackgroundForm from "./EducationalBackgroundForm";
+// import FamilyForm from "./FamilyForm";
 import LegalInformationForm from "./LegalInformationForm";
 import PersonalInformationForm from "./PersonalInformationForm";
-import QualificationAndLicensesForm from "./QualificationAndLicensesForm";
-import SelfAndCareerPlansForm from "./SelfAndCareerPlansForm";
-import SkillsAndLanguagesForm from "./SkillsAndLanguagesForm";
-import WorkExperienceForm from "./WorkExperienceForm";
-import PhotosVideoLinksForm from "./PhotosVideoLinksForm";
+// import QualificationAndLicensesForm from "./QualificationAndLicensesForm";
+// import SelfAndCareerPlansForm from "./SelfAndCareerPlansForm";
+// import SkillsAndLanguagesForm from "./SkillsAndLanguagesForm";
+// import WorkExperienceForm from "./WorkExperienceForm";
+// import PhotosVideoLinksForm from "./PhotosVideoLinksForm";
 
 import styles from "../classes/MirairoForm.module.scss";
 import { useTranslation } from "react-i18next";
 import FormikContext from "../contexts/FormProvider";
 import {
-  allowedURLPattern,
+  // allowedURLPattern,
   convertBase64ToFile,
   days,
-  disallowedDomains,
-  genders,
+  // disallowedDomains,
+  // genders,
   months,
-  nationalities,
-  years,
+  // nationalities,
+  // years,
 } from "../helpers/constants";
-import dayjs from "dayjs";
-import UniqueQuestionsForm from "./UniqueQuestionsForm";
-import { useDisclosure, useLocalStorage } from "@mantine/hooks";
+// import dayjs from "dayjs";
+// import UniqueQuestionsForm from "./UniqueQuestionsForm";
+import {
+  // useDisclosure,
+  useLocalStorage,
+} from "@mantine/hooks";
 import CustomLoader from "../../core/components/Loader";
-import RequiredQuestionsForm from "./RequiredQuestionsForm";
+// import RequiredQuestionsForm from "./RequiredQuestionsForm";
 
 // Step definitions
 const formSteps = [
@@ -87,73 +90,71 @@ const formSteps = [
       "confirm_password",
     ],
   },
-  {
-    name: "mirairo.sections.family",
-    component: FamilyForm,
-    fields: ["has_family", "family"],
-  },
-  {
-    name: "mirairo.sections.requiredQuestions",
-    component: RequiredQuestionsForm,
-    fields: ["required_questions"],
-  },
-  {
-    name: "mirairo.sections.educationalBackground",
-    component: EducationalBackgroundForm,
-    fields: ["education"],
-  },
-  {
-    name: "mirairo.sections.qualificationsLicenses",
-    component: QualificationAndLicensesForm,
-    fields: [
-      // "qualifications_licenses.name, qualifications_licenses.acquired_date",
-      "qualifications_licenses",
-    ],
-  },
-  {
-    name: "mirairo.sections.workExperience",
-    component: WorkExperienceForm,
-    fields: ["work_experience"],
-  },
-
-  {
-    name: "mirairo.sections.skillsLanguages",
-    component: SkillsAndLanguagesForm,
-    fields: [
-      "jlpt",
-      "jft",
-      "nat",
-      "japanese",
-      "english",
-      "other_languages",
-      "computer_skills",
-      "other_skills",
-    ],
-  },
-  {
-    name: "mirairo.sections.SelfCareerPlans",
-    component: SelfAndCareerPlansForm,
-    fields: [
-      "self_introduction",
-      "reason_for_application",
-      "past_experience",
-      "future_career_plan",
-    ],
-  },
-
-  {
-    name: "mirairo.sections.photosVideosLinks",
-    component: PhotosVideoLinksForm,
-    fields: [
-      "photos",
-      // "links"
-    ],
-  },
-  {
-    name: "mirairo.sections.uniqueQuestions",
-    component: UniqueQuestionsForm,
-    fields: ["unique_questions"],
-  },
+  // {
+  //   name: "mirairo.sections.family",
+  //   component: FamilyForm,
+  //   fields: ["has_family", "family"],
+  // },
+  // {
+  //   name: "mirairo.sections.requiredQuestions",
+  //   component: RequiredQuestionsForm,
+  //   fields: ["required_questions"],
+  // },
+  // {
+  //   name: "mirairo.sections.educationalBackground",
+  //   component: EducationalBackgroundForm,
+  //   fields: ["education"],
+  // },
+  // {
+  //   name: "mirairo.sections.qualificationsLicenses",
+  //   component: QualificationAndLicensesForm,
+  //   fields: [
+  //     // "qualifications_licenses.name, qualifications_licenses.acquired_date",
+  //     "qualifications_licenses",
+  //   ],
+  // },
+  // {
+  //   name: "mirairo.sections.workExperience",
+  //   component: WorkExperienceForm,
+  //   fields: ["work_experience"],
+  // },
+  // {
+  //   name: "mirairo.sections.skillsLanguages",
+  //   component: SkillsAndLanguagesForm,
+  //   fields: [
+  //     "jlpt",
+  //     "jft",
+  //     "nat",
+  //     "japanese",
+  //     "english",
+  //     "other_languages",
+  //     "computer_skills",
+  //     "other_skills",
+  //   ],
+  // },
+  // {
+  //   name: "mirairo.sections.SelfCareerPlans",
+  //   component: SelfAndCareerPlansForm,
+  //   fields: [
+  //     "self_introduction",
+  //     "reason_for_application",
+  //     "past_experience",
+  //     "future_career_plan",
+  //   ],
+  // },
+  // {
+  //   name: "mirairo.sections.photosVideosLinks",
+  //   component: PhotosVideoLinksForm,
+  //   fields: [
+  //     "photos",
+  //     // "links"
+  //   ],
+  // },
+  // {
+  //   name: "mirairo.sections.uniqueQuestions",
+  //   component: UniqueQuestionsForm,
+  //   fields: ["unique_questions"],
+  // },
 ];
 
 function getFieldError(
@@ -162,6 +163,7 @@ function getFieldError(
 ): string | undefined {
   // Split the fieldPath (e.g., 'name.first_name') into an array of keys
   const keys = fieldPath.split(".");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let currentError: any = errors;
 
   // Iterate over the keys array, navigating deeper into the errors object
@@ -214,31 +216,31 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
     family: [],
     has_family: "none",
     education: [
-      {
-        id: "0",
-        school_name: "",
-        from: null,
-        to: null,
-      },
+      // {
+      //   id: "0",
+      //   school_name: "",
+      //   from: null,
+      //   to: null,
+      // },
     ],
     work_experience: [
-      {
-        id: "0",
-        employer_name: "",
-        from: null,
-        to: null,
-        position: "",
-        responsibilities: "",
-        achievements: "",
-      },
+      // {
+      //   id: "0",
+      //   employer_name: "",
+      //   from: null,
+      //   to: null,
+      //   position: "",
+      //   responsibilities: "",
+      //   achievements: "",
+      // },
     ],
     qualifications_licenses: [
-      {
-        id: "0",
-        name: "",
-        acquired_date: null,
-        file: null,
-      },
+      // {
+      //   id: "0",
+      //   name: "",
+      //   acquired_date: null,
+      //   file: null,
+      // },
     ],
     jlpt: "",
     jft: "",
@@ -259,52 +261,52 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
     //   },
     // ],
     // links: [],
-    // unique_questions: [],
-    unique_questions: Array.from({ length: 3 }, (_, i) => ({
-      id: (i + 1).toString(),
-      question: "",
-      answer: "",
-    })),
+    unique_questions: [],
+    // unique_questions: Array.from({ length: 3 }, (_, i) => ({
+    //   id: (i + 1).toString(),
+    //   question: "",
+    //   answer: "",
+    // })),
     required_questions: [
-      {
-        id: "1",
-        question:
-          "外国で仕事をしたことがありますか？ ( Did you work in overseas before? )",
-        answer: "",
-      },
-      {
-        id: "2",
-        question: "タバコを吸いますか？ ( Do you smoke? )",
-        answer: "",
-      },
-      {
-        id: "3",
-        question: "お酒を飲みますか？ ( Do you drink alcohol? )",
-        answer: "",
-      },
-      {
-        id: "4",
-        question: "刺青（いれずみ）がありますか？ ( Do you have tattoo? )",
-        answer: "",
-      },
-      {
-        id: "5",
-        question:
-          "アレルギー・持病はありますか？ ( Do you have any allergies or illness? )",
-        answer: "",
-      },
-      {
-        id: "6",
-        question:
-          "過去に大きな病気や手術はありますか？ ( Have you had any major illness or surgery in the past? )",
-        answer: "",
-      },
-      {
-        id: "7",
-        question:
-          "日本での希望給与はいくらですか？ ( How much is your expected salary in Japan? )",
-        answer: "",
-      },
+      // {
+      //   id: "1",
+      //   question:
+      //     "外国で仕事をしたことがありますか？ ( Did you work in overseas before? )",
+      //   answer: "",
+      // },
+      // {
+      //   id: "2",
+      //   question: "タバコを吸いますか？ ( Do you smoke? )",
+      //   answer: "",
+      // },
+      // {
+      //   id: "3",
+      //   question: "お酒を飲みますか？ ( Do you drink alcohol? )",
+      //   answer: "",
+      // },
+      // {
+      //   id: "4",
+      //   question: "刺青（いれずみ）がありますか？ ( Do you have tattoo? )",
+      //   answer: "",
+      // },
+      // {
+      //   id: "5",
+      //   question:
+      //     "アレルギー・持病はありますか？ ( Do you have any allergies or illness? )",
+      //   answer: "",
+      // },
+      // {
+      //   id: "6",
+      //   question:
+      //     "過去に大きな病気や手術はありますか？ ( Have you had any major illness or surgery in the past? )",
+      //   answer: "",
+      // },
+      // {
+      //   id: "7",
+      //   question:
+      //     "日本での希望給与はいくらですか？ ( How much is your expected salary in Japan? )",
+      //   answer: "",
+      // },
     ],
     // account information
     password: "",
@@ -354,60 +356,60 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
     // passport_number: Yup.string().required(t("common.errors.required")),
     // passport_expiry: Yup.string().required(t("common.errors.required")),
     email: Yup.string().required(t("common.errors.required")),
-    has_family: Yup.string().required(t("common.errors.required")),
-    family: Yup.array().of(
-      Yup.object({
-        name: Yup.string().required(t("common.errors.required")),
-        relationship: Yup.string().required(t("common.errors.required")),
-        birth_date: Yup.string().required(t("common.errors.required")),
-        age: Yup.number().required(t("common.errors.required")),
-        nationality: Yup.string().required(t("common.errors.required")),
-        intended_to_stay: Yup.boolean().required(t("common.errors.required")),
-        work_school_place: Yup.string().required(t("common.errors.required")),
-        residence_card_number: Yup.string().required(
-          t("common.errors.required")
-        ),
-      })
-    ),
-    required_questions: Yup.array().of(
-      Yup.object({
-        answer: Yup.string().required(t("common.errors.required")),
-      })
-    ),
-    education: Yup.array().of(
-      Yup.object({
-        school_name: Yup.string().required(t("common.errors.required")),
-        from: Yup.string().required(t("common.errors.required")),
-        to: Yup.string().required(t("common.errors.required")),
-      })
-    ),
-    work_experience: Yup.array().of(
-      Yup.object({
-        employer_name: Yup.string().required(t("common.errors.required")),
-        from: Yup.string().required(t("common.errors.required")),
-        to: Yup.string().required(t("common.errors.required")),
-        position: Yup.string().required(t("common.errors.required")),
-      })
-    ),
-    qualifications_licenses: Yup.array().of(
-      Yup.object({
-        name: Yup.string().required(t("common.errors.required")),
-        acquired_date: Yup.string().required(t("common.errors.required")),
-        file: Yup.mixed().required(t("common.errors.required")),
-      })
-    ),
-    jlpt: Yup.string().required(t("common.errors.required")),
-    jft: Yup.string().required(t("common.errors.required")),
-    nat: Yup.string().required(t("common.errors.required")),
-    japanese: Yup.string().required(t("common.errors.required")),
-    english: Yup.string().required(t("common.errors.required")),
-    // other_languages: Yup.string().required(t("common.errors.required")),
-    // computer_skills: Yup.string().required(t("common.errors.required")),
-    other_skills: Yup.string(),
-    self_introduction: Yup.string().required(t("common.errors.required")),
-    reason_for_application: Yup.string().required(t("common.errors.required")),
-    past_experience: Yup.string().required(t("common.errors.required")),
-    future_career_plan: Yup.string().required(t("common.errors.required")),
+    // has_family: Yup.string().required(t("common.errors.required")),
+    // family: Yup.array().of(
+    //   Yup.object({
+    //     name: Yup.string().required(t("common.errors.required")),
+    //     relationship: Yup.string().required(t("common.errors.required")),
+    //     birth_date: Yup.string().required(t("common.errors.required")),
+    //     age: Yup.number().required(t("common.errors.required")),
+    //     nationality: Yup.string().required(t("common.errors.required")),
+    //     intended_to_stay: Yup.boolean().required(t("common.errors.required")),
+    //     work_school_place: Yup.string().required(t("common.errors.required")),
+    //     residence_card_number: Yup.string().required(
+    //       t("common.errors.required")
+    //     ),
+    //   })
+    // ),
+    // required_questions: Yup.array().of(
+    //   Yup.object({
+    //     answer: Yup.string().required(t("common.errors.required")),
+    //   })
+    // ),
+    // education: Yup.array().of(
+    //   Yup.object({
+    //     school_name: Yup.string().required(t("common.errors.required")),
+    //     from: Yup.string().required(t("common.errors.required")),
+    //     to: Yup.string().required(t("common.errors.required")),
+    //   })
+    // ),
+    // work_experience: Yup.array().of(
+    //   Yup.object({
+    //     employer_name: Yup.string().required(t("common.errors.required")),
+    //     from: Yup.string().required(t("common.errors.required")),
+    //     to: Yup.string().required(t("common.errors.required")),
+    //     position: Yup.string().required(t("common.errors.required")),
+    //   })
+    // ),
+    // qualifications_licenses: Yup.array().of(
+    //   Yup.object({
+    //     name: Yup.string().required(t("common.errors.required")),
+    //     acquired_date: Yup.string().required(t("common.errors.required")),
+    //     file: Yup.mixed().required(t("common.errors.required")),
+    //   })
+    // ),
+    // jlpt: Yup.string().required(t("common.errors.required")),
+    // jft: Yup.string().required(t("common.errors.required")),
+    // nat: Yup.string().required(t("common.errors.required")),
+    // japanese: Yup.string().required(t("common.errors.required")),
+    // english: Yup.string().required(t("common.errors.required")),
+    // // other_languages: Yup.string().required(t("common.errors.required")),
+    // // computer_skills: Yup.string().required(t("common.errors.required")),
+    // other_skills: Yup.string(),
+    // self_introduction: Yup.string().required(t("common.errors.required")),
+    // reason_for_application: Yup.string().required(t("common.errors.required")),
+    // past_experience: Yup.string().required(t("common.errors.required")),
+    // future_career_plan: Yup.string().required(t("common.errors.required")),
     // links: Yup.array().of(
     //   Yup.object({
     //     link: Yup.string()
@@ -615,7 +617,7 @@ const MirairoForm: React.FunctionComponent<MirairoFormProps> = (props) => {
 
   const prevStep = () => setCurrentStep((s) => Math.max(s - 1, 0));
 
-  const [visible, { toggle }] = useDisclosure(false);
+  // const [visible, { toggle }] = useDisclosure(false);
 
   // ----------------- EVENT HANDLERS -----------------
   return (

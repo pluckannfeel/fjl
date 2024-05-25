@@ -140,7 +140,7 @@ const GenerateResume = () => {
     passport_expiry: applicantData?.passport_expiry ?? null,
     email: applicantData?.email ?? "",
     family: applicantData?.family ?? [],
-    has_family: applicantData?.has_family ?? "none",
+    has_family: (applicantData?.family.length ?? 0) > 0 ? "yes" : "none",
     education: applicantData?.education ?? [],
     work_experience: applicantData?.work_experience ?? [],
     qualifications_licenses: applicantData?.qualifications_licenses ?? [],
@@ -164,8 +164,66 @@ const GenerateResume = () => {
     // ],
     // links: [],
     // unique_questions: [],
-    unique_questions: applicantData?.unique_questions ?? [],
-    required_questions: applicantData?.required_questions ?? [],
+
+    unique_questions:
+      (applicantData?.unique_questions?.length ?? 0) > 0
+        ? applicantData?.unique_questions
+        : Array.from({ length: 3 }, (_, i) => ({
+            id: (i + 1).toString(),
+            question: "",
+            answer: "",
+          })),
+    required_questions:
+      (applicantData?.required_questions?.length ?? 0) > 0
+        ? applicantData?.required_questions
+        : [
+            // {
+            //   id: "1",
+            //   question:
+            //     "日本に友人、知人、親戚がいますか？ (Do you have friends, family/relatives living in Japan?)",
+            //   answer: (applicantData?.family.length ?? 0) > 0 ? "yes" : "none",
+            // },
+            {
+              id: "2",
+              question:
+                "外国で仕事をしたことがありますか？ ( Did you work in overseas before? )",
+              answer: "",
+            },
+            {
+              id: "3",
+              question: "タバコを吸いますか？ ( Do you smoke? )",
+              answer: "",
+            },
+            {
+              id: "4",
+              question: "お酒を飲みますか？ ( Do you drink alcohol? )",
+              answer: "",
+            },
+            {
+              id: "5",
+              question:
+                "刺青（いれずみ）がありますか？ ( Do you have tattoo? )",
+              answer: "",
+            },
+            {
+              id: "6",
+              question:
+                "アレルギー・持病はありますか？ ( Do you have any allergies or illness? )",
+              answer: "",
+            },
+            {
+              id: "7",
+              question:
+                "過去に大きな病気や手術はありますか？ ( Have you had any major illness or surgery in the past? )",
+              answer: "",
+            },
+            {
+              id: "8",
+              question:
+                "日本での希望給与はいくらですか？ ( How much is your expected salary in Japan? )",
+              answer: "",
+            },
+          ],
     password: "",
     confirm_password: "",
   };
@@ -173,31 +231,30 @@ const GenerateResume = () => {
   const formik = useFormik({
     initialValues,
     onSubmit: async (values) => {
-      const updatedRequiredQuestions = values.required_questions.map(
-        (question) => {
-          // Check if it's the question we want to update
-          if (question.id === "4") {
-            return {
-              ...question,
-              answer: values.family.length > 0 ? "yes" : "no",
-            };
-          }
-          // For all other questions, return them unchanged
-          return question;
-        }
-      );
+      // const updatedRequiredQuestions = values.required_questions!.map(
+      //   (question, index) => {
+      //     // Check if it's the first question
+      //     if (index === 0) {
+      //       return {
+      //         ...question,
+      //         answer: values.family.length > 0 ? "yes" : "none",
+      //       };
+      //     }
+      //     // For all other questions, return them unchanged
+      //     return question;
+      //   }
+      // );
 
-      // Create a new object with the updated array
-      const updatedValues = {
-        ...values,
-        required_questions: updatedRequiredQuestions,
-      };
+      // // Create a new object with the updated array
+      // const updatedValues = {
+      //   ...values,
+      //   required_questions: updatedRequiredQuestions,
+      // };
 
-      setResumeDetails(updatedValues);
+      setResumeDetails(values);
 
-      updateResume(updatedValues).then(() => {
+      updateResume(values).then(() => {
         showNotification({
-          // title: "Resume Updated",
           message: t("mirairo.form.notifications.updateResumeSuccess"),
           color: "teal",
         });

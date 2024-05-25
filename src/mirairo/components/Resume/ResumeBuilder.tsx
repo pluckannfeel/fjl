@@ -241,6 +241,11 @@ export const UniqueQuestionsList: React.FC<{
   return (
     <View style={styles.uniqueQuestionsSection}>
       {uniqueQuestions?.map((item, index) => {
+        // Check if the question or answer is an empty string
+        if (!item.question || !item.answer) {
+          return null;
+        }
+
         let translatedString = t(
           `mirairo.form.uniqueQuestions.${item.question}`
         );
@@ -271,24 +276,39 @@ export const UniqueQuestionsList: React.FC<{
 
 interface RequiredQuestionsListProps {
   hasFamily: boolean;
-  requiredQuestions: Questions[] | undefined;
+  requiredQuestions: Questions[];
   darkerColor: string;
 }
 
 export const RequiredQuestionsList: React.FC<RequiredQuestionsListProps> = ({
-  // hasFamily,
+  hasFamily,
   requiredQuestions,
 }) => {
+  const { i18n } = useTranslation();
+
+  if (!requiredQuestions) {
+    return null;
+  }
+
+  // Create a copy of the requiredQuestions array and append the first question
+  const updatedQuestions = [
+    {
+      id: "1",
+      question:
+        "日本に友人、知人、親戚がいますか？ (Do you have friends, family/relatives living in Japan?)",
+      answer: hasFamily ? "yes" : "none",
+    },
+    ...requiredQuestions,
+  ];
+
   return (
     <View>
-      {requiredQuestions?.map((item) => {
+      {updatedQuestions?.map((item) => {
         const questionText = item.question.replace(/^\d+\.\s*/, ""); // Clean the question string
         return (
           <View style={styles.rqRow} key={item.id}>
             <View style={styles.questionContainer}>
-              <Text
-                style={styles.question}
-              >{`${item.id}.)  ${questionText}`}</Text>
+              <Text style={styles.question}>{` ${questionText}`}</Text>
             </View>
             <View style={styles.answerContainer}>
               <Text style={styles.answer}>

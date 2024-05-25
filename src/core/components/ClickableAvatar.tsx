@@ -1,11 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Group, Avatar, Menu, Button, Text } from "@mantine/core";
-import {
-  IconUser,
-  IconCamera,
-  IconTrash,
-  IconUserCircle,
-} from "@tabler/icons-react";
+import { Group, Avatar, Menu, Text } from "@mantine/core";
+import { IconCamera, IconUserCircle } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import classes from "../classes/ClickableAvatar.module.css";
 
@@ -47,22 +42,22 @@ const ClickableAvatar: React.FC<ClickableAvatarProps> = ({
     fileInputRef.current?.click();
   };
 
-  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const file = event.target.files?.[0] || null;
-
-  //   handleFileSelect(file);
-  // };
-
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] || null;
-    if (file) {
-      // Create a URL for the selected file
-      const fileUrl = URL.createObjectURL(file);
-      setPreviewUrl(fileUrl);
-      handleFileSelect(file);
+    const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+
+    if (file && file.size > maxSize) {
+      alert(t("common.errors.sizeLimit"));
+      // Do not set the file or preview if it exceeds the size limit
     } else {
-      setPreviewUrl(null);
-      handleFileSelect(null);
+      if (file) {
+        const fileUrl = URL.createObjectURL(file);
+        setPreviewUrl(fileUrl);
+        handleFileSelect(file);
+      } else {
+        setPreviewUrl(null);
+        handleFileSelect(null);
+      }
     }
   };
 
@@ -78,7 +73,6 @@ const ClickableAvatar: React.FC<ClickableAvatarProps> = ({
         alt="Applicant Avatar"
         radius="lg"
         size={imgSizePreview ? imgSizePreview : 200}
-        // className={`${classes.avatarImage}`}
       >
         {!previewUrl && <IconUserCircle size={100} />}
       </Avatar>

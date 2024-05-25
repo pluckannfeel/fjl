@@ -1,4 +1,4 @@
-import { ApplicantResume, PersonalInformation } from "./Information";
+import { ApplicantResume } from "./Information";
 
 export interface ResumeBuilderProps {
   theme: ResumeTheme;

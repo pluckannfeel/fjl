@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { createContext, useContext } from "react";
 import { useLocalStorage } from "../../core/hooks/useLocalStorage";
 import { useLogin } from "../hooks/useApplicantLogin";
 import { useLogout } from "../hooks/useApplicantLogout";
-import { useApplicantData } from "../hooks/useApplicantData";
-import { ApplicantResume, PersonalInformation } from "../types/Information";
+
+import { ApplicantResume } from "../types/Information";
 import { useGetApplicantData } from "../hooks/useGetApplicantData";
 
 interface AuthContextInterface {

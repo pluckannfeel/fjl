@@ -17,17 +17,17 @@ import {
 import { DateInput, DateValue } from "@mantine/dates";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import commonStyles from "../../classes/Common.module.scss";
+// import commonStyles from "../../classes/Common.module.scss";
 import {
-  expectedSalaries,
   getNestedError,
   nationalities,
 } from "../../helpers/constants";
-import { FamilyInformation, Questions } from "@/mirairo/types/Information";
+import { FamilyInformation } from "@/mirairo/types/Information";
 import { IconCalendarEvent, IconX } from "@tabler/icons-react";
 import dayjs from "dayjs";
 
 interface FamilyModalProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formik: any;
   close: () => void;
   opened: boolean;
@@ -42,7 +42,6 @@ const FamilyModal: React.FC<FamilyModalProps> = ({ formik, close, opened }) => {
     label: t(nationality.label), // Translates the label
   }));
 
-  // ======================= EVENT HANDLERS =======================
   const handleAddFamilyMember = () => {
     formik.setFieldValue("family", [
       ...(formik.values.family ?? []),
@@ -82,21 +81,15 @@ const FamilyModal: React.FC<FamilyModalProps> = ({ formik, close, opened }) => {
         <Grid.Col span={{ base: 12, md: 12 }}>
           <Radio.Group
             name="has_family"
-            // label={t("mirairo.form.marital_status.label")}
             withAsterisk
             required
-            value={formik.values.family.length > 0 ? "yes" : "none"}
+            value={formik.values.has_family}
             onChange={(value) => {
               formik.setFieldValue("has_family", value);
               if (value === "none") {
                 formik.setFieldValue("family", []);
-              } else {
-                // handleAddFamilyMember();
-                // # do nothing
               }
             }}
-            // onBlur={() => formik.setFieldTouched("marital_status", true)}
-            // error={formik.errors.marital_status}
             error={
               formik.touched.has_family && Boolean(formik.errors.has_family)
             }
@@ -119,7 +112,7 @@ const FamilyModal: React.FC<FamilyModalProps> = ({ formik, close, opened }) => {
         </Grid.Col>
       </Grid>
 
-      {formik.values.family.length > 0 && (
+      {formik.values.has_family === "yes" && (
         <>
           <Card mt="xs">
             <CardSection>
@@ -131,10 +124,7 @@ const FamilyModal: React.FC<FamilyModalProps> = ({ formik, close, opened }) => {
                         <SimpleGrid cols={{ base: 2, sm: 4 }}>
                           <TextInput
                             label={t("mirairo.form.family.relationship")}
-                            // placeholder={t("mirairo.form.occupation.placeholder")}
-                            onChange={formik.handleChange(
-                              `family[${index}].relationship`
-                            )}
+                            onChange={formik.handleChange}
                             required
                             name={`family[${index}].relationship`}
                             value={family.relationship}
@@ -146,10 +136,7 @@ const FamilyModal: React.FC<FamilyModalProps> = ({ formik, close, opened }) => {
 
                           <TextInput
                             label={t("mirairo.form.family.name")}
-                            // placeholder={t("mirairo.form.occupation.placeholder")}
-                            onChange={formik.handleChange(
-                              `family[${index}].name`
-                            )}
+                            onChange={formik.handleChange}
                             required
                             name={`family[${index}].name`}
                             value={family.name}
@@ -163,7 +150,6 @@ const FamilyModal: React.FC<FamilyModalProps> = ({ formik, close, opened }) => {
                             valueFormat="YYYY/MM/DD"
                             rightSection={<IconCalendarEvent />}
                             label={t("mirairo.form.family.birth_date")}
-                            // placeholder={t("mirairo.form.occupation.placeholder")}
                             onChange={(value: DateValue) =>
                               formik.setFieldValue(
                                 `family[${index}].birth_date`,
@@ -185,11 +171,10 @@ const FamilyModal: React.FC<FamilyModalProps> = ({ formik, close, opened }) => {
 
                           <Select
                             label={t("mirairo.form.family.nationality")}
-                            // placeholder={t("mirairo.form.occupation.placeholder")}
-                            onChange={(_value, option) => {
+                            onChange={(value) => {
                               formik.setFieldValue(
                                 `family[${index}].nationality`,
-                                option.value
+                                value
                               );
                             }}
                             data={nationalityOptions}
@@ -206,14 +191,17 @@ const FamilyModal: React.FC<FamilyModalProps> = ({ formik, close, opened }) => {
                         <Grid>
                           <Grid.Col span={{ base: 12, sm: 2 }}>
                             <Checkbox
-                              defaultChecked
+                              defaultChecked={family.intended_to_stay}
                               color="lime.5"
-                              // color="orange.4"
-                              iconColor="dark.8"
                               size="lg"
                               mt={"md"}
-                              // value={family.intended_to_stay}
                               label={t("mirairo.form.family.intended_to_stay")}
+                              onChange={(event) =>
+                                formik.setFieldValue(
+                                  `family[${index}].intended_to_stay`,
+                                  event.currentTarget.checked
+                                )
+                              }
                               error={getNestedError(
                                 `family.${index}.intended_to_stay`,
                                 formik.errors
@@ -223,10 +211,7 @@ const FamilyModal: React.FC<FamilyModalProps> = ({ formik, close, opened }) => {
                           <Grid.Col span={{ base: 12, sm: 7 }}>
                             <Textarea
                               label={t("mirairo.form.family.work_school_place")}
-                              // placeholder={t("mirairo.form.occupation.placeholder")}
-                              onChange={formik.handleChange(
-                                `family[${index}].work_school_place`
-                              )}
+                              onChange={formik.handleChange}
                               required
                               name={`family[${index}].work_school_place`}
                               value={family.work_school_place}
@@ -241,10 +226,7 @@ const FamilyModal: React.FC<FamilyModalProps> = ({ formik, close, opened }) => {
                               label={t(
                                 "mirairo.form.family.residence_card_number"
                               )}
-                              // placeholder={t("mirairo.form.occupation.placeholder")}
-                              onChange={formik.handleChange(
-                                `family[${index}].residence_card_number`
-                              )}
+                              onChange={formik.handleChange}
                               required
                               name={`family[${index}].residence_card_number`}
                               value={family.residence_card_number}
@@ -263,19 +245,12 @@ const FamilyModal: React.FC<FamilyModalProps> = ({ formik, close, opened }) => {
                           }}
                         >
                           <Button
-                            // fullWidth
-                            // mt={"xxl"}
-
                             size="sm"
-                            // c="black"
-                            // color="action.4"
                             color="red.7"
                             px={6}
-                            // c="white"
                             variant="outline"
                             onClick={() => handleRemoveFamilyMember(index)}
                           >
-                            {/* {t("common.remove")} */}
                             <IconX
                               style={{
                                 padding: 0,
@@ -286,13 +261,6 @@ const FamilyModal: React.FC<FamilyModalProps> = ({ formik, close, opened }) => {
                         </Center>
                       </Grid.Col>
                     </Grid>
-                    // <Flex
-                    //   key={family.id}
-                    //   direction={{ base: "column", sm: "row" }}
-                    //   gap={{ base: "sm", sm: "lg" }}
-                    //   justify={{ sm: "center" }}
-                    // >
-                    // </Flex>
                   )
                 )}
             </CardSection>
@@ -304,7 +272,6 @@ const FamilyModal: React.FC<FamilyModalProps> = ({ formik, close, opened }) => {
                 fullWidth
                 size="lg"
                 c="black"
-                // color="action.4"
                 color="cyan.4"
                 onClick={handleAddFamilyMember}
               >
