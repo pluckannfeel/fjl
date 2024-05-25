@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { getNestedError, uniqueQuestionsList } from "../../helpers/constants";
 
 interface UniqueQuestionsModalProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formik: any;
   close: () => void;
   opened: boolean;
