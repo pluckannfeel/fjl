@@ -38,7 +38,7 @@ import { ResumeStylesheet as styles } from "../../classes/ResumeBuilderStyles";
 import { useTranslation } from "react-i18next";
 import { languageLevel } from "../../helpers/constants";
 import { yesNoLocalize } from "@/admin/helpers/constants";
-import i18n from "@/core/config/i18n";
+// import i18n from "@/core/config/i18n";
 // import { useApplicantAuth } from "../../contexts/ApplicantAuthProvider";
 
 Font.register({
@@ -233,7 +233,7 @@ export const QualificationsLicensesList: React.FC<{
 };
 
 export const UniqueQuestionsList: React.FC<{
-  uniqueQuestions: Questions[] | undefined;
+  uniqueQuestions: Questions[];
   darkerColor: string;
 }> = ({ uniqueQuestions, darkerColor }) => {
   const { t } = useTranslation();
@@ -869,7 +869,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
           </View>
 
           <UniqueQuestionsList
-            uniqueQuestions={data?.unique_questions}
+            uniqueQuestions={data?.unique_questions as Questions[]}
             darkerColor={darkerColor}
           />
         </View>
@@ -898,7 +898,7 @@ const ResumeBuilder: React.FC<ResumeBuilderProps> = ({
 
           <RequiredQuestionsList
             hasFamily={(data?.family && data.family.length > 0) as boolean}
-            requiredQuestions={data?.required_questions}
+            requiredQuestions={data?.required_questions as Questions[]}
             darkerColor={darkerColor}
           />
         </View>
