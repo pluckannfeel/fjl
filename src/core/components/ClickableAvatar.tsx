@@ -44,7 +44,7 @@ const ClickableAvatar: React.FC<ClickableAvatarProps> = ({
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] || null;
-    const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+    const maxSize = 4 * 1024 * 1024; // 5MB in bytes
 
     if (file && file.size > maxSize) {
       alert(t("common.errors.sizeLimit"));
