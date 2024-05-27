@@ -150,7 +150,7 @@
       "invalid": "無効",
       "urlRequired": "URLが必要です",
       "imageRequired": "画像が必要です",
-      "sizeLimit": "画像サイズは5MB以下であること」",
+      "sizeLimit": "画像サイズは4MB以下であること」",
       "invalidUrl": "URLが無効です",
       "failedTranslate": "PDFの翻訳に失敗しました。",
       "forbidden": {
