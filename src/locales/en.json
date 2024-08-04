@@ -5,6 +5,7 @@
         "home": "Home",
         "dashboard": "Dashboard",
         "applicants": "Applicants",
+        "database": "Database",
         "analytics": "Analytics",
         "account": "Account",
         "settings": "Settings",
@@ -143,7 +144,8 @@
       "min": "Must be {{size}} characters or more",
       "onlyNumbers": "Please input digits or numbers only",
       "passwordMatch": "Password does not match",
-      "required": "Required"
+      "required": "Required",
+      "url": "Invalid URL"
     },
     "errors": {
       "required": "Required",
@@ -705,6 +707,100 @@
     "title": "Applicant Management",
     "notification": {
       "translated": "PDF has been translated successfully!"
+    }
+  },
+  "database": {
+    "title": "Database",
+    "drawer": {
+      "menu": {
+        "company": "Company",
+        "agency": "Agency"
+      }
+    },
+    "company": {
+      "title": "Company",
+      "form": {
+        "name": {
+          "label": "Company Name"
+        },
+        "representative": {
+          "label": "Representative"
+        },
+        "secondary_representative": {
+          "label": "Secondary Representative"
+        },
+        "rep_name": {
+          "label": "Representative Name"
+        },
+        "rep_position": {
+          "label": "Representative Position"
+        },
+        "rep_phone": {
+          "label": "Representative Phone Number"
+        },
+        "rep_email": {
+          "label": "Representative Email"
+        },
+        "address": {
+          "label": "Address"
+        },
+        "contact": {
+          "label": "Contact Information"
+        },
+        "prefecture": {
+          "label": "Prefecture"
+        },
+        "municipality": {
+          "label": "Municipality, Town"
+        },
+        "building_room": {
+          "label": "Building, Room No."
+        },
+        "postal_code": {
+          "label": "Postal Code"
+        },
+        "website": {
+          "label": "Website"
+        },
+        "is_secondary_rep_required": {
+          "label": "Secondary Representative Required"
+        }
+      },
+      "table": {
+        "headers": {
+          "created_at": "Created At",
+          "name": "Company Name",
+          "phone": "Phone",
+          "email": "E-mail",
+          "representative_name": "Representative Name"
+        }
+      },
+      "action": {
+        "add": "Add Company",
+        "edit": "Edit",
+        "save": "Save",
+        "delete": "Delete",
+        "deleteDescription": "Are you sure you want to delete this company?"
+      },
+      "notifications": {
+        "saved": "Company has been saved successfully!",
+        "edited": "Company has been edited successfully!",
+        "deleted": "Company has been deleted successfully!"
+      }
+    },
+    "agency": {
+      "title": "Agency",
+      "form": {
+        "name": "Agency Name",
+        "address": "Address",
+        "phone": "Phone Number",
+        "email": "Email Address",
+        "website": "Website",
+        "description": "Description"
+      },
+      "action": {
+        "add": "Add Agency"
+      }
     }
   }
 }

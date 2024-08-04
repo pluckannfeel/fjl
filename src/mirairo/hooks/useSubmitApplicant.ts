@@ -1,12 +1,34 @@
 import { useMutation, useQueryClient } from "react-query";
-import { addOne } from "../../core/utils/crudUtils";
+// import { addOne } from "../../core/utils/crudUtils";
 import { PersonalInformation as Applicant } from "../types/Information";
 import { axiosInstance } from "../../api/server";
 import dayjs from "dayjs";
+import { applicantUploadFile, renameFile } from "@/core/helpers/s3Upload";
 
 const submitApplicant = async (applicant: Applicant) => {
   // prepare data
   const applicantImg = applicant.img_url;
+
+  if (applicantImg && applicantImg instanceof File) {
+    const renamedFile: File = renameFile(
+      `${applicant.name.first_name} ${applicant.name.last_name}`,
+      applicantImg
+    );
+
+    const uploadImageObject = {
+      file: renamedFile,
+      key: `applicants/${renamedFile.name}`,
+      user: `${applicant.name.first_name} ${applicant.name.last_name}`,
+    };
+
+    const uploadImageData = await applicantUploadFile(uploadImageObject);
+
+    console.log(uploadImageData);
+
+    if(uploadImageData.data?.url) {
+      applicant.img_url = uploadImageData.data.url;
+    }
+  }
 
   // excluded img url
   const applicant_data = {
@@ -54,7 +76,7 @@ const submitApplicant = async (applicant: Applicant) => {
   const formData = new FormData();
 
   // display photo append
-  if (applicantImg) formData.append("display_photo", applicantImg);
+  // if (applicantImg) formData.append("display_photo", applicantImg);
 
   // licenses append
   if (applicant.qualifications_licenses) {
