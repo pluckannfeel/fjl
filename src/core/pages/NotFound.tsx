@@ -6,19 +6,27 @@ import {
   Button,
   SimpleGrid,
 } from "@mantine/core";
-// import image from './image.svg';
 import image from "../../core/assets/notfound.svg";
 import classes from "../classes/NotFound.module.scss";
 import { useNavigate } from "react-router";
 import { useAuth } from "@/auth/contexts/AuthProvider";
 import { useApplicantAuth } from "@/mirairo/contexts/ApplicantAuthProvider";
+import { useLocalStorage } from "@mantine/hooks";
 
 const NotFound = () => {
   let navigate = useNavigate();
   const { adminInfo } = useAuth();
   const { applicantInfo } = useApplicantAuth();
+  const [, setActive] = useLocalStorage({
+    key: "activeNavbarLink",
+    defaultValue: 0,
+    getInitialValueInEffect: true,
+  });
 
   const handleClick = () => {
+    // Reset active navbar link
+    setActive(0);
+
     // check if there is authkey in localstorage
     // if there is, navigate to the dashboard
     // else navigate to the landing page
@@ -45,7 +53,6 @@ const NotFound = () => {
             this is an error contact support.
           </Text>
           <Button
-            // variant="outline"
             variant="gradient"
             gradient={{ from: "pink", to: "red" }}
             size="md"

@@ -4,7 +4,7 @@ import { Outlet } from "react-router";
 import QueryWrapper from "../../core/components/QueryWrapper";
 import { useSettings } from "../../core/contexts/SettingsProvider";
 import AdminNavbar from "../components/AdminNavbar";
-
+import classes from "@/admin/classes/Common.module.scss"
 const Admin = () => {
   return (
     <Box
@@ -15,9 +15,11 @@ const Admin = () => {
       <AdminNavbar />
       <Box
         component="main"
+        className={classes.main}
         style={{
           flexGrow: 1,
           marginLeft: "80px",
+          height: "100vh",
           // paddingBottom: "2rem",
         }}
         // px={{

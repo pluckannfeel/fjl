@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Center, Tooltip, UnstyledButton, Stack, rem } from "@mantine/core";
+import { Center, Tooltip, UnstyledButton, Stack, rem, Text } from "@mantine/core";
 import {
   IconHome2,
   IconGauge,
@@ -10,6 +10,7 @@ import {
   IconSettings,
   IconLogout,
   IconUsersGroup,
+  IconDatabase,
 } from "@tabler/icons-react";
 import classes from "@/admin/classes/AdminNavbar.module.scss";
 import { useAuth } from "@/auth/contexts/AuthProvider";
@@ -23,6 +24,11 @@ import { useLocalStorage } from "@mantine/hooks";
 
 const mockdata = [
   { icon: IconHome2, label: "admin.drawer.menu.home", path: "/admin" },
+  {
+    icon: IconDatabase,
+    label: "admin.drawer.menu.database",
+    path: "/admin/database",
+  },
   {
     icon: IconUsersGroup,
     label: "admin.drawer.menu.applicants",
@@ -118,7 +124,9 @@ const AdminNavbar = () => {
 
   return (
     <nav className={classes.navbar}>
-      <Center>{/* <MantineLogo type="mark" size={30} /> */}夢課</Center>
+      <Center>{/* <MantineLogo type="mark" size={30} /> */}
+        <Text fz="22" fw={"normal"} c={"red.8"}>夢課</Text>
+      </Center>
 
       <div className={classes.navbarMain}>
         <Stack justify="center" gap={2}>

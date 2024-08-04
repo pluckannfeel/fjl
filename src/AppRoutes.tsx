@@ -9,6 +9,7 @@ import {
 import PrivateRoute from "./core/components/PrivateRoute";
 import AdminRoute from "./admin/components/AdminRoute";
 
+
 // import PrivateRoute from "./core/components/PrivateRoute";
 
 // const publicUrl = import.meta.env.BASE_URL;
@@ -55,6 +56,11 @@ const AdminRegister = lazy(() => import("./admin/pages/Register"));
 const AdminRedirect = lazy(
   () => import("./admin/components/RedirectIfAuthenticated")
 );
+
+// Admin Database
+const AdminDatabase = lazy(() => import("./admin/pages/Database"));
+const DatabaseCompany = lazy(() => import("./admin/pages/DatabaseCompany"));
+const DatabaseAgency = lazy(() => import("./admin/pages/DatabaseAgency"));
 
 const AppRoutes = () => {
   return (
@@ -115,6 +121,11 @@ const AppRoutes = () => {
         >
           <Route index element={<AdminDashboard />} />
           <Route path="applicants" element={<AdminApplicantManagement />} />
+          <Route path="database" element={<AdminDatabase />}>
+            <Route index element={<Navigate to="company" replace />} />
+            <Route path="company" element={<DatabaseCompany />} />
+            <Route path="agency" element={<DatabaseAgency />} />
+          </Route>
         </Route>
 
         {/* <Route path="login" element={<Login />} />

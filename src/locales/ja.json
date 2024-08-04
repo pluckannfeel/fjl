@@ -6,6 +6,7 @@
         "dashboard": "ダッシュボード",
         "applicants": "応募者",
         "analytics": "分析",
+        "database": "マスタ-",
         "account": "アカウント",
         "settings": "設定",
         "logout": "ログアウト"
@@ -84,7 +85,7 @@
         "search": "検索",
         "reset": "リセット",
         "name": {
-          "label": "応募者",
+          "label": "名",
           "description": "名前に指定したテキストが含まれる応募者を表示します",
           "placeholder": "名前を検索"
         }
@@ -143,7 +144,8 @@
       "min": "{{size}}文字以上でなければなりません。",
       "onlyNumbers": "数字または数字のみを入力してください。",
       "passwordMatch": "パスワードが一致しません",
-      "required": "必須"
+      "required": "必須",
+      "url": "無効なURL"
     },
     "errors": {
       "required": "必須",
@@ -694,6 +696,116 @@
     "title": "応募者管理",
     "notification": {
       "translated": "PDFは翻訳されました"
+    }
+  },
+  "database": {
+    "title": "マスター",
+    "drawer": {
+      "menu": {
+        "company": "雇用主（会社）",
+        "agency": "紹介会社（AGENCY）"
+      }
+    },
+    "company": {
+      "title": "雇用主（会社）",
+      "form": {
+        "name": {
+          "label": "会社名"
+        },
+        "rep_name": {
+          "label": "代表者名"
+        },
+        "representative": {
+          "label": "代表者"
+        },
+        "secondary_representative": {
+          "label": "副代表者"
+        },
+        "rep_position": {
+          "label": "代表者役職"
+        },
+        "rep_phone": {
+          "label": "代表者電話番号"
+        },
+        "rep_email": {
+          "label": "代表者メールアドレス"
+        },
+        "email": {
+          "label": "会社メールアドレス"
+        },
+        "phone": {
+          "label": "会社電話番号"
+        },
+        "japanese_address_reading": {
+          "label": "住所読み仮名"
+        },
+        "address": {
+          "label": "会社住所"
+        },
+        "contact": {
+          "label": "ご連絡先"
+        },
+        "prefecture": {
+          "label": "都道府県"
+        },
+        "municipality_town": {
+          "label": "市区町村・番地"
+        },
+        "building_room": {
+          "label": "建物名・部屋番号"
+        },
+        "postal_code": {
+          "label": "郵便番号"
+        },
+        "website": {
+          "label": "会社ウェブサイト"
+        },
+        "is_secondary_rep_required": {
+          "label": "副代表者の情報を入力しますか？"
+        }
+      },
+      "table": {
+        "headers": {
+          "created_at": "作成日",
+          "name": "会社名",
+          "phone": "電話番号",
+          "email": "メールアドレス",
+          "representative_name": "代表者名"
+        }
+      },
+      "action": {
+        "add": "会社を追加",
+        "edit": "編集",
+        "save": "保存",
+        "delete": "削除",
+        "deleteDescription": "この会社を削除してよろしいか？"
+      },
+      "notifications": {
+        "saved": "会社が正常に保存されました！",
+        "edited": "会社が正常に編集されました！",
+        "deleted": "会社が正常に削除されました！"
+      }
+    },
+    "agency": {
+      "title": "紹介会社（AGENCY）",
+      "form": {
+        "name": {
+          "label": "名前"
+        },
+        "email": {
+          "label": "メールアドレス"
+        },
+        "phone": {
+          "label": "電話番号"
+        },
+        "address": {
+          "label": "住所"
+        },
+        "description": {
+          "label": "説明"
+        },
+        "submit": "提出"
+      }
     }
   }
 }
