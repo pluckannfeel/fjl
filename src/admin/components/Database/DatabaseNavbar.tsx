@@ -1,5 +1,5 @@
 import { Center, Tooltip, UnstyledButton, Stack, rem, Text } from "@mantine/core";
-import { IconBuilding, IconBuildingSkyscraper } from "@tabler/icons-react";
+import { IconBuilding, IconBuildingSkyscraper, IconFileFunction } from "@tabler/icons-react";
 import classes from "@/admin/classes/DatabaseNavbar.module.scss";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
@@ -17,6 +17,12 @@ const mockdata = [
     label: "database.drawer.menu.agency",
     path: "/admin/database/agency",
     disabled: true,
+  },
+  {
+    icon: IconFileFunction,
+    label: "database.drawer.menu.generate_document",
+    path: "/admin/database/generate_document",
+    disabled: false,
   },
 ];
 

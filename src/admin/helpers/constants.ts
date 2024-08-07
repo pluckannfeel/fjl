@@ -1,3 +1,5 @@
+import { IconFilePlus, IconRefresh, IconFilePencil, IconX } from "@tabler/icons-react";
+
 export const recruiters = [
   { label: "admin.form.recruiter.options.mys", value: "MYSの紹介" },
   { label: "admin.form.recruiter.options.aqium", value: "AQIUM" },
@@ -52,3 +54,114 @@ export const yesNoLocalize = (value: string, lang: string) => {
 };
 
 // Database
+
+// generate document
+
+export const applicationTypes = [
+  // {
+  //   label: "common.clearSelection",
+  //   value: null,
+  //   icon: IconX,
+  //   disabled: false,
+  // },
+  {
+    label: "database.generateDocument.menu.applicationType.initial",
+    value: "initial",
+    icon: IconFilePlus,
+    disabled: false,
+  },
+  {
+    label: "database.generateDocument.menu.applicationType.renewal",
+    value: "renewal",
+    icon: IconRefresh,
+    disabled: true,
+  },
+  {
+    label:
+      "database.generateDocument.menu.applicationType.additionalJobOrder.options.newPosition",
+    value: "add_job_order_new",
+    header:
+      "database.generateDocument.menu.applicationType.additionalJobOrder.title",
+    icon: IconFilePencil,
+    disabled: true,
+  },
+  {
+    label:
+      "database.generateDocument.menu.applicationType.additionalJobOrder.options.samePosition",
+    value: "add_job_order_same",
+    header:
+      "database.generateDocument.menu.applicationType.additionalJobOrder.title",
+    icon: IconFilePencil,
+    disabled: false,
+  },
+];
+
+export const visaTypes = [
+  // {
+  //   label: "common.clearSelection",
+  //   value: null,
+  //   icon: IconX,
+  //   disabled: false,
+  // },
+  {
+    label: "database.generateDocument.menu.visa.options.psw",
+    value: "psw",
+    icon: null,
+    disabled: false,
+  },
+  {
+    label: "database.generateDocument.menu.visa.options.titp",
+    value: "titp",
+    icon: null,
+    disabled: true,
+  },
+  {
+    label:
+      "database.generateDocument.menu.visa.options.ssw",
+    value: "ssw",
+    icon: null,
+    disabled: true,
+  },
+  {
+    label:
+      "database.generateDocument.menu.visa.options.student",
+    value: "student",
+    icon: null,
+    disabled: true,
+  },
+];
+
+export const documentTypes = [
+  // {
+  //   label: "common.clearSelection",
+  //   value: null,
+  //   icon: IconX,
+  //   disabled: false,
+  // },
+  {
+    label: "database.generateDocument.menu.document.options.applicationForm",
+    value: "application_form",
+    icon: null,
+    disabled: false,
+  },
+  {
+    label: "database.generateDocument.menu.document.options.manpowerRequest",
+    value: "manpower_request",
+    icon: null,
+    disabled: false,
+  },
+  {
+    label:
+      "database.generateDocument.menu.document.options.employmentContract",
+    value: "employment_contract",
+    icon: null,
+    disabled: false,
+  },
+  {
+    label:
+      "database.generateDocument.menu.document.options.recruitmentAgreement",
+    value: "recruitment_agreement",
+    icon: null,
+    disabled: true,
+  },
+];

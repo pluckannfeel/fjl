@@ -19,13 +19,10 @@ const Admin = () => {
         style={{
           flexGrow: 1,
           marginLeft: "80px",
-          height: "100vh",
+          minHeight: "100vh", // Initial height of 100vh
+          height: "auto", // Allow height to extend based on content
           // paddingBottom: "2rem",
         }}
-        // px={{
-        //   "@sm": "2rem",
-        //   "@lg": "4rem",
-        // }}
       >
         <QueryWrapper>
           <Outlet />

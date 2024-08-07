@@ -99,7 +99,7 @@ export const LightTheme = createTheme({
     MenuItem: MenuItem.extend({
       defaultProps: {
         color: "text.8",
-        bg: "primary.4",
+        // bg: "primary.4",
       },
     }),
     // TextInput: TextInput.extend({
