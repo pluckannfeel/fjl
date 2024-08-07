@@ -132,6 +132,7 @@
     "download": "ダウンロード",
     "login": "ログイン",
     "logout": "ログアウト",
+    "clearSelection": "選択を解除",
     "forgotPassword": "パスワードをお忘れですか？",
     "translate": "PDF 翻訳",
     "snackbar": {
@@ -703,7 +704,8 @@
     "drawer": {
       "menu": {
         "company": "雇用主（会社）",
-        "agency": "紹介会社（AGENCY）"
+        "agency": "紹介会社（AGENCY）",
+        "generate_document": "書類生成"
       }
     },
     "company": {
@@ -805,6 +807,83 @@
           "label": "説明"
         },
         "submit": "提出"
+      }
+    },
+    "generateDocument": {
+      "title": "書類生成",
+      "menu": {
+        "applicationType": {
+          "title": "申請タイプ",
+          "initial": "新規",
+          "renewal": "更新",
+          "additionalJobOrder": {
+            "title": "追加求人",
+            "options": {
+              "newPosition": "新しいポジション",
+              "samePosition": "同じポジション"
+            }
+          }
+        },
+        "visa": {
+          "title": "ビザ",
+          "options": {
+            "psw": "在留資格「技術・人文知識・国際業務",
+            "titp": "技能実習",
+            "ssw": "特定技能",
+            "student": "留学"
+          }
+        },
+        "document": {
+          "title": "書類",
+          "options": {
+            "documentInformation": "書類情報",
+            "applicationForm": "MWO 申請書",
+            "manpowerRequest": "マンパワー・レクエスト/求人通知",
+            "employmentContract": "雇用契約書",
+            "recruitmentAgreement": "採用契約書"
+          }
+        }
+      },
+      "form": {
+        "documentInformation": "書類情報",
+        "general": "一般",
+        "manpowerRequest": "マンパワー・レクエスト/求人通知",
+        "employmentContract": "雇用契約書",
+        "recruitmentAgreement": "採用契約書",
+        "createdAt": "作成日",
+        "company": "所属会社",
+        "agency": "紹介会社",
+        "jobDetails": {
+          "add": "求人項目を追加",
+          "title": "職種",
+          "noOfWorkers": "人数",
+          "basicSalary": "給与"
+        },
+        "workerDetails": "労働者情報",
+        "employmentDetails": "雇用情報",
+        "workerName": "労働者名",
+        "philippineAddress": "フィリピン住所",
+        "civilStatus": "配偶者の有無",
+        "passportNumber": "パスポート番号",
+        "passportDateIssued": "パスポート発行日",
+        "passportPlaceIssued": "パスポート発行地",
+        "employmentAddress": "勤務地・職場",
+        "employmentTerm": "雇用期間",
+        "jobPositionTitle": "職種",
+        "jobPositionDescription": "職務内容"
+      },
+      "actions": {
+        "generate": "生成",
+        "selectDocument": "書類を選択",
+        "selectVisa": "ビザを選択",
+        "selectApplicationType": "申請タイプを選択",
+        "selectCompany": "会社を選択"
+      },
+      "notifications": {
+        "success": {
+          "title": "書類が生成されました",
+          "description": "書類が正常に生成されました"
+        }
       }
     }
   }

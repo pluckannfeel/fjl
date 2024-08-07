@@ -61,6 +61,7 @@ const AdminRedirect = lazy(
 const AdminDatabase = lazy(() => import("./admin/pages/Database"));
 const DatabaseCompany = lazy(() => import("./admin/pages/DatabaseCompany"));
 const DatabaseAgency = lazy(() => import("./admin/pages/DatabaseAgency"));
+const DatabaseGenerateDocument = lazy(() => import("./admin/pages/DatabaseGenerateDocument"));
 
 const AppRoutes = () => {
   return (
@@ -125,6 +126,7 @@ const AppRoutes = () => {
             <Route index element={<Navigate to="company" replace />} />
             <Route path="company" element={<DatabaseCompany />} />
             <Route path="agency" element={<DatabaseAgency />} />
+            <Route path="generate_document" element={<DatabaseGenerateDocument />} />
           </Route>
         </Route>
 

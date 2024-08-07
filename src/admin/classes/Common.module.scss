@@ -9,7 +9,6 @@
   align-items: center;
 }
 
-
 // main pages
 .main {
   background-color: light-dark(
@@ -23,9 +22,73 @@
 //     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 // }
 
+.form {
+  // light-dark with white color and then gray at dark mode apply border and box shadow
+  background-color: light-dark(
+    white,
+    var(--mantine-colors-dark-6)
+  );
+  border: 1px solid light-dark(var(--mantine-colors-gray-4), var(--mantine-colors-dark-4));
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  max-width: 1400px;
+  width: 100%;
+}
+
 .customModalHeader {
   background-color: var(--mantine-color-cyan-6);
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Change to your desired box shadow */
   // padding: 1rem; /* Optional: Add some padding */
   border-radius: 8px 8px 0 0; /* Optional: Add rounded corners */
+}
+
+.menuButton {
+  // background-color: white;
+  border-radius: none !important;
+  // box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  // border-bottom: 1px solid var(--mantine-color-gray-4);
+  color: light-dark(var(--mantine-colors-dark-3), white);
+  border: 2px solid var(--mantine-color-orange-6);
+}
+
+.menuDropdown {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  font-size: rem(20);
+  color: black;
+  &:hover {
+    background-color: #f0f0f0;
+  }
+  &:active {
+    background-color: #e0e0e0;
+  }
+}
+
+.menuLabel {
+  font-size: rem(18);
+  font-weight: bold;
+  color: #888888;
+  padding: 5px 15px;
+  margin-top: 10px;
+}
+
+.menuIcon {
+  // margin-right: 10px;
+  margin-left: 10px;
+}
+
+.dangerZone {
+  background-color: var(--mantine-color-red-1);
+  // border-radius: 8px;
+  // padding: 1rem;
+  // margin-top: 1rem;
 }

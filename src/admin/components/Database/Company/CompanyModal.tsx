@@ -319,7 +319,7 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
           <Grid.Col span={{ base: 12, sm: 6 }}>
             <TextInput
               //   label={t("database.company.form.municipality_town.label")}
-              label="Town, City, State"
+              label="Town, City"
               placeholder="e.g Yokohama City, Naka Ku"
               name="municipality_town_en"
               value={formik.values.municipality_town_en}
@@ -334,7 +334,7 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
           <Grid.Col span={{ base: 12, sm: 8 }}>
             <TextInput
               //   label={t("database.company.form.building_room.label")}
-              label="Room No. Building Name"
+              label="Room No. Building Name, Street"
               name="building_en"
               value={formik.values.building_en}
               onChange={formik.handleChange}

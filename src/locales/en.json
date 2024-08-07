@@ -132,6 +132,7 @@
     "selected": "Selected",
     "login": "Login",
     "logout": "Logout",
+    "clearSelection": "Clear Selection",
     "forgotPassword": "Forgot Password?",
     "translate": "PDF Translate",
     "snackbar": {
@@ -711,10 +712,12 @@
   },
   "database": {
     "title": "Database",
+
     "drawer": {
       "menu": {
         "company": "Company",
-        "agency": "Agency"
+        "agency": "Agency",
+        "generate_document": "Generate Document"
       }
     },
     "company": {
@@ -800,6 +803,82 @@
       },
       "action": {
         "add": "Add Agency"
+      }
+    },
+    "generateDocument": {
+      "title": "Generate Document",
+      "menu": {
+        "applicationType": {
+          "initial": "Initial",
+          "renewal": "Renewal",
+          "additionalJobOrder": {
+            "title": "Additional Job Order",
+            "options": {
+              "newPosition": "New Position",
+              "samePosition": "Same Position"
+            }
+          }
+        },
+        "visa": {
+          "title": "VISA",
+          "options": {
+            "psw": "Engineer / Specialist in Humanities / International Services",
+            "titp": "Technical Intern Training Program",
+            "ssw": "Specified Skilled Worker",
+            "student": "Student"
+          }
+        },
+        "document": {
+          "title": "Document",
+          "options": {
+            "documentInformation": "Document Information",
+            "applicationForm": "MWO Application Form",
+            "manpowerRequest": "Manpower Request",
+            "employmentContract": "Master Employment Contract",
+            "recruitmentAgreement": "Recruitment Agreeement"
+          }
+        }
+      },
+      "form": {
+        "documentInformation": "Document Information",
+        "general": "General",
+        "manpowerRequest": "Manpower Request",
+        "employmentContract": "Master Employment Contract",
+        "recruitmentAgreement": "Recruitment Agreeement",
+        "createdAt": "Created Date",
+        "company": "Company",
+        "agency": "Agency",
+        "jobDetails": {
+          "add": "Add Job Details",
+          "title": "Job Position Title",
+          "noOfWorkers": "No. of Workers",
+          "basicSalary": "Basic Salary"
+        },
+        "workerDetails": "Worker Details",
+        "employmentDetails": "Employment Details",
+        "workerName": "Worker Name",
+        "philippineAddress": "Philippine Address",
+        "civilStatus": "Civil Status",
+        "passportNumber": "Passport Number",
+        "passportDateIssued": "Date Issued",
+        "passportPlaceIssued": "Place Issued",
+        "employmentAddress": "Place of Work/Office",
+        "employmentTerm": "Employment Term/Period",
+        "jobPositionTitle": "Job Position Title",
+        "jobPositionDescription": "Job Position Description"
+      },
+      "actions": {
+        "generate": "Generate",
+        "selectDocument": "Select Document",
+        "selectVisa": "Select VISA",
+        "selectApplicationType": "Select Application Type",
+        "selectCompany": "Select Company"
+      },
+      "notifications": {
+        "success": {
+          "title": "Success",
+          "description": "Document has been generated successfully!"
+        }
       }
     }
   }
