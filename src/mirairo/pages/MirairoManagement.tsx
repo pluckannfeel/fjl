@@ -74,7 +74,7 @@ const MirairoManagement: React.FC = () => {
         // const twoHoursFromNow = now + 2 * 60 * 60 * 1000; // 2 hours timeout
         // setSubmitTimeout(twoHoursFromNow);
         // temporarily disabled the timeout
-
+        console.log("Applicant Submitted");
         setFormSubmitted(true);
         setIsStarted(false);
         localStorageKeys.forEach((key) => localStorage.removeItem(key));
@@ -87,7 +87,7 @@ const MirairoManagement: React.FC = () => {
         notifications.show({
           color: "red",
           title: "Error",
-          message: "Something is Wrong, Please Try Again Later.",
+          message: error.response.data["detail"],
           // classNames: classes,
         });
       })

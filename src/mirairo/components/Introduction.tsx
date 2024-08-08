@@ -61,31 +61,31 @@ export function Introduction({ getStartedHandler }: IntroductionProps) {
               </Title>
             </motion.div>
             <motion.div variants={itemVariants}>
-              <Text c="yellow" fw={700} mt="md">
+              <Text c="white" fw={700} mt="md">
                 {t("mirairo.introduction.description")}
               </Text>
             </motion.div>
 
             <motion.div variants={itemVariants}>
-              <Text c="yellow" fw={700} mt="md">
+              <Text c="white" fw={700} mt="md">
                 {t("mirairo.introduction.description2")}
               </Text>
             </motion.div>
 
             <motion.div variants={itemVariants}>
-              <Text c="yellow" fw={700} mt="md">
+              <Text c="white" fw={700} mt="md">
                 {t("mirairo.introduction.description3")}
               </Text>
             </motion.div>
 
             <motion.div variants={itemVariants}>
-              <Text c="yellow" fw={700} mt="md">
+              <Text c="white" fw={700} mt="md">
                 {t("mirairo.introduction.description4")}
               </Text>
             </motion.div>
 
             <motion.div variants={itemVariants}>
-              <Text c="yellow" fw={700} mt="md">
+              <Text c="white" fw={700} mt="md">
                 {t("mirairo.introduction.description5")}
               </Text>
             </motion.div>
