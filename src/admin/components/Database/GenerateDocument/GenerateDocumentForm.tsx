@@ -140,6 +140,16 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
           job_position_description: values.job_position_description,
         };
         break;
+      case "recruitment_agreement":
+        filteredValues = {
+          document_type: documentType,
+          visa_type: visaType ?? "",
+          application_type: applicationType ?? "",
+          created_date: values.created_date,
+          selected_company: values.selected_company,
+          selected_agency: values.selected_agency,
+        };
+        break;
     }
     onGenerate(filteredValues as GenerateDocument);
   };
@@ -397,7 +407,9 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
                 fz={"h2"}
                 fw={"bold"}
                 c={"pink.5"}
-                style={{ borderBottom: "3px solid var(--mantine-color-pink-5)" }}
+                style={{
+                  borderBottom: "3px solid var(--mantine-color-pink-5)",
+                }}
               >
                 {t("database.generateDocument.form.employmentContract")}
 

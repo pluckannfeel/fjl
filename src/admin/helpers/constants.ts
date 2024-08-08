@@ -162,6 +162,6 @@ export const documentTypes = [
       "database.generateDocument.menu.document.options.recruitmentAgreement",
     value: "recruitment_agreement",
     icon: null,
-    disabled: true,
+    disabled: false,
   },
 ];
