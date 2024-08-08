@@ -8,31 +8,11 @@ import { applicantUploadFile, renameFile } from "@/core/helpers/s3Upload";
 const submitApplicant = async (applicant: Applicant) => {
   // prepare data
   const applicantImg = applicant.img_url;
-
-  if (applicantImg && applicantImg instanceof File) {
-    const renamedFile: File = renameFile(
-      `${applicant.name.first_name} ${applicant.name.last_name}`,
-      applicantImg
-    );
-
-    const uploadImageObject = {
-      file: renamedFile,
-      key: `applicants/${renamedFile.name}`,
-      user: `${applicant.name.first_name} ${applicant.name.last_name}`,
-    };
-
-    const uploadImageData = await applicantUploadFile(uploadImageObject);
-
-    console.log(uploadImageData);
-
-    if(uploadImageData.data?.url) {
-      applicant.img_url = uploadImageData.data.url;
-    }
-  }
-
   // excluded img url
+
   const applicant_data = {
     // organization: "mirairo",
+    img_url: "",
     first_name: applicant.name.first_name,
     last_name: applicant.name.last_name,
     middle_name: applicant.name.middle_name,
@@ -73,6 +53,27 @@ const submitApplicant = async (applicant: Applicant) => {
     required_questions: applicant.required_questions,
   };
 
+  if (applicantImg && applicantImg instanceof File) {
+    const renamedFile: File = renameFile(
+      `${applicant.name.first_name} ${applicant.name.last_name}`,
+      applicantImg as File
+    );
+
+    const uploadImageObject = {
+      file: renamedFile,
+      key: `applicants/img/${renamedFile.name}`,
+      user: `${applicant.name.first_name} ${applicant.name.last_name}`,
+    };
+
+    const uploadImageData = await applicantUploadFile(uploadImageObject);
+
+    console.log(uploadImageData);
+
+    if(uploadImageData.data?.url) {
+      applicant_data.img_url = uploadImageData.data.url;
+    }
+  }
+
   const formData = new FormData();
 
   // display photo append
@@ -98,21 +99,18 @@ const submitApplicant = async (applicant: Applicant) => {
 
   formData.append("applicant_json", JSON.stringify(applicant_data));
 
-  try {
-    const { data } = await axiosInstance.post(
-      "/applicant/create_applicant",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
 
-    return data;
-  } catch (error) {
-    console.error("Error submitting applicant", error);
-  }
+  const { data } = await axiosInstance.post(
+    "/applicant/create_applicant",
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+
+  return data;
 };
 
 export function useSubmitApplicant() {

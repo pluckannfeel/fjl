@@ -85,7 +85,7 @@ const generatePresignedPutUrl = async ({
     },
   });
 
-  const bucket = "ews-bucket";
+  const bucket = "fjl-bucket";
   // const key = `${currentPath}${file.name}`;
   const key = currentPath;
 
@@ -108,7 +108,7 @@ const generatePresignedPutUrl = async ({
 
 // Function to generate presigned GET URL
 const generatePresignedGetUrl = async ({ key }: { key: string }) => {
-  const bucket = "ews-bucket";
+  const bucket = "fjl-bucket";
   const region = "ap-northeast-1";
 
   try {
