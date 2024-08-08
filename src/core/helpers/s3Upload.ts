@@ -48,7 +48,6 @@ export const applicantUploadFile = async ({
   key,
   user,
 }: uploadFileProps): Promise<APIResponse> => {
-  // Step 1: Generate a presigned URL for PUT
   const putUrl = await generatePresignedPutUrl({ file, key, user });
 
   if (putUrl) {
@@ -97,13 +96,18 @@ const generatePresignedPutUrl = async ({
     },
   });
 
-  try {
-    const url = await getSignedUrl(client, command, { expiresIn: 3600 });
-    return url;
-  } catch (error) {
-    console.error("Error generating presigned URL:", error);
-    return null;
-  }
+  const url = await getSignedUrl(client, command, { expiresIn: 3600 });
+
+  return url;
+
+  // try {
+  //   const url = await getSignedUrl(client, command, { expiresIn: 3600 });
+  //   console.log(url);
+  //   return url;
+  // } catch (error) {
+  //   console.error("Error generating presigned URL:", error);
+  //   return null;
+  // }
 };
 
 // Function to generate presigned GET URL
@@ -112,7 +116,8 @@ const generatePresignedGetUrl = async ({ key }: { key: string }) => {
   const region = "ap-northeast-1";
 
   try {
-    const url = `https://${bucket}.s3.${region}.amazonaws.com/${key}`;
+    // const url = `https://${bucket}.s3.${region}.amazonaws.com/${key}`;
+    const url = `https://d1l1wfoqw8757j.cloudfront.net/${key}`;
     return url;
   } catch (error) {
     console.error("Error generating URL:", error);

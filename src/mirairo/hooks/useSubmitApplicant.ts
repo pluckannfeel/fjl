@@ -61,7 +61,7 @@ const submitApplicant = async (applicant: Applicant) => {
 
     const uploadImageObject = {
       file: renamedFile,
-      key: `applicants/img/${renamedFile.name}`,
+      key: `uploads/applicant/img/${renamedFile.name}`,
       user: `${applicant.name.first_name} ${applicant.name.last_name}`,
     };
 
