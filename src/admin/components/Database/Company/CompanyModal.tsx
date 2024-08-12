@@ -30,6 +30,7 @@ import {
   IconWorldWww,
   IconX,
 } from "@tabler/icons-react";
+import { useLocalStorage } from "@mantine/hooks";
 
 dayjs.extend(timezone);
 dayjs.tz.setDefault("Asia/Tokyo");
@@ -78,37 +79,106 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
     label: pref.en_prefecture,
   }));
 
-  
+  // Use local storage to save form state if not in edit mode
+  const [savedValues, setSavedValues] = useLocalStorage<Partial<Company>>({
+    key: "company-modal-data",
+    defaultValue: {
+      name_en: "",
+      name_ja: "",
+      rep_name_en: "",
+      rep_name_ja: "",
+      rep_name_ja_kana: "",
+      rep_position_en: "",
+      rep_position_ja: "",
+      prefecture_en: "",
+      prefecture_ja: "",
+      municipality_town_en: "",
+      municipality_town_ja: "",
+      building_en: "",
+      building_ja: "",
+      postal_code: "",
+      phone: "",
+      email: "",
+      rep_phone: "",
+      rep_email: "",
+      secondary_rep_name_en: "",
+      secondary_rep_name_ja: "",
+      secondary_rep_name_ja_kana: "",
+      secondary_rep_position_en: "",
+      secondary_rep_position_ja: "",
+      secondary_rep_phone: "",
+      secondary_rep_email: "",
+      address_ja_reading: "",
+    },
+  });
 
-  let initialValues: Partial<Company> = {
-    name_en: company?.name_en || "",
-    name_ja: company?.name_ja || "",
-    rep_name_en: company?.rep_name_en || "",
-    rep_name_ja: company?.rep_name_ja || "",
-    rep_name_ja_kana: company?.rep_name_ja_kana || "",
-    rep_position_en: company?.rep_position_en || "",
-    rep_position_ja: company?.rep_position_ja || "",
-    prefecture_en: company?.prefecture_en || "",
-    prefecture_ja: company?.prefecture_ja || "",
-    municipality_town_en: company?.municipality_town_en || "",
-    municipality_town_ja: company?.municipality_town_ja || "",
-    building_en: company?.building_en || "",
-    building_ja: company?.building_ja || "",
-    postal_code: company?.postal_code || "",
-    phone: company?.phone || "",
-    email: company?.email || "",
-    website: company?.website || "",
-    rep_phone: company?.rep_phone || "",
-    rep_email: company?.rep_email || "",
-    secondary_rep_name_en: company?.secondary_rep_name_en || "",
-    secondary_rep_name_ja: company?.secondary_rep_name_ja || "",
-    secondary_rep_name_ja_kana: company?.secondary_rep_name_ja_kana || "",
-    secondary_rep_position_en: company?.secondary_rep_position_en || "",
-    secondary_rep_position_ja: company?.secondary_rep_position_ja || "",
-    secondary_rep_phone: company?.secondary_rep_phone || "",
-    secondary_rep_email: company?.secondary_rep_email || "",
-    address_ja_reading: company?.address_ja_reading || "",
-  };
+  useEffect(() => {
+    if (editMode) {
+      setIsSecRepNeeded(!!company?.secondary_rep_name_en);
+    }
+  }, [company, editMode]);
+
+  // let initialValues: Partial<Company> = {
+  //   name_en: company?.name_en || "",
+  //   name_ja: company?.name_ja || "",
+  //   rep_name_en: company?.rep_name_en || "",
+  //   rep_name_ja: company?.rep_name_ja || "",
+  //   rep_name_ja_kana: company?.rep_name_ja_kana || "",
+  //   rep_position_en: company?.rep_position_en || "",
+  //   rep_position_ja: company?.rep_position_ja || "",
+  //   prefecture_en: company?.prefecture_en || "",
+  //   prefecture_ja: company?.prefecture_ja || "",
+  //   municipality_town_en: company?.municipality_town_en || "",
+  //   municipality_town_ja: company?.municipality_town_ja || "",
+  //   building_en: company?.building_en || "",
+  //   building_ja: company?.building_ja || "",
+  //   postal_code: company?.postal_code || "",
+  //   phone: company?.phone || "",
+  //   email: company?.email || "",
+  //   // website: company?.website || "",
+  //   rep_phone: company?.rep_phone || "",
+  //   rep_email: company?.rep_email || "",
+  //   secondary_rep_name_en: company?.secondary_rep_name_en || "",
+  //   secondary_rep_name_ja: company?.secondary_rep_name_ja || "",
+  //   secondary_rep_name_ja_kana: company?.secondary_rep_name_ja_kana || "",
+  //   secondary_rep_position_en: company?.secondary_rep_position_en || "",
+  //   secondary_rep_position_ja: company?.secondary_rep_position_ja || "",
+  //   secondary_rep_phone: company?.secondary_rep_phone || "",
+  //   secondary_rep_email: company?.secondary_rep_email || "",
+  //   address_ja_reading: company?.address_ja_reading || "",
+  // };
+
+  // Initialize form values based on mode
+  const initialValues = editMode
+    ? {
+        name_en: company?.name_en || "",
+        name_ja: company?.name_ja || "",
+        rep_name_en: company?.rep_name_en || "",
+        rep_name_ja: company?.rep_name_ja || "",
+        rep_name_ja_kana: company?.rep_name_ja_kana || "",
+        rep_position_en: company?.rep_position_en || "",
+        rep_position_ja: company?.rep_position_ja || "",
+        prefecture_en: company?.prefecture_en || "",
+        prefecture_ja: company?.prefecture_ja || "",
+        municipality_town_en: company?.municipality_town_en || "",
+        municipality_town_ja: company?.municipality_town_ja || "",
+        building_en: company?.building_en || "",
+        building_ja: company?.building_ja || "",
+        postal_code: company?.postal_code || "",
+        phone: company?.phone || "",
+        email: company?.email || "",
+        rep_phone: company?.rep_phone || "",
+        rep_email: company?.rep_email || "",
+        secondary_rep_name_en: company?.secondary_rep_name_en || "",
+        secondary_rep_name_ja: company?.secondary_rep_name_ja || "",
+        secondary_rep_name_ja_kana: company?.secondary_rep_name_ja_kana || "",
+        secondary_rep_position_en: company?.secondary_rep_position_en || "",
+        secondary_rep_position_ja: company?.secondary_rep_position_ja || "",
+        secondary_rep_phone: company?.secondary_rep_phone || "",
+        secondary_rep_email: company?.secondary_rep_email || "",
+        address_ja_reading: company?.address_ja_reading || "",
+      }
+    : savedValues;
 
   const validationSchema = yup.object().shape({
     name_en: yup.string().required(t("common.validations.required")),
@@ -129,20 +199,20 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
     building_en: yup.string().required(t("common.validations.required")),
     building_ja: yup.string().required(t("common.validations.required")),
     postal_code: yup.string().required(t("common.validations.required")),
-    phone: yup.string().required(t("common.validations.required")),
-    email: yup
-      .string()
-      .required(t("common.validations.required"))
-      .email(t("common.validations.email")),
-    website: yup
-      .string()
-      .url(t("common.validations.url"))
-      .required(t("common.validations.required")),
-    rep_phone: yup.string().required(t("common.validations.required")),
-    rep_email: yup
-      .string()
-      .email(t("common.validations.email"))
-      .required(t("common.validations.required")),
+    // phone: yup.string().required(t("common.validations.required")),
+    // email: yup
+    //   .string()
+    //   .required(t("common.validations.required"))
+    //   .email(t("common.validations.email")),
+    // website: yup
+    //   .string()
+    //   .url(t("common.validations.url"))
+    //   .required(t("common.validations.required")),
+    // rep_phone: yup.string().required(t("common.validations.required")),
+    // rep_email: yup
+    //   .string()
+    //   .email(t("common.validations.email"))
+    // .required(t("common.validations.required")),
     // secondary_rep_name_en: yup.string().required(t("common.validations.required")),
     // secondary_rep_name_ja: yup.string().required(t("common.validations.required")),
     // secondary_rep_name_ja_kana: yup.string().required(t("common.validations
@@ -150,7 +220,7 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
     // secondary_rep_position_ja: yup.string().required(t("common.validations.required")),
     // secondary_rep_phone_en: yup.string().required(t("common.validations.required")),
     // secondary_rep_email_ja: yup.string().email(t("common.validations.invalid_email")).required(t("common.validations.required")),
-    address_ja_reading: yup.string().required(t("common.validations.required")),
+    // address_ja_reading: yup.string().required(t("common.validations.required")),
   });
 
   const formik = useFormik({
@@ -164,6 +234,7 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
       } else {
         onAdd(values as Company);
       }
+      setSavedValues(values);
     },
     enableReinitialize: true,
   });
@@ -288,7 +359,7 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
           <Grid.Col span={12}>
             <Textarea
               //   label={t("database.company.form.building_room.label")}
-              label="住所読み仮名（全）"
+              label="住所（カナ）"
               name="address_ja_reading"
               minRows={3}
               value={formik.values.address_ja_reading}
@@ -305,7 +376,7 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
               //   label={t("database.company.form.prefecture.label")}
               label="Prefecture"
               placeholder="e.g Kanagawa Pref."
-              data={prefectures ? formattedPrefectures_en : []}
+              // data={prefectures ? formattedPrefectures_en : []}
               name="prefecture_en"
               maxDropdownHeight={250}
               value={formik.values.prefecture_en}
@@ -319,7 +390,7 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
           <Grid.Col span={{ base: 12, sm: 6 }}>
             <TextInput
               //   label={t("database.company.form.municipality_town.label")}
-              label="Town, City"
+              label="City"
               placeholder="e.g Yokohama City, Naka Ku"
               name="municipality_town_en"
               value={formik.values.municipality_town_en}
@@ -334,7 +405,7 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
           <Grid.Col span={{ base: 12, sm: 8 }}>
             <TextInput
               //   label={t("database.company.form.building_room.label")}
-              label="Room No. Building Name, Street"
+              label="Room No. Building Name, Town"
               name="building_en"
               value={formik.values.building_en}
               onChange={formik.handleChange}
@@ -349,9 +420,9 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
           <Grid.Col span={12}>
             <Text size="md" fw={"bold"}>
               {t("database.company.form.contact.label")}
-              <span className={classes.required}>
+              {/* <span className={classes.required}>
                 {t("common.validations.required")}
-              </span>
+              </span> */}
             </Text>
           </Grid.Col>
 
@@ -381,7 +452,7 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
             />
           </Grid.Col>
 
-          <Grid.Col span={8}>
+          {/* <Grid.Col span={8}>
             <TextInput
               label={t("database.company.form.website.label")}
               name="website"
@@ -392,7 +463,7 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
                 <IconWorldWww style={{ width: rem(18), height: rem(18) }} />
               }
             />
-          </Grid.Col>
+          </Grid.Col> */}
 
           {/* ~~~~~~~~~~~~~~~ contact ~~~~~~~~~~~~~~~ */}
 
@@ -442,7 +513,7 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
               value={formik.values.rep_name_en}
               onChange={formik.handleChange}
               error={formik.touched.rep_name_en && formik.errors.rep_name_en}
-              placeholder="YAMADA TARO"
+              placeholder="TARO YAMADA"
             />
           </Grid.Col>
 
