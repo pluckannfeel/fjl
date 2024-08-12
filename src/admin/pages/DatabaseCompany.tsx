@@ -4,7 +4,7 @@ import { Box, Button, rem, Text } from "@mantine/core";
 import { useTranslation } from "react-i18next";
 import { useGetCompanies } from "../hooks/useCompanies";
 import { Company } from "../types/Database";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useLocalStorage } from "@mantine/hooks";
 import CompanyModal from "../components/Database/Company/CompanyModal";
 import { IconPlus } from "@tabler/icons-react";
 import { useAddCompany } from "../hooks/useAddCompany";
@@ -23,6 +23,14 @@ const DatabaseCompany: React.FC = () => {
   const { isAdding, addCompany } = useAddCompany();
   const { isEditing, editCompany } = useEditCompany();
   const { isDeleting, deleteCompany } = useDeleteCompany();
+
+   // Manage local storage in the parent component
+   const [savedValues, setSavedValues, removeSavedValues] = useLocalStorage({
+    key: 'company-modal-data',
+    defaultValue: {
+      // default values (same structure as in CompanyModal)
+    },
+  });
 
   const [selectedCompanies, setSelectedCompanies] = useState<Company[]>([]);
 
@@ -77,6 +85,7 @@ const DatabaseCompany: React.FC = () => {
           color: "green",
         });
         companyModalClose();
+        removeSavedValues(); // clear saved values
       })
       .catch((error) => {
         console.log(error);
