@@ -80,7 +80,7 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
   }));
 
   // Use local storage to save form state if not in edit mode
-  const [savedValues, setSavedValues] = useLocalStorage<Partial<Company>>({
+  const [savedValues, setSavedValues, removeSavedValues] = useLocalStorage<Partial<Company>>({
     key: "company-modal-data",
     defaultValue: {
       name_en: "",
@@ -94,6 +94,7 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
       prefecture_ja: "",
       municipality_town_en: "",
       municipality_town_ja: "",
+      street_address_ja: "",
       building_en: "",
       building_ja: "",
       postal_code: "",
@@ -164,6 +165,7 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
         municipality_town_ja: company?.municipality_town_ja || "",
         building_en: company?.building_en || "",
         building_ja: company?.building_ja || "",
+        street_address_ja: company?.street_address_ja || "",
         postal_code: company?.postal_code || "",
         phone: company?.phone || "",
         email: company?.email || "",
@@ -332,7 +334,7 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
           <Grid.Col span={{ base: 12, sm: 6 }}>
             <TextInput
               //   label={t("database.company.form.municipality_town.label")}
-              label="市区町村・番地"
+              label="市区町村"
               name="municipality_town_ja"
               value={formik.values.municipality_town_ja}
               onChange={formik.handleChange}
@@ -340,6 +342,17 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
                 formik.touched.municipality_town_ja &&
                 formik.errors.municipality_town_ja
               }
+            />
+          </Grid.Col>
+
+          <Grid.Col span={{ base: 12, sm: 2 }}>
+            <TextInput
+              //   label={t("database.company.form.building_room.label")}
+              label="番地"
+              name="street_address_ja"
+              value={formik.values.street_address_ja}
+              onChange={formik.handleChange}
+              error={formik.touched.street_address_ja && formik.errors.street_address_ja}
             />
           </Grid.Col>
 
@@ -371,6 +384,34 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
             />
           </Grid.Col>
 
+          <Grid.Col span={{ base: 12, sm: 8 }}>
+            <TextInput
+              //   label={t("database.company.form.building_room.label")}
+              label="Room No. Building Name, Street"
+              name="building_en"
+              value={formik.values.building_en}
+              onChange={formik.handleChange}
+              error={formik.touched.building_en && formik.errors.building_en}
+            />
+          </Grid.Col>
+
+          <Grid.Col span={{ base: 12, sm: 4 }}></Grid.Col>
+
+          <Grid.Col span={{ base: 12, sm: 7 }}>
+            <TextInput
+              //   label={t("database.company.form.municipality_town.label")}
+              label="Town, City"
+              placeholder="e.g Yokohama City, Naka Ku"
+              name="municipality_town_en"
+              value={formik.values.municipality_town_en}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.municipality_town_en &&
+                formik.errors.municipality_town_en
+              }
+            />
+          </Grid.Col>
+
           <Grid.Col span={{ base: 12, sm: 3 }}>
             <Autocomplete
               //   label={t("database.company.form.prefecture.label")}
@@ -386,33 +427,6 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
               }
             />
           </Grid.Col>
-
-          <Grid.Col span={{ base: 12, sm: 6 }}>
-            <TextInput
-              //   label={t("database.company.form.municipality_town.label")}
-              label="City"
-              placeholder="e.g Yokohama City, Naka Ku"
-              name="municipality_town_en"
-              value={formik.values.municipality_town_en}
-              onChange={formik.handleChange}
-              error={
-                formik.touched.municipality_town_en &&
-                formik.errors.municipality_town_en
-              }
-            />
-          </Grid.Col>
-
-          <Grid.Col span={{ base: 12, sm: 8 }}>
-            <TextInput
-              //   label={t("database.company.form.building_room.label")}
-              label="Room No. Building Name, Town"
-              name="building_en"
-              value={formik.values.building_en}
-              onChange={formik.handleChange}
-              error={formik.touched.building_en && formik.errors.building_en}
-            />
-          </Grid.Col>
-
           {/* ~~~~~~~~~~~~~~~ Address ~~~~~~~~~~~~~~~ */}
 
           {/* ~~~~~~~~~~~~~~~ contact ~~~~~~~~~~~~~~~ */}
@@ -744,6 +758,18 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
           >
             {t("common.save")}
           </Button>
+          {/* // clear button */}
+        <Button
+          variant="outline"
+          size="md"
+          color="blue.5"
+          onClick={() => {
+            formik.resetForm();        // Reset the form to its initial values
+            removeSavedValues();       // Remove the saved values from local storage
+          }}
+        >
+          {t("common.clear")}
+        </Button>
         </Group>
       </form>
     </Modal>

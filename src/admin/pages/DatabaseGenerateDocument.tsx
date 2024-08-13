@@ -13,6 +13,7 @@ import classes from "@/admin/classes/Common.module.scss";
 import {
   applicationTypes,
   documentTypes,
+  sswDocumentTypes,
   visaTypes,
 } from "../helpers/constants";
 import { useGetCompanies } from "../hooks/useCompanies";
@@ -27,6 +28,7 @@ import { showNotification } from "@mantine/notifications";
 interface DatabaseGenerateDocumentProps {
   // Define your props here
 }
+
 
 const DatabaseGenerateDocument: React.FC<DatabaseGenerateDocumentProps> = (
   {
@@ -320,36 +322,34 @@ const DatabaseGenerateDocument: React.FC<DatabaseGenerateDocumentProps> = (
                   label={t("database.generateDocument.actions.selectDocument")}
                   labelPosition="center"
                 />
-                {documentTypes.map((type, index) => (
+                {
+                selectedVisaType === "psw" ?
+                documentTypes.map((type, index) => (
                   <React.Fragment key={index}>
-                    {/* {type.header &&
-                      (index === 0 ||
-                        applicationTypes[index - 1].header !== type.header) && (
-                        <Menu.Label
-                          className={
-                            type.header.includes("Danger")
-                              ? classes.dangerZone
-                              : ""
-                          }
-                        >
-                          {t(type.header)}
-                        </Menu.Label>
-                      )} */}
                     <Menu.Item
                       onClick={() =>
                         handleSelectedDocumentMenuClick(type.value)
                       }
-                      //   rightSection={
-                      //     type.icon ? (
-                      //       <type.icon size={22} className={classes.menuIcon} />
-                      //     ) : null
-                      //   }
                       disabled={type.disabled}
                     >
                       {t(type.label)}
                     </Menu.Item>
                   </React.Fragment>
-                ))}
+                ))
+              
+                : selectedVisaType === "ssw" ?
+                sswDocumentTypes.map((type, index) => (
+                  <React.Fragment key={index}>
+                    <Menu.Item
+                      onClick={() =>
+                        handleSelectedDocumentMenuClick(type.value)
+                      }
+                      disabled={type.disabled}
+                    >
+                      {t(type.label)}
+                    </Menu.Item>
+                  </React.Fragment>
+                )) : null}
               </Menu.Dropdown>
             </Menu>
           </Grid.Col>

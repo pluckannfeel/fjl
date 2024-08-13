@@ -120,7 +120,7 @@ export const visaTypes = [
       "database.generateDocument.menu.visa.options.ssw",
     value: "ssw",
     icon: null,
-    disabled: true,
+    disabled: false,
   },
   {
     label:
@@ -131,6 +131,7 @@ export const visaTypes = [
   },
 ];
 
+// Professional Working Visa
 export const documentTypes = [
   // {
   //   label: "common.clearSelection",
@@ -164,4 +165,78 @@ export const documentTypes = [
     icon: null,
     disabled: false,
   },
+  {
+    label:
+      "database.generateDocument.menu.document.options.defaultAgencyLicenseCopy",
+    value: "aqium_license_copy",
+    icon: null,
+    disabled: false,
+  },
+  {
+    label:
+      "database.generateDocument.menu.document.options.defaultAgencyRepresentativePassportCopy",
+    value: "aqium_representative_passport_copy",
+    icon: null,
+    disabled: false,
+  },
 ];
+
+
+export const sswDocumentTypes = [
+  {
+    label: "database.generateDocument.menu.document.options.ssw.applicationForm",
+    value: "application_form",
+    icon: null,
+    disabled: false,
+  },
+  {
+    label: "database.generateDocument.menu.document.options.ssw.companyProfile",
+    value: "company_profile",
+    icon: null,
+    disabled: true,
+  },
+  {
+    label: "database.generateDocument.menu.document.options.ssw.taskDutiesList",
+    value: "task_duties_list",
+    icon: null,
+    disabled: true,
+  },
+  {
+    label: "database.generateDocument.menu.document.options.ssw.recruitmentAgreement",
+    value: "recruitment_agreement",
+    icon: null,
+    disabled: true,
+  },
+  {
+    label: "database.generateDocument.menu.document.options.ssw.manpowerRequest",
+    value: "manpower_request",
+    icon: null,
+    disabled: true,
+  },
+  {
+    label: "database.generateDocument.menu.document.options.ssw.employmentContract",
+    value: "employment_contract",
+    icon: null,
+    disabled: true,
+  },
+  {
+    label: "database.generateDocument.menu.document.options.ssw.salaryScheme",
+    value: "salary_scheme",
+    icon: null,
+    disabled: true,
+  },
+  {
+    label:
+      "database.generateDocument.menu.document.options.defaultAgencyLicenseCopy",
+    value: "aqium_license_copy",
+    icon: null,
+    disabled: false,
+  },
+  {
+    label:
+      "database.generateDocument.menu.document.options.defaultAgencyRepresentativePassportCopy",
+    value: "aqium_representative_passport_copy",
+    icon: null,
+    disabled: false,
+  },
+]

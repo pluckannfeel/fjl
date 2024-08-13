@@ -119,6 +119,7 @@
     "save": "保存",
     "delete": "削除",
     "submit": "提出",
+    "clear": "クリア",
     "close": "閉じる",
     "back": "戻る",
     "home": "ホーム",
@@ -704,7 +705,7 @@
     "drawer": {
       "menu": {
         "company": "雇用主（会社）",
-        "agency": "紹介会社（AGENCY）",
+        "agency": "フィリピン送出機関",
         "generate_document": "書類生成"
       }
     },
@@ -840,7 +841,18 @@
             "applicationForm": "MWO 申請書",
             "manpowerRequest": "マンパワー・レクエスト/求人通知",
             "employmentContract": "雇用契約書",
-            "recruitmentAgreement": "リクルートメントアグリーメント書"
+            "recruitmentAgreement": "リクルートメントアグリーメント書",
+            "defaultAgencyLicenseCopy": "★AQIUMライセンスの写し",
+            "defaultAgencyRepresentativePassportCopy": "★NOEMIのパスポートの写し",
+            "ssw": {
+              "applicationForm": "01 MWO 申請書",
+              "companyProfile": "03 会社プロフィール",
+              "taskDutiesList": "05 フィリピン人労働者の仕事内容及び資格",
+              "recruitmentAgreement": "06 協定書（受入会社＆送出機関）",
+              "manpowerRequest": "08 マンパワー レクエスト / 求人通知書",
+              "employmentContract": "09 雇用契約書・条件書",
+              "salaryScheme": "10 サラリースキーム/賃金支払い"
+            }
           }
         }
       },
@@ -852,7 +864,7 @@
         "recruitmentAgreement": "採用契約書",
         "createdAt": "作成日",
         "company": "所属会社",
-        "agency": "紹介会社",
+        "agency": "フィリピン送出機関",
         "jobDetails": {
           "add": "求人項目を追加",
           "title": "職種",

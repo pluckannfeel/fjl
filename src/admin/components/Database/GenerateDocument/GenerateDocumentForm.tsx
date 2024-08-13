@@ -150,6 +150,20 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
           selected_agency: values.selected_agency,
         };
         break;
+      case "aqium_license_copy":
+        filteredValues = {
+          document_type: documentType,
+          visa_type: visaType ?? "",
+          application_type: applicationType ?? "",
+        };
+        break;
+      case "aqium_representative_passport_copy":
+        filteredValues = {
+          document_type: documentType,
+          visa_type: visaType ?? "",
+          application_type: applicationType ?? "",
+        };
+        break;
     }
     onGenerate(filteredValues as GenerateDocument);
   };
@@ -176,90 +190,114 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
   // return nothing if  documenType is null
   if (!documentType) return null;
 
+  // disable button conditions
+  const shouldDisableButton =
+    (!formik.dirty && !formik.isSubmitting) ||
+    formik.values.created_date == null ||
+    formik.values.selected_company == "" ||
+    formik.values.selected_agency == "";
+
+  // Check if documentType is 'aqium_representative_passport_copy' or 'aqium_license_copy'
+  const shouldNegateValues =
+    documentType === "aqium_representative_passport_copy" ||
+    documentType === "aqium_license_copy";
+
+  // Combine the conditions
+  const isButtonDisabled = shouldDisableButton && !shouldNegateValues;
+
   return (
     <form onSubmit={formik.handleSubmit} className={classes.form}>
-      <Text mb="md" fz={"h2"} fw={"bold"}>
-        {t("database.generateDocument.form.documentInformation")}{" "}
-        <span className={classes.required}>
-          {t("common.validations.required")}
-        </span>
-      </Text>
+      {/* ================== GENERAL DOCUMENT FIELDS ================== */}
 
-      <Grid px={"md"} mb={"sm"}>
-        <Grid.Col span={10}>
-          <Text
-            size="xl"
-            fw={"bold"}
-            c={"orange.6"}
-            // style={{ borderBottom: "5px solid var(--mantine-color-orange-5)" }}
-          >
-            {t("database.generateDocument.form.general")}
+      {!shouldNegateValues && (
+        <>
+          <Text mb="md" fz={"h2"} fw={"bold"}>
+            {t("database.generateDocument.form.documentInformation")}{" "}
+            <span className={classes.required}>
+              {t("common.validations.required")}
+            </span>
           </Text>
-        </Grid.Col>
-        <Grid.Col span={2}></Grid.Col>
 
-        <Grid.Col span={1.5}>
-          <DateInput
-            valueFormat="YYYY/MM/DD"
-            size="md"
-            label={t("database.generateDocument.form.createdAt")}
-            // placeholder={t("common.form.date.placeholder")}
-            value={formik.values.created_date}
-            onChange={(value: DateValue) => {
-              formik.setFieldValue("created_date", value);
-            }}
-            error={formik.errors.created_date as string}
-          />
-        </Grid.Col>
-        <Grid.Col span={3}>
-          <Autocomplete
-            size="md"
-            label={t("database.generateDocument.form.company")}
-            data={companies.map((company) => ({
-              label: company.name_ja,
-              value: company.id,
-            }))}
-            value={
-              companies.find(
-                (company) => company.id === formik.values.selected_company
-              )?.name_ja || ""
-            }
-            onChange={(value) => {
-              const selectedCompany = companies.find(
-                (company) => company.name_ja === value
-              );
-              formik.setFieldValue(
-                "selected_company",
-                selectedCompany?.id || ""
-              );
-            }}
-            error={formik.errors.selected_company as string}
-          />
-        </Grid.Col>
-        <Grid.Col span={3}>
-          <Autocomplete
-            size="md"
-            label={t("database.generateDocument.form.agency")}
-            data={agencies.map((agency) => ({
-              label: agency.name,
-              value: agency.id,
-            }))}
-            value={
-              agencies.find(
-                (agency) => agency.id === formik.values.selected_agency
-              )?.name || ""
-            }
-            onChange={(value) => {
-              const selectedAgency = agencies.find(
-                (agency) => agency.name === value
-              );
+          <Grid px={"md"} mb={"sm"}>
+            <Grid.Col span={10}>
+              <Text
+                size="xl"
+                fw={"bold"}
+                c={"orange.6"}
+                // style={{ borderBottom: "5px solid var(--mantine-color-orange-5)" }}
+              >
+                {t("database.generateDocument.form.general")}
+              </Text>
+            </Grid.Col>
+            <Grid.Col span={2}></Grid.Col>
 
-              formik.setFieldValue("selected_agency", selectedAgency?.id || "");
-            }}
-            error={formik.errors.selected_agency as string}
-          />
-        </Grid.Col>
-      </Grid>
+            <Grid.Col span={1.5}>
+              <DateInput
+                valueFormat="YYYY/MM/DD"
+                size="md"
+                label={t("database.generateDocument.form.createdAt")}
+                // placeholder={t("common.form.date.placeholder")}
+                value={formik.values.created_date}
+                onChange={(value: DateValue) => {
+                  formik.setFieldValue("created_date", value);
+                }}
+                error={formik.errors.created_date as string}
+              />
+            </Grid.Col>
+            <Grid.Col span={3}>
+              <Autocomplete
+                size="md"
+                label={t("database.generateDocument.form.company")}
+                data={companies.map((company) => ({
+                  label: company.name_ja,
+                  value: company.id,
+                }))}
+                value={
+                  companies.find(
+                    (company) => company.id === formik.values.selected_company
+                  )?.name_ja || ""
+                }
+                onChange={(value) => {
+                  const selectedCompany = companies.find(
+                    (company) => company.name_ja === value
+                  );
+                  formik.setFieldValue(
+                    "selected_company",
+                    selectedCompany?.id || ""
+                  );
+                }}
+                error={formik.errors.selected_company as string}
+              />
+            </Grid.Col>
+            <Grid.Col span={3}>
+              <Autocomplete
+                size="md"
+                label={t("database.generateDocument.form.agency")}
+                data={agencies.map((agency) => ({
+                  label: agency.name,
+                  value: agency.id,
+                }))}
+                value={
+                  agencies.find(
+                    (agency) => agency.id === formik.values.selected_agency
+                  )?.name || ""
+                }
+                onChange={(value) => {
+                  const selectedAgency = agencies.find(
+                    (agency) => agency.name === value
+                  );
+
+                  formik.setFieldValue(
+                    "selected_agency",
+                    selectedAgency?.id || ""
+                  );
+                }}
+                error={formik.errors.selected_agency as string}
+              />
+            </Grid.Col>
+          </Grid>
+        </>
+      )}
 
       {/* ================== MANPOWER REQUEST DOCUMENT ================== */}
       {documentType == "manpower_request" && (
@@ -592,12 +630,7 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
           type="submit"
           gradient={{ from: "pink", to: "red" }}
           loading={processing}
-          disabled={
-            (!formik.dirty && !formik.isSubmitting) ||
-            formik.values.created_date == null ||
-            formik.values.selected_company == "" ||
-            formik.values.selected_agency == ""
-          }
+          disabled={isButtonDisabled}
         >
           {t("database.generateDocument.actions.generate")}
         </Button>

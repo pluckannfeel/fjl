@@ -105,6 +105,8 @@ const DatabaseCompany: React.FC = () => {
           color: "cyan",
         });
         // applicantModalClose();
+        companyModalClose();
+        removeSavedValues(); // clear saved values
       })
       .catch((error) => {
         console.log(error);
