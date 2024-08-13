@@ -6,6 +6,7 @@ export type Company = {
   prefecture_ja?: string;
   municipality_town_en?: string;
   municipality_town_ja?: string;
+  street_address_ja?: string;
   building_en?: string;
   building_ja?: string;
   postal_code?: string;
