@@ -768,6 +768,24 @@
         },
         "is_secondary_rep_required": {
           "label": "Secondary Representative Required"
+        },
+        "other_information": {
+          "label": "Other Information"
+        },
+        "year_established": {
+          "label": "Year Established"
+        },
+        "registered_industry": {
+          "label": "Registered Industry"
+        },
+        "regular_worker_count": {
+          "label": "Regular Worker Count"
+        },
+        "parttime_worker_count": {
+          "label": "Part-time Worker Count"
+        },
+        "foreigner_worker_count": {
+          "label": "Foreigner Worker Count"
         }
       },
       "table": {
@@ -873,6 +891,7 @@
         "passportDateIssued": "Date Issued",
         "passportPlaceIssued": "Place Issued",
         "employmentAddress": "Place of Work/Office",
+        "listOfTasksCriteria": "List of Tasks/Qualifications",
         "employmentTerm": "Employment Term/Period",
         "jobPositionTitle": "Job Position Title",
         "jobPositionDescription": "Job Position Description"
