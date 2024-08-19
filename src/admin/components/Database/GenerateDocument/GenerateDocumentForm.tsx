@@ -243,8 +243,8 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
   const shouldNegateValues =
     documentType === "aqium_representative_passport_copy" ||
     documentType === "aqium_license_copy" ||
-    "psw_initial_checklist" ||
-    "ssw_initial_checklist";
+    documentType === "psw_initial_checklist" ||
+    documentType === "ssw_initial_checklist";
 
   // Combine the conditions
   const isButtonDisabled = shouldDisableButton && !shouldNegateValues;
