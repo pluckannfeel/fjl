@@ -728,7 +728,8 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
             <Grid.Col span={5}>
               <Select
                 size="md"
-                label={t("database.generateDocument.form.company")}
+                // label={t("database.generateDocument.form.company")}
+                label="特定技能の業種"
                 data={JobPositions.map((position) => ({
                   label: position.label,
                   value: position.value,
