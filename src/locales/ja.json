@@ -765,6 +765,24 @@
         },
         "is_secondary_rep_required": {
           "label": "副代表者の情報を入力しますか？"
+        },
+        "other_information": {
+          "label": "その他情報"
+        },
+        "year_established": {
+          "label": "設立年"
+        },
+        "registered_industry": {
+          "label": "業種"
+        },
+        "regular_worker_count": {
+          "label": "正社員数"
+        },
+        "parttime_worker_count": {
+          "label": "パートタイム数"
+        },
+        "foreigner_worker_count": {
+          "label": "外国人労働者数"
         }
       },
       "table": {
@@ -837,6 +855,7 @@
         "document": {
           "title": "書類",
           "options": {
+            "pswInitialChecklist": "新規「技術・人文知識・国際業務」要件のチェックリスト ガイド",
             "documentInformation": "書類情報",
             "applicationForm": "MWO 申請書",
             "manpowerRequest": "マンパワー・レクエスト/求人通知",
@@ -845,6 +864,7 @@
             "defaultAgencyLicenseCopy": "★AQIUMライセンスの写し",
             "defaultAgencyRepresentativePassportCopy": "★NOEMIのパスポートの写し",
             "ssw": {
+              "sswInitialChecklist": "新規「特定技能」要件のチェックリスト ガイド",
               "applicationForm": "01 MWO 申請書",
               "companyProfile": "03 会社プロフィール",
               "taskDutiesList": "05 フィリピン人労働者の仕事内容及び資格",
@@ -880,6 +900,7 @@
         "passportDateIssued": "パスポート発行日",
         "passportPlaceIssued": "パスポート発行地",
         "employmentAddress": "勤務地・職場",
+        "listOfTasksCriteria": "業務内容・資格",
         "employmentTerm": "雇用期間",
         "jobPositionTitle": "職種",
         "jobPositionDescription": "職務内容"

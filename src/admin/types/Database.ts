@@ -28,6 +28,13 @@ export type Company = {
   secondary_rep_phone?: string;
   secondary_rep_email?: string;
   address_ja_reading?: string;
+  // new 
+  year_established?: string;
+  registered_industry_ja?: string;
+  registered_industry_en?: string;
+  regular_worker_count?: number;
+  parttime_worker_count?: number;
+  foreigner_worker_count?: number;
   created_at: Date;
 };
 
@@ -91,4 +98,7 @@ export type GenerateDocument = GenerateDocumentBase & {
   employment_term?: string;
   job_position_title?: string;
   job_position_description?: string;
+  
+  //ssw list of tasks
+  ssw_job_title?: string;
 };

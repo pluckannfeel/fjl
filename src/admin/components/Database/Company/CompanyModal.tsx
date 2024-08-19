@@ -11,6 +11,7 @@ import {
   Switch,
   useMantineTheme,
   Textarea,
+  NumberInput,
 } from "@mantine/core";
 import classes from "@/admin/classes/Common.module.scss";
 import React, { useEffect, useState } from "react";
@@ -80,7 +81,9 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
   }));
 
   // Use local storage to save form state if not in edit mode
-  const [savedValues, setSavedValues, removeSavedValues] = useLocalStorage<Partial<Company>>({
+  const [savedValues, setSavedValues, removeSavedValues] = useLocalStorage<
+    Partial<Company>
+  >({
     key: "company-modal-data",
     defaultValue: {
       name_en: "",
@@ -110,6 +113,13 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
       secondary_rep_phone: "",
       secondary_rep_email: "",
       address_ja_reading: "",
+      // new
+      year_established: "",
+      registered_industry_ja: "",
+      registered_industry_en: "",
+      regular_worker_count: 0,
+      parttime_worker_count: 0,
+      foreigner_worker_count: 0,
     },
   });
 
@@ -179,6 +189,13 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
         secondary_rep_phone: company?.secondary_rep_phone || "",
         secondary_rep_email: company?.secondary_rep_email || "",
         address_ja_reading: company?.address_ja_reading || "",
+        // new
+        year_established: company?.year_established || "",
+        registered_industry_ja: company?.registered_industry_ja || "",
+        registered_industry_en: company?.registered_industry_en || "",
+        regular_worker_count: company?.regular_worker_count || 0,
+        parttime_worker_count: company?.parttime_worker_count || 0,
+        foreigner_worker_count: company?.foreigner_worker_count || 0,
       }
     : savedValues;
 
@@ -352,7 +369,10 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
               name="street_address_ja"
               value={formik.values.street_address_ja}
               onChange={formik.handleChange}
-              error={formik.touched.street_address_ja && formik.errors.street_address_ja}
+              error={
+                formik.touched.street_address_ja &&
+                formik.errors.street_address_ja
+              }
             />
           </Grid.Col>
 
@@ -480,6 +500,106 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
           </Grid.Col> */}
 
           {/* ~~~~~~~~~~~~~~~ contact ~~~~~~~~~~~~~~~ */}
+
+          <Grid.Col span={12}>
+            <Text size="md" fw={"bold"}>
+              {t("database.company.form.other_information.label")}
+              {/* <span className={classes.required}>
+                {t("common.validations.required")}
+              </span> */}
+            </Text>
+          </Grid.Col>
+
+          <Grid.Col span={3}>
+            <TextInput
+              label={t("database.company.form.year_established.label")}
+              name="year_established"
+              value={formik.values.year_established}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.year_established &&
+                formik.errors.year_established
+              }
+              placeholder="e.g 2000"
+            />
+          </Grid.Col>
+
+          <Grid.Col span={4.5}>
+            <TextInput
+              // label={t("database.company.form.service_type.label")}
+              label="登録業種"
+              name="registered_industry_ja"
+              value={formik.values.registered_industry_ja}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.registered_industry_ja &&
+                formik.errors.registered_industry_ja
+              }
+              placeholder="e.g 製造業, 介護福祉士"
+            />
+          </Grid.Col>
+
+          <Grid.Col span={4.5}>
+            <TextInput
+              // label={t("database.company.form.service_type.label")}
+              label="Registered Industry"
+              name="registered_industry_en"
+              value={formik.values.registered_industry_en}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.registered_industry_en &&
+                formik.errors.registered_industry_en
+              }
+              placeholder="e.g Manufucturing, Caregiver"
+            />
+          </Grid.Col>
+
+          <Grid.Col span={2.5}>
+            <NumberInput
+              label={t("database.company.form.regular_worker_count.label")}
+              name="regular_worker_count"
+              value={formik.values.regular_worker_count}
+              onChange={(value) =>
+                formik.setFieldValue("regular_worker_count", value)
+              }
+              error={
+                formik.touched.regular_worker_count &&
+                formik.errors.regular_worker_count
+              }
+            />
+          </Grid.Col>
+
+          <Grid.Col span={2.5}>
+            <NumberInput
+              label={t("database.company.form.parttime_worker_count.label")}
+              name="parttime_worker_count"
+              value={formik.values.parttime_worker_count}
+              onChange={(value) =>
+                formik.setFieldValue("parttime_worker_count", value)
+              }
+              error={
+                formik.touched.parttime_worker_count &&
+                formik.errors.parttime_worker_count
+              }
+            />
+          </Grid.Col>
+
+          <Grid.Col span={2.5}>
+            <NumberInput
+              label={t("database.company.form.foreigner_worker_count.label")}
+              name="foreigner_worker_count"
+              value={formik.values.foreigner_worker_count}
+              onChange={(value) =>
+                formik.setFieldValue("foreigner_worker_count", value)
+              }
+              error={
+                formik.touched.foreigner_worker_count &&
+                formik.errors.foreigner_worker_count
+              }
+            />
+          </Grid.Col>
+
+          
 
           {/* ~~~~~~~~~~~~~~~ representative ~~~~~~~~~~~~~~~ */}
 
@@ -759,17 +879,17 @@ const CompanyModal: React.FC<CompanyModalProps> = ({
             {t("common.save")}
           </Button>
           {/* // clear button */}
-        <Button
-          variant="outline"
-          size="md"
-          color="blue.5"
-          onClick={() => {
-            formik.resetForm();        // Reset the form to its initial values
-            removeSavedValues();       // Remove the saved values from local storage
-          }}
-        >
-          {t("common.clear")}
-        </Button>
+          <Button
+            variant="outline"
+            size="md"
+            color="blue.5"
+            onClick={() => {
+              formik.resetForm(); // Reset the form to its initial values
+              removeSavedValues(); // Remove the saved values from local storage
+            }}
+          >
+            {t("common.clear")}
+          </Button>
         </Group>
       </form>
     </Modal>

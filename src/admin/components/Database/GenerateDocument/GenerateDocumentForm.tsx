@@ -13,6 +13,8 @@ import {
   Divider,
   Center,
   NumberInput,
+  NativeSelect,
+  Select,
 } from "@mantine/core";
 
 import classes from "@/admin/classes/Common.module.scss";
@@ -33,6 +35,7 @@ import { usePrefectures } from "@/admin/hooks/useAddressPrefectures";
 import {
   IconAt,
   IconCheck,
+  IconChevronDown,
   IconCurrencyYen,
   IconMailbox,
   IconPhone,
@@ -41,6 +44,7 @@ import {
   IconX,
 } from "@tabler/icons-react";
 import { getNestedError } from "@/mirairo/helpers/constants";
+import { JobPositions } from "@/admin/helpers/constants";
 
 dayjs.extend(timezone);
 dayjs.tz.setDefault("Asia/Tokyo");
@@ -83,6 +87,7 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
     passport_no: "",
     passport_date_issued: null,
     passport_place_issued: "",
+    ssw_job_title: "",
   };
 
   const formik = useFormik({
@@ -134,7 +139,11 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
           passport_no: values.passport_no,
           passport_date_issued: values.passport_date_issued,
           passport_place_issued: values.passport_place_issued,
+
           employment_address: values.employment_address,
+          // employment_address: values.selected_company !== "" ? companies.find(
+          //   (company) => company.id === values.selected_company
+          // )?.municipality_town_en || "" : "",
           employment_term: values.employment_term,
           job_position_title: values.job_position_title,
           job_position_description: values.job_position_description,
@@ -150,6 +159,28 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
           selected_agency: values.selected_agency,
         };
         break;
+      // ssw
+      case "company_profile":
+        filteredValues = {
+          document_type: documentType,
+          visa_type: visaType ?? "",
+          application_type: applicationType ?? "",
+          created_date: values.created_date,
+          selected_company: values.selected_company,
+          selected_agency: values.selected_agency,
+        };
+        break;
+      case "task_qualification_list":
+        filteredValues = {
+          document_type: documentType,
+          visa_type: visaType ?? "",
+          application_type: applicationType ?? "",
+          created_date: values.created_date,
+          selected_company: values.selected_company,
+          selected_agency: values.selected_agency,
+          ssw_job_title: values.ssw_job_title,
+        };
+        break;
       case "aqium_license_copy":
         filteredValues = {
           document_type: documentType,
@@ -158,6 +189,20 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
         };
         break;
       case "aqium_representative_passport_copy":
+        filteredValues = {
+          document_type: documentType,
+          visa_type: visaType ?? "",
+          application_type: applicationType ?? "",
+        };
+        break;
+      case "psw_initial_checklist":
+        filteredValues = {
+          document_type: documentType,
+          visa_type: visaType ?? "",
+          application_type: applicationType ?? "",
+        };
+        break;
+      case "ssw_initial_checklist":
         filteredValues = {
           document_type: documentType,
           visa_type: visaType ?? "",
@@ -187,9 +232,6 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
     formik.setFieldValue("job_details", background);
   };
 
-  // return nothing if  documenType is null
-  if (!documentType) return null;
-
   // disable button conditions
   const shouldDisableButton =
     (!formik.dirty && !formik.isSubmitting) ||
@@ -197,10 +239,12 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
     formik.values.selected_company == "" ||
     formik.values.selected_agency == "";
 
-  // Check if documentType is 'aqium_representative_passport_copy' or 'aqium_license_copy'
+  // Check if documentType is 'aqium_representative_passport_copy' or 'aqium_license_copy' but check first if visaType is not null or empty
   const shouldNegateValues =
     documentType === "aqium_representative_passport_copy" ||
-    documentType === "aqium_license_copy";
+    documentType === "aqium_license_copy" ||
+    "psw_initial_checklist" ||
+    "ssw_initial_checklist";
 
   // Combine the conditions
   const isButtonDisabled = shouldDisableButton && !shouldNegateValues;
@@ -265,6 +309,15 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
                     "selected_company",
                     selectedCompany?.id || ""
                   );
+
+                  if (selectedCompany) {
+                    const address_en = `${selectedCompany?.building_en}, ${selectedCompany?.municipality_town_en}, ${selectedCompany?.prefecture_en}`;
+
+                    // set this to employment_address
+                    formik.setFieldValue("employment_address", address_en);
+                  } else {
+                    formik.setFieldValue("employment_address", "");
+                  }
                 }}
                 error={formik.errors.selected_company as string}
               />
@@ -571,6 +624,7 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
             <Grid.Col span={5}>
               <Textarea
                 size="md"
+                resize="vertical"
                 label={t("database.generateDocument.form.employmentAddress")}
                 // placeholder={t("common.form.company.placeholder")}
                 value={formik.values.employment_address}
@@ -578,9 +632,33 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
                 name="employment_address"
                 error={formik.errors.employment_address as string}
               />
+              {/* <Autocomplete
+                size="md"
+                label={t("database.generateDocument.form.employmentAddress")}
+                data={companies.map((company) => ({
+                  label: company.name_ja,
+                  value: company.id,
+                }))}
+                value={
+                  companies.find(
+                    (company) => company.id === formik.values.employment_address
+                  )?.name_ja || ""
+                }
+                onChange={(value) => {
+                  const selectedCompany = companies.find(
+                    (company) => company.name_ja === value
+                  );
+                  formik.setFieldValue(
+                    "selected_company",
+                    selectedCompany?.id || ""
+                  );
+                }}
+                error={formik.errors.selected_company as string}
+              /> */}
             </Grid.Col>
             <Grid.Col span={2}>
-              <TextInput
+              <Autocomplete
+                data={["1 years", "3 years", "5 years"]}
                 size="md"
                 label={t("database.generateDocument.form.employmentTerm")}
                 placeholder={"e.g 1 year, 3 years"}
@@ -611,6 +689,7 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
                 label={t(
                   "database.generateDocument.form.jobPositionDescription"
                 )}
+                resize="vertical"
                 // placeholder={t("common.form.company.placeholder")}
                 value={formik.values.job_position_description}
                 onChange={formik.handleChange("job_position_description")}
@@ -622,6 +701,54 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
         </>
       )}
       {/* ================== EMPLOYMENT CONTRACT DOCUMENT ================== */}
+
+      {/* ================== SSW LIST OF TASK AND CRITERIA DOCUMENT ================== */}
+      {documentType == "task_qualification_list" && (
+        <>
+          <Grid px={"md"} my={"xs"}>
+            <Grid.Col span={10}>
+              <Text
+                // size="xl"
+                fz={"h2"}
+                fw={"bold"}
+                c={"pink.5"}
+                style={{
+                  borderBottom: "3px solid var(--mantine-color-pink-5)",
+                }}
+              >
+                {t("database.generateDocument.form.listOfTasksCriteria")}
+
+                <span className={classes.required}>{"ENGLISH"}</span>
+              </Text>
+            </Grid.Col>
+            <Grid.Col span={2}></Grid.Col>
+          </Grid>
+
+          <Grid px={"md"}>
+            <Grid.Col span={5}>
+              <Select
+                size="md"
+                label={t("database.generateDocument.form.company")}
+                data={JobPositions.map((position) => ({
+                  label: position.label,
+                  value: position.value,
+                }))}
+                value={formik.values.ssw_job_title}
+                onChange={(value) => {
+                  formik.setFieldValue("ssw_job_title", value);
+                }}
+                error={formik.errors.ssw_job_title as string}
+                rightSection={
+                  <IconChevronDown
+                    style={{ width: rem(16), height: rem(16) }}
+                  />
+                }
+              />
+            </Grid.Col>
+          </Grid>
+        </>
+      )}
+      {/* ================== SSW LIST OF TASK AND CRITERIA DOCUMENT ================== */}
 
       <Group py={"md"} mx={"md"}>
         <Button

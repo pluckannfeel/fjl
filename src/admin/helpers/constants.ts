@@ -55,6 +55,7 @@ export const yesNoLocalize = (value: string, lang: string) => {
 
 // Database
 
+
 // generate document
 
 export const applicationTypes = [
@@ -140,6 +141,12 @@ export const documentTypes = [
   //   disabled: false,
   // },
   {
+    label: "database.generateDocument.menu.document.options.pswInitialChecklist",
+    value: "psw_initial_checklist",
+    icon: null,
+    disabled: false,
+  },
+  {
     label: "database.generateDocument.menu.document.options.applicationForm",
     value: "application_form",
     icon: null,
@@ -184,6 +191,12 @@ export const documentTypes = [
 
 export const sswDocumentTypes = [
   {
+    label: "database.generateDocument.menu.document.options.ssw.sswInitialChecklist",
+    value: "ssw_initial_checklist",
+    icon: null,
+    disabled: false,
+  },
+  {
     label: "database.generateDocument.menu.document.options.ssw.applicationForm",
     value: "application_form",
     icon: null,
@@ -193,19 +206,19 @@ export const sswDocumentTypes = [
     label: "database.generateDocument.menu.document.options.ssw.companyProfile",
     value: "company_profile",
     icon: null,
-    disabled: true,
+    disabled: false,
   },
   {
     label: "database.generateDocument.menu.document.options.ssw.taskDutiesList",
-    value: "task_duties_list",
+    value: "task_qualification_list",
     icon: null,
-    disabled: true,
+    disabled: false,
   },
   {
     label: "database.generateDocument.menu.document.options.ssw.recruitmentAgreement",
     value: "recruitment_agreement",
     icon: null,
-    disabled: true,
+    disabled: false,
   },
   {
     label: "database.generateDocument.menu.document.options.ssw.manpowerRequest",
@@ -239,4 +252,10 @@ export const sswDocumentTypes = [
     icon: null,
     disabled: false,
   },
+]
+
+export const JobPositions = [
+  { label: "Care Worker (介護ヘルパー）", value: "care_worker" },
+  { label: "Restaurant Staff (レストランスタッフ）", value: "restaurant_staff" },
+  { label: "Interior Building Cleaner (ビル清掃員）", value: "building_cleaner" },
 ]

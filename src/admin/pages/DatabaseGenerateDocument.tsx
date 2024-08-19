@@ -29,7 +29,6 @@ interface DatabaseGenerateDocumentProps {
   // Define your props here
 }
 
-
 const DatabaseGenerateDocument: React.FC<DatabaseGenerateDocumentProps> = (
   {
     /* Destructure your props here */
@@ -61,22 +60,80 @@ const DatabaseGenerateDocument: React.FC<DatabaseGenerateDocumentProps> = (
   };
 
   // event handlers
-  const handleGenerateDocument = (data: GenerateDocument) => {
-    // console.log("generate document");
-    // console.log(data);
+  // const handleGenerateDocument = (data: GenerateDocument) => {
+  //   // console.log("generate document");
+  //   // console.log(data);
 
+  //   generateDocument(data)
+  //     .then((url: string) => {
+  //       window.open(url, "_blank");
+  //       showNotification({
+  //         title: t("database.generateDocument.notifications.success.title"),
+  //         message: t(
+  //           "database.generateDocument.notifications.success.description"
+  //         ),
+  //         color: "lime.7",
+  //         icon: <IconCheck style={{ width: rem(20), height: rem(20) }} />,
+  //       });
+  //     })
+  //     .catch((error: any) => {
+  //       console.log(error);
+  //       showNotification({
+  //         title: t("common.errors.unexpected.title"),
+  //         message: t("common.errors.unexpected.subTitle" + error),
+  //         color: "red",
+  //       });
+  //     });
+  // };
+
+  const handleGenerateDocument = (data: GenerateDocument) => {
     generateDocument(data)
       .then((url: string) => {
-        window.open(url, "_blank");
-        showNotification({
-            title: t("database.generateDocument.notifications.success.title"),
-            message: t("database.generateDocument.notifications.success.description"),
-            color: "lime.7",
-            icon: <IconCheck style={{width: rem(20), height: rem(20)}} />,
+        // Fetch the file first
+        return fetch(url)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.blob(); // Convert the response to a Blob
+          })
+          .then((blob) => {
+            // Extract and decode the filename from the URL
+            const urlParts = url.split('/');
+            const encodedFilename = urlParts[urlParts.length - 1];
+            const decodedFilename = decodeURIComponent(encodedFilename); // Decode the URL-encoded filename
+  
+            // Create an object URL from the Blob
+            const fileUrl = URL.createObjectURL(blob);
+            
+            // Create a temporary anchor element
+            const a = document.createElement('a');
+            a.href = fileUrl;
+            a.download = decodedFilename; // Use the decoded filename
+  
+            // Append the anchor to the document body and trigger a click
+            document.body.appendChild(a);
+            a.click();
+  
+            // Clean up: remove the anchor and revoke the object URL
+            document.body.removeChild(a);
+            URL.revokeObjectURL(fileUrl);
+  
+            // Show the success notification
+            showNotification({
+              title: t("database.generateDocument.notifications.success.title"),
+              message: t(
+                "database.generateDocument.notifications.success.description"
+              ),
+              color: "lime.7",
+              icon: <IconCheck style={{ width: rem(20), height: rem(20) }} />,
             });
+          });
       })
       .catch((error: any) => {
-        console.log(error);
+        console.error('Error fetching the document:', error);
+        
+        // Show an error notification
         showNotification({
           title: t("common.errors.unexpected.title"),
           message: t("common.errors.unexpected.subTitle" + error),
@@ -84,6 +141,8 @@ const DatabaseGenerateDocument: React.FC<DatabaseGenerateDocumentProps> = (
         });
       });
   };
+  
+  
 
   const processing =
     isCompaniesLoading || isAgenciesLoading || isGeneratingDocument;
@@ -301,9 +360,11 @@ const DatabaseGenerateDocument: React.FC<DatabaseGenerateDocumentProps> = (
                 >
                   {selectedDocument
                     ? t(
-                        documentTypes.find(
-                          (type) => type.value === selectedDocument
-                        )?.label!
+                        (selectedVisaType === "psw"
+                          ? documentTypes
+                          : sswDocumentTypes
+                        ).find((type) => type.value === selectedDocument)
+                          ?.label!
                       )
                     : t("database.generateDocument.actions.selectDocument")}
                 </Button>
@@ -322,49 +383,51 @@ const DatabaseGenerateDocument: React.FC<DatabaseGenerateDocumentProps> = (
                   label={t("database.generateDocument.actions.selectDocument")}
                   labelPosition="center"
                 />
-                {
-                selectedVisaType === "psw" ?
-                documentTypes.map((type, index) => (
-                  <React.Fragment key={index}>
-                    <Menu.Item
-                      onClick={() =>
-                        handleSelectedDocumentMenuClick(type.value)
-                      }
-                      disabled={type.disabled}
-                    >
-                      {t(type.label)}
-                    </Menu.Item>
-                  </React.Fragment>
-                ))
-              
-                : selectedVisaType === "ssw" ?
-                sswDocumentTypes.map((type, index) => (
-                  <React.Fragment key={index}>
-                    <Menu.Item
-                      onClick={() =>
-                        handleSelectedDocumentMenuClick(type.value)
-                      }
-                      disabled={type.disabled}
-                    >
-                      {t(type.label)}
-                    </Menu.Item>
-                  </React.Fragment>
-                )) : null}
+                {selectedVisaType === "psw"
+                  ? documentTypes.map((type, index) => (
+                      <React.Fragment key={index}>
+                        <Menu.Item
+                          onClick={() =>
+                            handleSelectedDocumentMenuClick(type.value)
+                          }
+                          disabled={type.disabled}
+                        >
+                          {t(type.label)}
+                        </Menu.Item>
+                      </React.Fragment>
+                    ))
+                  : selectedVisaType === "ssw"
+                  ? sswDocumentTypes.map((type, index) => (
+                      <React.Fragment key={index}>
+                        <Menu.Item
+                          onClick={() =>
+                            handleSelectedDocumentMenuClick(type.value)
+                          }
+                          disabled={type.disabled}
+                        >
+                          {t(type.label)}
+                        </Menu.Item>
+                      </React.Fragment>
+                    ))
+                  : null}
               </Menu.Dropdown>
             </Menu>
           </Grid.Col>
           {/* Select Document */}
         </Grid>
 
-        <GenerateDocumentForm
-          onGenerate={handleGenerateDocument}
-          documentType={selectedDocument}
-          applicationType={selectedApplicationType}
-          visaType={selectedVisaType}
-          companies={companies || []}
-          agencies={agencies || []}
-          processing={processing}
-        />
+        {/* dont show if applicationType and visaType value is null */}
+        {selectedApplicationType && selectedVisaType && selectedDocument && (
+          <GenerateDocumentForm
+            onGenerate={handleGenerateDocument}
+            documentType={selectedDocument}
+            applicationType={selectedApplicationType}
+            visaType={selectedVisaType}
+            companies={companies || []}
+            agencies={agencies || []}
+            processing={processing}
+          />
+        )}
       </Box>
     </React.Fragment>
   );
