@@ -125,7 +125,7 @@ const AdminNavbar = () => {
   return (
     <nav className={classes.navbar}>
       <Center>{/* <MantineLogo type="mark" size={30} /> */}
-        <Text fz="22" fw={"normal"} c={"red.8"}>夢課</Text>
+        <Text fz="22" fw={"normal"} c={"red.8"}>夢叶</Text>
       </Center>
 
       <div className={classes.navbarMain}>

@@ -855,6 +855,7 @@
             "manpowerRequest": "Manpower Request",
             "employmentContract": "Master Employment Contract",
             "recruitmentAgreement": "Recruitment Agreeement",
+            "letterPack": "Letter Pack",
             "ssw": {
               "applicationForm": "01 MWO Application Form",
               "companyProfile": "03 Company Profile",
@@ -894,7 +895,8 @@
         "listOfTasksCriteria": "List of Tasks/Qualifications",
         "employmentTerm": "Employment Term/Period",
         "jobPositionTitle": "Job Position Title",
-        "jobPositionDescription": "Job Position Description"
+        "jobPositionDescription": "Job Position Description",
+        "letterPackDetails": "Letter Pack Details"
       },
       "actions": {
         "generate": "Generate",
