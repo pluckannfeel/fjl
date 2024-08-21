@@ -808,7 +808,7 @@
       }
     },
     "agency": {
-      "title": "紹介会社（AGENCY）",
+      "title": "フィリピン送出機関",
       "form": {
         "name": {
           "label": "名前"
@@ -863,6 +863,7 @@
             "recruitmentAgreement": "リクルートメントアグリーメント書",
             "defaultAgencyLicenseCopy": "★AQIUMライセンスの写し",
             "defaultAgencyRepresentativePassportCopy": "★NOEMIのパスポートの写し",
+            "letterPack": "レターパック",
             "ssw": {
               "sswInitialChecklist": "新規「特定技能」要件のチェックリスト ガイド",
               "applicationForm": "01 MWO 申請書",
@@ -903,7 +904,8 @@
         "listOfTasksCriteria": "業務内容・資格",
         "employmentTerm": "雇用期間",
         "jobPositionTitle": "職種",
-        "jobPositionDescription": "職務内容"
+        "jobPositionDescription": "職務内容",
+        "letterPackDetails": "レターパック情報"
       },
       "actions": {
         "generate": "生成",

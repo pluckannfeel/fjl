@@ -186,6 +186,13 @@ export const documentTypes = [
     icon: null,
     disabled: false,
   },
+  {
+    label:
+      "database.generateDocument.menu.document.options.letterPack",
+    value: "letter_pack",
+    icon: null,
+    disabled: false,
+  },
 ];
 
 
@@ -252,10 +259,22 @@ export const sswDocumentTypes = [
     icon: null,
     disabled: false,
   },
+  {
+    label:
+      "database.generateDocument.menu.document.options.letterPack",
+    value: "letter_pack",
+    icon: null,
+    disabled: false,
+  },
 ]
 
 export const JobPositions = [
   { label: "Care Worker (介護ヘルパー）", value: "care_worker" },
   { label: "Restaurant Staff (レストランスタッフ）", value: "restaurant_staff" },
   { label: "Interior Building Cleaner (ビル清掃員）", value: "building_cleaner" },
+]
+
+export const letterPackTOAddresses = [
+  { label: "MWO TOKYO", value: "63" },
+  { label: "MWO OSAKA", value: "70" },
 ]

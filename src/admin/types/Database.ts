@@ -101,4 +101,7 @@ export type GenerateDocument = GenerateDocumentBase & {
   
   //ssw list of tasks
   ssw_job_title?: string;
+
+  // letter pack
+  recipient_id?: string;
 };

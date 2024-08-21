@@ -44,7 +44,7 @@ import {
   IconX,
 } from "@tabler/icons-react";
 import { getNestedError } from "@/mirairo/helpers/constants";
-import { JobPositions } from "@/admin/helpers/constants";
+import { JobPositions, letterPackTOAddresses } from "@/admin/helpers/constants";
 
 dayjs.extend(timezone);
 dayjs.tz.setDefault("Asia/Tokyo");
@@ -88,6 +88,9 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
     passport_date_issued: null,
     passport_place_issued: "",
     ssw_job_title: "",
+
+    // letter pack
+    recipient_id: "",
   };
 
   const formik = useFormik({
@@ -209,6 +212,15 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
           application_type: applicationType ?? "",
         };
         break;
+      case "letter_pack":
+        filteredValues = {
+          document_type: documentType,
+          visa_type: visaType ?? "",
+          application_type: applicationType ?? "",
+          selected_company: values.selected_company,
+          recipient_id: values.recipient_id,
+        };
+        break;
     }
     onGenerate(filteredValues as GenerateDocument);
   };
@@ -244,7 +256,8 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
     documentType === "aqium_representative_passport_copy" ||
     documentType === "aqium_license_copy" ||
     documentType === "psw_initial_checklist" ||
-    documentType === "ssw_initial_checklist";
+    documentType === "ssw_initial_checklist" ||
+    documentType === "letter_pack";
 
   // Combine the conditions
   const isButtonDisabled = shouldDisableButton && !shouldNegateValues;
@@ -728,7 +741,8 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
             <Grid.Col span={5}>
               <Select
                 size="md"
-                label={t("database.generateDocument.form.company")}
+                // label={t("database.generateDocument.form.company")}
+                label="特定技能の業種"
                 data={JobPositions.map((position) => ({
                   label: position.label,
                   value: position.value,
@@ -750,6 +764,93 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
       )}
       {/* ================== SSW LIST OF TASK AND CRITERIA DOCUMENT ================== */}
 
+      {/* ================== LETTER PACK ================== */}
+      {documentType == "letter_pack" && (
+        <>
+          <Grid px={"md"} my={"xs"}>
+            <Grid.Col span={10}>
+              <Text
+                // size="xl"
+                fz={"h2"}
+                fw={"bold"}
+                c={"pink.5"}
+                style={{
+                  borderBottom: "3px solid var(--mantine-color-pink-5)",
+                }}
+              >
+                {t("database.generateDocument.form.letterPackDetails")}
+
+                <span className={classes.required}>
+                {t("common.validations.required")}
+                </span>
+              </Text>
+            </Grid.Col>
+            <Grid.Col span={2}></Grid.Col>
+          </Grid>
+
+          <Grid px={"md"}>
+            <Grid.Col span={4}>
+              <Autocomplete
+                size="md"
+                // label={t("database.generateDocument.form.company")}
+                label="ご依頼主 (FROM)"
+                data={companies.map((company) => ({
+                  label: company.name_ja,
+                  value: company.id,
+                }))}
+                value={
+                  companies.find(
+                    (company) => company.id === formik.values.selected_company
+                  )?.name_ja || ""
+                }
+                onChange={(value) => {
+                  const selectedCompany = companies.find(
+                    (company) => company.name_ja === value
+                  );
+                  formik.setFieldValue(
+                    "selected_company",
+                    selectedCompany?.id || ""
+                  );
+
+                  if (selectedCompany) {
+                    const address_en = `${selectedCompany?.building_en}, ${selectedCompany?.municipality_town_en}, ${selectedCompany?.prefecture_en}`;
+
+                    // set this to employment_address
+                    formik.setFieldValue("employment_address", address_en);
+                  } else {
+                    formik.setFieldValue("employment_address", "");
+                  }
+                }}
+                error={formik.errors.selected_company as string}
+              />
+            </Grid.Col>
+
+            <Grid.Col span={3}>
+              <Select
+                size="md"
+                // label={t("database.generateDocument.form.company")}
+                label="お届け先 (TO)"
+                data={letterPackTOAddresses.map((position) => ({
+                  label: position.label,
+                  value: position.value,
+                }))}
+                value={formik.values.recipient_id}
+                onChange={(value) => {
+                  formik.setFieldValue("recipient_id", value);
+                }}
+                error={formik.errors.recipient_id as string}
+                rightSection={
+                  <IconChevronDown
+                    style={{ width: rem(16), height: rem(16) }}
+                  />
+                }
+              />
+            </Grid.Col>
+          </Grid>
+        </>
+      )}
+
+      {/* ================== LETTER PACK ================== */}
       <Group py={"md"} mx={"md"}>
         <Button
           variant="gradient"
