@@ -45,6 +45,7 @@ import {
 } from "@tabler/icons-react";
 import { getNestedError } from "@/mirairo/helpers/constants";
 import { JobPositions, letterPackTOAddresses } from "@/admin/helpers/constants";
+import { showNotification } from "@mantine/notifications";
 
 dayjs.extend(timezone);
 dayjs.tz.setDefault("Asia/Tokyo");
@@ -89,6 +90,18 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
     passport_place_issued: "",
     ssw_job_title: "",
 
+    // salary breakdown
+    basic_salary: 180_000,
+    income_tax: 4410,
+    social_insurance: 31_460,
+    housing_cost: 20_000,
+    utility_cost: 4000,
+    allowance: 10_000,
+    net_salary: 0,
+    total_allowances: 0,
+    total_deductions: 0,
+
+
     // letter pack
     recipient_id: "",
   };
@@ -99,6 +112,26 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
       handleSubmit(values as GenerateDocument),
     // enableReinitialize: true,
   });
+
+  useEffect(() => {
+    // if visaType, applicationType changes, reset the form
+    formik.resetForm();
+  }, [visaType, applicationType]);
+
+  useEffect(() => {
+    const { basic_salary, income_tax, social_insurance, housing_cost, utility_cost } = formik.values;
+  
+    // Calculate total deductions
+    const total_deductions = (income_tax ?? 0) + (social_insurance ?? 0) + (housing_cost ?? 0) + (utility_cost ?? 0);
+    formik.setFieldValue('total_deductions', total_deductions);
+  
+    // Calculate net salary
+    const net_salary = (basic_salary ?? 0) - total_deductions;
+    formik.setFieldValue('net_salary', net_salary);
+
+    const total_allowances = (formik.values.allowance ?? 0);
+    formik.setFieldValue('total_allowances', total_allowances);
+  }, [formik.values.basic_salary, formik.values.income_tax, formik.values.social_insurance, formik.values.housing_cost, formik.values.utility_cost, formik.values.allowance]);
 
   const handleSubmit = (values: GenerateDocument) => {
     let filteredValues: Partial<GenerateDocument> = {};
@@ -212,6 +245,26 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
           application_type: applicationType ?? "",
         };
         break;
+      case "ssw_salary_breakdown":
+        filteredValues = {
+          document_type: documentType,
+          visa_type: visaType ?? "",
+          application_type: applicationType ?? "",
+          created_date: values.created_date,
+          selected_company: values.selected_company,
+          selected_agency: values.selected_agency,
+          basic_salary: values.basic_salary,
+          income_tax: values.income_tax,
+          social_insurance: values.social_insurance,
+          housing_cost: values.housing_cost,
+          utility_cost: values.utility_cost,
+          allowance: values.allowance,
+          net_salary: values.net_salary,
+          total_deductions: values.total_deductions,
+          total_allowances: values.total_allowances,
+          ssw_job_title: values.ssw_job_title,
+        };
+        break;
       case "letter_pack":
         filteredValues = {
           document_type: documentType,
@@ -227,6 +280,20 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
 
   //   manpower request event handlers
   const handleAddJob = () => {
+    // if visatype is 'ssw', only allow 1 job detail
+    if (visaType === "ssw") {
+      if (formik.values.job_details?.length === 1) {
+        showNotification({
+          title: t("common.errors.unexpected.title"),
+          message: t(
+            "特定技能(SSW)ビザの種類については1つの項目のみ追加できます"
+          ),
+          color: "orange.6",
+        });
+        return;
+      }
+    }
+
     formik.setFieldValue("job_details", [
       ...(formik.values.job_details ?? []),
       {
@@ -401,21 +468,58 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
             formik.values.job_details.map((item: JobDetails, index: number) => (
               <Grid px={"md"} id={item.id?.toString()} key={index}>
                 <Grid.Col span={3}>
-                  {/* created date */}
-                  <TextInput
-                    size="md"
-                    label={t("database.generateDocument.form.jobDetails.title")}
-                    // placeholder={t("common.form.company.placeholder")}
-                    value={item.title ? item.title : ""}
-                    onChange={formik.handleChange(
-                      `job_details[${index}].title`
-                    )}
-                    name={`job_details[${index}].title`}
-                    error={getNestedError(
-                      `job_details.${index}.title`,
-                      formik.errors
-                    )}
-                  />
+                  {/* check if visaType is either psw or ssw */}
+                  {visaType === "psw" && (
+                    <>
+                      <TextInput
+                        size="md"
+                        label={t(
+                          "database.generateDocument.form.jobDetails.title"
+                        )}
+                        // placeholder={t("common.form.company.placeholder")}
+                        value={item.title ? item.title : ""}
+                        onChange={formik.handleChange(
+                          `job_details[${index}].title`
+                        )}
+                        name={`job_details[${index}].title`}
+                        error={getNestedError(
+                          `job_details.${index}.title`,
+                          formik.errors
+                        )}
+                      />
+                    </>
+                  )}
+
+                  {visaType === "ssw" && (
+                    <>
+                      <Select
+                        size="md"
+                        // label={t("database.generateDocument.form.company")}
+                        label="特定技能の業種"
+                        data={JobPositions.map((position) => ({
+                          label: position.label,
+                          value: position.value,
+                        }))}
+                        value={item.title ? item.title : ""}
+                        onChange={(value) => {
+                          formik.setFieldValue(
+                            `job_details[${index}].title`,
+                            value
+                          );
+                        }}
+                        name={`job_details[${index}].title`}
+                        error={getNestedError(
+                          `job_details.${index}.title`,
+                          formik.errors
+                        )}
+                        rightSection={
+                          <IconChevronDown
+                            style={{ width: rem(16), height: rem(16) }}
+                          />
+                        }
+                      />
+                    </>
+                  )}
                 </Grid.Col>
                 <Grid.Col span={0.8}>
                   {/* created date */}
@@ -502,7 +606,7 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
       {/* ================== MANPOWER REQUEST DOCUMENT ================== */}
 
       {/* ================== EMPLOYMENT CONTRACT DOCUMENT ================== */}
-      {documentType == "employment_contract" && (
+      {documentType === "employment_contract" && visaType === "psw" && (
         <>
           <Grid px={"md"} my={"xs"}>
             <Grid.Col span={10}>
@@ -764,6 +868,309 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
       )}
       {/* ================== SSW LIST OF TASK AND CRITERIA DOCUMENT ================== */}
 
+      {/* ================== SSW SALARY SCHEME BREAKDOWN ================== */}
+      {documentType == "ssw_salary_breakdown" && (
+        <>
+          {/* <Grid my={"xs"}>
+            <Grid.Col span={10}>
+              <Text
+                // size="xl"
+                fz={"h2"}
+                fw={"bold"}
+                c={"pink.5"}
+                // style={{
+                //   borderBottom: "3px solid var(--mantine-color-pink-5)",
+                // }}
+              >
+                {t("database.generateDocument.form.salaryScheme")}
+
+                <span className={classes.required}>{"ENGLISH"}</span>
+              </Text>
+            </Grid.Col>
+            <Grid.Col span={2}></Grid.Col>
+          </Grid> */}
+
+          <Grid px={"md"}>
+            <Grid.Col span={6}>
+              <Select
+                size="md"
+                // label={t("database.generateDocument.form.company")}
+                label={t("database.generateDocument.form.jobPositionTitle")}
+                data={JobPositions.map((position) => ({
+                  label: position.label,
+                  value: position.value,
+                }))}
+                value={formik.values.ssw_job_title}
+                onChange={(value) => {
+                  formik.setFieldValue("ssw_job_title", value);
+                }}
+                error={formik.errors.ssw_job_title as string}
+                rightSection={
+                  <IconChevronDown
+                    style={{ width: rem(16), height: rem(16) }}
+                  />
+                }
+              />
+            </Grid.Col>
+            <Grid.Col span={6}></Grid.Col>
+
+            <Grid.Col span={12}>
+              <Text fw={"bolder"} c={"pink.6"}>
+                A. Basic Monthly Salary
+              </Text>
+            </Grid.Col>
+
+            <Grid.Col span={3}>
+              <NumberInput
+                size="md"
+                label="Salary"
+                allowNegative={false}
+                thousandSeparator={","}
+                value={formik.values.basic_salary}
+                onChange={(value) => {
+                  formik.setFieldValue("basic_salary", value);
+
+                  // calculate net salary by basic salary - total deductions
+                  const net_salary = formik.values.basic_salary! - formik.values.total_deductions!;
+                  formik.setFieldValue("net_salary", net_salary);
+                }}
+                error={formik.errors.basic_salary as string}
+                rightSection={
+                  <IconCurrencyYen
+                    style={{ width: rem(20), height: rem(20) }}
+                  />
+                }
+              />
+            </Grid.Col>
+
+            <Grid.Col span={3}>
+              <NumberInput
+                size="md"
+                label="Net Salary"
+                // allowNegative={false}
+                thousandSeparator={","}
+                disabled={true}
+                // defaultValue={180_000}
+                // value={formik.values.basic_salary}
+                value={formik.values.net_salary}
+                // onChange={(value) => {
+                  
+                //   // calculate net salary by basic salary - total deductions
+                //   const net_salary = formik.values.basic_salary! - formik.values.total_deductions!;
+
+                //   formik.setFieldValue("net_salary", net_salary);
+                // }}
+                error={formik.errors.basic_salary as string}
+                rightSection={
+                  <IconCurrencyYen
+                    style={{ width: rem(20), height: rem(20) }}
+                  />
+                }
+              />
+            </Grid.Col>
+            <Grid.Col span={6}></Grid.Col>
+
+            <Grid.Col span={12}>
+              <Text fw={"bolder"} c={"pink.6"}>
+                B. Approximate Deductions
+              </Text>
+            </Grid.Col>
+
+            <Grid.Col span={3}>
+              <NumberInput
+                size="md"
+                label="1. Income Tax"
+                allowNegative={false}
+                thousandSeparator={","}
+                value={formik.values.income_tax}
+                onChange={(value) => {
+                  formik.setFieldValue("income_tax", value);
+
+                  // calculate total deductions
+                  const total_deductions = Number(value) + formik.values.social_insurance! + formik.values.housing_cost! + formik.values.utility_cost!;
+                  formik.setFieldValue("total_deductions", total_deductions);
+
+                }}
+                error={formik.errors.income_tax as string}
+                rightSection={
+                  <IconCurrencyYen
+                    style={{ width: rem(20), height: rem(20) }}
+                  />
+                }
+              />
+            </Grid.Col>
+
+            <Grid.Col span={3}>
+              <NumberInput
+                size="md"
+                label="2. Social Insurance"
+                allowNegative={false}
+                thousandSeparator={","}
+                value={formik.values.social_insurance}
+                onChange={(value) => {
+                  formik.setFieldValue("social_insurance", value);
+
+                  // calculate total deductions
+                  const total_deductions = formik.values.income_tax! + Number(value) + formik.values.housing_cost! + formik.values.utility_cost!;
+                  formik.setFieldValue("total_deductions", total_deductions);
+                }}
+                error={formik.errors.social_insurance as string}
+                rightSection={
+                  <IconCurrencyYen
+                    style={{ width: rem(20), height: rem(20) }}
+                  />
+                }
+              />
+            </Grid.Col>
+
+            <Grid.Col span={3}>
+              <NumberInput
+                size="md"
+                label="3. Housing Cost"
+                allowNegative={false}
+                thousandSeparator={","}
+                value={formik.values.housing_cost}
+                onChange={(value) => {
+                  formik.setFieldValue("housing_cost", value);
+
+                  // calculate total deductions
+                  const total_deductions = formik.values.income_tax! + formik.values.social_insurance! + Number(value) + formik.values.utility_cost!;
+                  formik.setFieldValue("total_deductions", total_deductions);
+                }}
+                error={formik.errors.housing_cost as string}
+                rightSection={
+                  <IconCurrencyYen
+                    style={{ width: rem(20), height: rem(20) }}
+                  />
+                }
+              />
+            </Grid.Col>
+
+            <Grid.Col span={3}>
+              <NumberInput
+                size="md"
+                label="4. Utility Cost"
+                allowNegative={false}
+                thousandSeparator={","}
+                value={formik.values.utility_cost}
+                onChange={(value) => {
+                  formik.setFieldValue("utility_cost", value);
+
+                  // calculate total deductions
+                  const total_deductions = formik.values.income_tax! + formik.values.social_insurance! + formik.values.housing_cost! + Number(value);
+                  formik.setFieldValue("total_deductions", total_deductions);
+                }}
+                error={formik.errors.utility_cost as string}
+                rightSection={
+                  <IconCurrencyYen
+                    style={{ width: rem(20), height: rem(20) }}
+                  />
+                }
+              />
+            </Grid.Col>
+
+            <Grid.Col span={3}>
+              <NumberInput
+                size="md"
+                label="Total Deductions"
+                allowNegative={false}
+                thousandSeparator={","}
+                disabled
+                value={formik.values.total_deductions}
+                onChange={(value) => {
+                  formik.setFieldValue("total_deductions", value);
+
+                  // calculate net salary by basic salary - total deductions
+                  const net_salary = formik.values.basic_salary! - Number(value);
+                  formik.setFieldValue("net_salary", net_salary);
+                }}
+                error={formik.errors.total_deductions as string}
+                rightSection={
+                  <IconCurrencyYen
+                    style={{ width: rem(20), height: rem(20) }}
+                  />
+                }
+              />
+            </Grid.Col>
+
+            <Grid.Col span={9}></Grid.Col>
+
+            <Grid.Col span={3}>
+              <NumberInput
+                size="md"
+                label="4. Utility Cost"
+                allowNegative={false}
+                thousandSeparator={","}
+                value={formik.values.utility_cost}
+                onChange={(value) => {
+                  formik.setFieldValue("utility_cost", value);
+
+                  // calculate total deductions
+                  const total_deductions = formik.values.income_tax! + formik.values.social_insurance! + formik.values.housing_cost! + Number(value);
+                  formik.setFieldValue("total_deductions", total_deductions);
+                }}
+                error={formik.errors.utility_cost as string}
+                rightSection={
+                  <IconCurrencyYen
+                    style={{ width: rem(20), height: rem(20) }}
+                  />
+                }
+              />
+            </Grid.Col>
+
+            <Grid.Col span={9}></Grid.Col>
+            
+            <Grid.Col span={12}>
+              <Text fw={"bolder"} c={"pink.6"}>
+                C. Other Allowances/Benefits (monthly)
+              </Text>
+            </Grid.Col>
+
+            <Grid.Col span={3}>
+              <NumberInput
+                size="md"
+                label="Allowance"
+                allowNegative={false}
+                thousandSeparator={","}
+                value={formik.values.allowance}
+                onChange={(value) => {
+                  formik.setFieldValue("allowance", value);
+                }}
+                error={formik.errors.allowance as string}
+                rightSection={
+                  <IconCurrencyYen
+                    style={{ width: rem(20), height: rem(20) }}
+                  />
+                }
+              />
+            </Grid.Col>
+
+            <Grid.Col span={3}>
+              <NumberInput
+                size="md"
+                label="Total Allowances"
+                allowNegative={false}
+                thousandSeparator={","}
+                value={formik.values.total_allowances}
+                disabled
+                // onChange={(value) => {
+                //   formik.setFieldValue("total_allowances", value);
+                // }}
+                error={formik.errors.total_allowances as string}
+                rightSection={
+                  <IconCurrencyYen
+                    style={{ width: rem(20), height: rem(20) }}
+                  />
+                }
+              />
+            </Grid.Col>
+
+            <Grid.Col span={9}></Grid.Col>
+          </Grid>
+        </>
+      )}
+      {/* ================== SSW SALARY SCHEME BREAKDOWN ================== */}
+
       {/* ================== LETTER PACK ================== */}
       {documentType == "letter_pack" && (
         <>
@@ -781,7 +1188,7 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
                 {t("database.generateDocument.form.letterPackDetails")}
 
                 <span className={classes.required}>
-                {t("common.validations.required")}
+                  {t("common.validations.required")}
                 </span>
               </Text>
             </Grid.Col>

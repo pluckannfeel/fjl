@@ -894,6 +894,7 @@
         "employmentAddress": "Place of Work/Office",
         "listOfTasksCriteria": "List of Tasks/Qualifications",
         "employmentTerm": "Employment Term/Period",
+        "salaryScheme": "Salary Scheme",
         "jobPositionTitle": "Job Position Title",
         "jobPositionDescription": "Job Position Description",
         "letterPackDetails": "Letter Pack Details"

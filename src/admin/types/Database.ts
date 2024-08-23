@@ -102,6 +102,17 @@ export type GenerateDocument = GenerateDocumentBase & {
   //ssw list of tasks
   ssw_job_title?: string;
 
+  //salary scheme breakdown (SSW)
+  basic_salary?: number;
+  income_tax?: number;
+  social_insurance?: number;
+  housing_cost?: number;
+  utility_cost?: number;
+  allowance?: number;
+  net_salary?: number;
+  total_deductions?: number;
+  total_allowances?: number;
+
   // letter pack
   recipient_id?: string;
 };
