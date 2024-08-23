@@ -8,9 +8,9 @@ export const recruiters = [
 
 export const visas = [
   { label: "実習生 (TITP) ", value: "TITP" },
-  { label: "特定技能	SSW", value: "SSW" },
-  { label: "技術・人文・国際業務	PSW", value: "PSW" },
-  { label: "留学生	IS", value: "IS" },
+  { label: "特定技能	(SSW)", value: "SSW" },
+  { label: "技術・人文・国際業務	(PSW)", value: "PSW" },
+  { label: "留学生	(IS)", value: "IS" },
 ];
 
 export const resultOptions = [
@@ -231,19 +231,19 @@ export const sswDocumentTypes = [
     label: "database.generateDocument.menu.document.options.ssw.manpowerRequest",
     value: "manpower_request",
     icon: null,
-    disabled: true,
+    disabled: false,
   },
   {
     label: "database.generateDocument.menu.document.options.ssw.employmentContract",
     value: "employment_contract",
     icon: null,
-    disabled: true,
+    disabled: false,
   },
   {
     label: "database.generateDocument.menu.document.options.ssw.salaryScheme",
-    value: "salary_scheme",
+    value: "ssw_salary_breakdown",
     icon: null,
-    disabled: true,
+    disabled: false,
   },
   {
     label:
