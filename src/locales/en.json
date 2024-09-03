@@ -864,6 +864,9 @@
               "manpowerRequest": "08 Manpower Request",
               "employmentContract": "09 Master Employment Contract",
               "salaryScheme": "10 Salary Scheme"
+            },
+            "titp": {
+              "employmentContract": "Employment Contract"
             }
           }
         }
@@ -897,7 +900,10 @@
         "salaryScheme": "Salary Scheme",
         "jobPositionTitle": "Job Position Title",
         "jobPositionDescription": "Job Position Description",
-        "letterPackDetails": "Letter Pack Details"
+        "letterPackDetails": "Letter Pack Details",
+        "titpWorkerName": "Worker Name",
+        "titpWorkerEmail": "Worker Email Address",
+        "titpWorkTypes": "Work Type"
       },
       "actions": {
         "generate": "Generate",
