@@ -44,7 +44,7 @@ import {
   IconX,
 } from "@tabler/icons-react";
 import { getNestedError } from "@/mirairo/helpers/constants";
-import { JobPositions, letterPackTOAddresses } from "@/admin/helpers/constants";
+import { JobPositions, letterPackTOAddresses, titpWorkTypes } from "@/admin/helpers/constants";
 import { showNotification } from "@mantine/notifications";
 
 dayjs.extend(timezone);
@@ -90,6 +90,11 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
     passport_place_issued: "",
     ssw_job_title: "",
 
+    // titp
+    titp_work_type: "",
+    titp_worker_name: "",
+    titp_worker_email: "",
+
     // salary breakdown
     basic_salary: 180_000,
     income_tax: 4410,
@@ -100,7 +105,6 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
     net_salary: 0,
     total_allowances: 0,
     total_deductions: 0,
-
 
     // letter pack
     recipient_id: "",
@@ -119,19 +123,36 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
   }, [visaType, applicationType]);
 
   useEffect(() => {
-    const { basic_salary, income_tax, social_insurance, housing_cost, utility_cost } = formik.values;
-  
+    const {
+      basic_salary,
+      income_tax,
+      social_insurance,
+      housing_cost,
+      utility_cost,
+    } = formik.values;
+
     // Calculate total deductions
-    const total_deductions = (income_tax ?? 0) + (social_insurance ?? 0) + (housing_cost ?? 0) + (utility_cost ?? 0);
-    formik.setFieldValue('total_deductions', total_deductions);
-  
+    const total_deductions =
+      (income_tax ?? 0) +
+      (social_insurance ?? 0) +
+      (housing_cost ?? 0) +
+      (utility_cost ?? 0);
+    formik.setFieldValue("total_deductions", total_deductions);
+
     // Calculate net salary
     const net_salary = (basic_salary ?? 0) - total_deductions;
-    formik.setFieldValue('net_salary', net_salary);
+    formik.setFieldValue("net_salary", net_salary);
 
-    const total_allowances = (formik.values.allowance ?? 0);
-    formik.setFieldValue('total_allowances', total_allowances);
-  }, [formik.values.basic_salary, formik.values.income_tax, formik.values.social_insurance, formik.values.housing_cost, formik.values.utility_cost, formik.values.allowance]);
+    const total_allowances = formik.values.allowance ?? 0;
+    formik.setFieldValue("total_allowances", total_allowances);
+  }, [
+    formik.values.basic_salary,
+    formik.values.income_tax,
+    formik.values.social_insurance,
+    formik.values.housing_cost,
+    formik.values.utility_cost,
+    formik.values.allowance,
+  ]);
 
   const handleSubmit = (values: GenerateDocument) => {
     let filteredValues: Partial<GenerateDocument> = {};
@@ -263,6 +284,18 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
           total_deductions: values.total_deductions,
           total_allowances: values.total_allowances,
           ssw_job_title: values.ssw_job_title,
+        };
+        break;
+      case "titp_employment_contract":
+        filteredValues = {
+          document_type: documentType,
+          visa_type: visaType ?? "",
+          application_type: applicationType ?? "",
+          selected_company: values.selected_company,
+          created_date: values.created_date,
+          titp_work_type: values.titp_work_type,
+          titp_worker_name: values.titp_worker_name,
+          titp_worker_email: values.titp_worker_email,
         };
         break;
       case "letter_pack":
@@ -931,7 +964,9 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
                   formik.setFieldValue("basic_salary", value);
 
                   // calculate net salary by basic salary - total deductions
-                  const net_salary = formik.values.basic_salary! - formik.values.total_deductions!;
+                  const net_salary =
+                    formik.values.basic_salary! -
+                    formik.values.total_deductions!;
                   formik.setFieldValue("net_salary", net_salary);
                 }}
                 error={formik.errors.basic_salary as string}
@@ -954,7 +989,7 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
                 // value={formik.values.basic_salary}
                 value={formik.values.net_salary}
                 // onChange={(value) => {
-                  
+
                 //   // calculate net salary by basic salary - total deductions
                 //   const net_salary = formik.values.basic_salary! - formik.values.total_deductions!;
 
@@ -987,9 +1022,12 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
                   formik.setFieldValue("income_tax", value);
 
                   // calculate total deductions
-                  const total_deductions = Number(value) + formik.values.social_insurance! + formik.values.housing_cost! + formik.values.utility_cost!;
+                  const total_deductions =
+                    Number(value) +
+                    formik.values.social_insurance! +
+                    formik.values.housing_cost! +
+                    formik.values.utility_cost!;
                   formik.setFieldValue("total_deductions", total_deductions);
-
                 }}
                 error={formik.errors.income_tax as string}
                 rightSection={
@@ -1011,7 +1049,11 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
                   formik.setFieldValue("social_insurance", value);
 
                   // calculate total deductions
-                  const total_deductions = formik.values.income_tax! + Number(value) + formik.values.housing_cost! + formik.values.utility_cost!;
+                  const total_deductions =
+                    formik.values.income_tax! +
+                    Number(value) +
+                    formik.values.housing_cost! +
+                    formik.values.utility_cost!;
                   formik.setFieldValue("total_deductions", total_deductions);
                 }}
                 error={formik.errors.social_insurance as string}
@@ -1034,7 +1076,11 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
                   formik.setFieldValue("housing_cost", value);
 
                   // calculate total deductions
-                  const total_deductions = formik.values.income_tax! + formik.values.social_insurance! + Number(value) + formik.values.utility_cost!;
+                  const total_deductions =
+                    formik.values.income_tax! +
+                    formik.values.social_insurance! +
+                    Number(value) +
+                    formik.values.utility_cost!;
                   formik.setFieldValue("total_deductions", total_deductions);
                 }}
                 error={formik.errors.housing_cost as string}
@@ -1057,7 +1103,11 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
                   formik.setFieldValue("utility_cost", value);
 
                   // calculate total deductions
-                  const total_deductions = formik.values.income_tax! + formik.values.social_insurance! + formik.values.housing_cost! + Number(value);
+                  const total_deductions =
+                    formik.values.income_tax! +
+                    formik.values.social_insurance! +
+                    formik.values.housing_cost! +
+                    Number(value);
                   formik.setFieldValue("total_deductions", total_deductions);
                 }}
                 error={formik.errors.utility_cost as string}
@@ -1081,7 +1131,8 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
                   formik.setFieldValue("total_deductions", value);
 
                   // calculate net salary by basic salary - total deductions
-                  const net_salary = formik.values.basic_salary! - Number(value);
+                  const net_salary =
+                    formik.values.basic_salary! - Number(value);
                   formik.setFieldValue("net_salary", net_salary);
                 }}
                 error={formik.errors.total_deductions as string}
@@ -1106,7 +1157,11 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
                   formik.setFieldValue("utility_cost", value);
 
                   // calculate total deductions
-                  const total_deductions = formik.values.income_tax! + formik.values.social_insurance! + formik.values.housing_cost! + Number(value);
+                  const total_deductions =
+                    formik.values.income_tax! +
+                    formik.values.social_insurance! +
+                    formik.values.housing_cost! +
+                    Number(value);
                   formik.setFieldValue("total_deductions", total_deductions);
                 }}
                 error={formik.errors.utility_cost as string}
@@ -1119,7 +1174,7 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
             </Grid.Col>
 
             <Grid.Col span={9}></Grid.Col>
-            
+
             <Grid.Col span={12}>
               <Text fw={"bolder"} c={"pink.6"}>
                 C. Other Allowances/Benefits (monthly)
@@ -1170,6 +1225,61 @@ const GenerateDocumentForm: React.FC<GenerateDocumentFormProps> = ({
         </>
       )}
       {/* ================== SSW SALARY SCHEME BREAKDOWN ================== */}
+
+      {/* ================== TITP EMPLOYMENT CONTRACT ================== */}
+      {documentType == "titp_employment_contract" && (
+        <>
+          <Grid px={"md"} my={"xs"}>
+            <Grid.Col span={6}>
+              <Select
+                size="md"
+                // label={t("database.generateDocument.form.company")}
+                label={t("database.generateDocument.form.titpWorkTypes")}
+                data={titpWorkTypes.map((position) => ({
+                  label: position.label,
+                  value: position.value,
+                }))}
+                value={formik.values.titp_work_type}
+                onChange={(value) => {
+                  formik.setFieldValue("titp_work_type", value);
+                }}
+                error={formik.errors.titp_work_type as string}
+                rightSection={
+                  <IconChevronDown
+                    style={{ width: rem(16), height: rem(16) }}
+                  />
+                }
+              />
+            </Grid.Col>
+            <Grid.Col span={6}></Grid.Col>
+            <Grid.Col span={4}>
+              <TextInput
+                size="md"
+                label={t("database.generateDocument.form.titpWorkerName")}
+                placeholder={""}
+                value={formik.values.titp_worker_name}
+                onChange={formik.handleChange("titp_worker_name")}
+                name="titp_worker_name"
+                error={formik.errors.titp_worker_name as string}
+              />
+            </Grid.Col>
+            <Grid.Col span={4}>
+            <TextInput
+                size="md"
+                label={t("database.generateDocument.form.titpWorkerEmail")}
+                placeholder={""}
+                value={formik.values.titp_worker_email}
+                onChange={formik.handleChange("titp_worker_email")}
+                name="titp_worker_email"
+                error={formik.errors.titp_worker_email as string}
+              />
+            </Grid.Col>
+            <Grid.Col span={4}></Grid.Col>
+          </Grid>
+        </>
+      )}
+
+      {/* ================== TITP EMPLOYMENT CONTRACT ================== */}
 
       {/* ================== LETTER PACK ================== */}
       {documentType == "letter_pack" && (

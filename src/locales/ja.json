@@ -873,6 +873,9 @@
               "manpowerRequest": "08 マンパワー レクエスト / 求人通知書",
               "employmentContract": "09 雇用契約書・条件書",
               "salaryScheme": "10 サラリースキーム/賃金支払い"
+            },
+            "titp": {
+              "employmentContract": "雇用契約書"
             }
           }
         }
@@ -906,7 +909,10 @@
         "salaryScheme": "給与体系",
         "jobPositionTitle": "職種",
         "jobPositionDescription": "職務内容",
-        "letterPackDetails": "レターパック情報"
+        "letterPackDetails": "レターパック情報",
+        "titpWorkerName": "労働者名",
+        "titpWorkerEmail": "労働者メールアドレス",
+        "titpWorkTypes": "業務内容"
       },
       "actions": {
         "generate": "生成",

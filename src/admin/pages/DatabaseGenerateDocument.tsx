@@ -14,6 +14,7 @@ import {
   applicationTypes,
   documentTypes,
   sswDocumentTypes,
+  titpDocumentTypes,
   visaTypes,
 } from "../helpers/constants";
 import { useGetCompanies } from "../hooks/useCompanies";
@@ -93,32 +94,32 @@ const DatabaseGenerateDocument: React.FC<DatabaseGenerateDocumentProps> = (
         return fetch(url)
           .then((response) => {
             if (!response.ok) {
-              throw new Error('Network response was not ok');
+              throw new Error("Network response was not ok");
             }
             return response.blob(); // Convert the response to a Blob
           })
           .then((blob) => {
             // Extract and decode the filename from the URL
-            const urlParts = url.split('/');
+            const urlParts = url.split("/");
             const encodedFilename = urlParts[urlParts.length - 1];
             const decodedFilename = decodeURIComponent(encodedFilename); // Decode the URL-encoded filename
-  
+
             // Create an object URL from the Blob
             const fileUrl = URL.createObjectURL(blob);
-            
+
             // Create a temporary anchor element
-            const a = document.createElement('a');
+            const a = document.createElement("a");
             a.href = fileUrl;
             a.download = decodedFilename; // Use the decoded filename
-  
+
             // Append the anchor to the document body and trigger a click
             document.body.appendChild(a);
             a.click();
-  
+
             // Clean up: remove the anchor and revoke the object URL
             document.body.removeChild(a);
             URL.revokeObjectURL(fileUrl);
-  
+
             // Show the success notification
             showNotification({
               title: t("database.generateDocument.notifications.success.title"),
@@ -131,8 +132,8 @@ const DatabaseGenerateDocument: React.FC<DatabaseGenerateDocumentProps> = (
           });
       })
       .catch((error: any) => {
-        console.error('Error fetching the document:', error);
-        
+        console.error("Error fetching the document:", error);
+
         // Show an error notification
         showNotification({
           title: t("common.errors.unexpected.title"),
@@ -141,8 +142,6 @@ const DatabaseGenerateDocument: React.FC<DatabaseGenerateDocumentProps> = (
         });
       });
   };
-  
-  
 
   const processing =
     isCompaniesLoading || isAgenciesLoading || isGeneratingDocument;
@@ -362,6 +361,8 @@ const DatabaseGenerateDocument: React.FC<DatabaseGenerateDocumentProps> = (
                     ? t(
                         (selectedVisaType === "psw"
                           ? documentTypes
+                          : selectedVisaType === "titp"
+                          ? titpDocumentTypes
                           : sswDocumentTypes
                         ).find((type) => type.value === selectedDocument)
                           ?.label!
@@ -398,6 +399,19 @@ const DatabaseGenerateDocument: React.FC<DatabaseGenerateDocumentProps> = (
                     ))
                   : selectedVisaType === "ssw"
                   ? sswDocumentTypes.map((type, index) => (
+                      <React.Fragment key={index}>
+                        <Menu.Item
+                          onClick={() =>
+                            handleSelectedDocumentMenuClick(type.value)
+                          }
+                          disabled={type.disabled}
+                        >
+                          {t(type.label)}
+                        </Menu.Item>
+                      </React.Fragment>
+                    ))
+                  : selectedVisaType === "titp"
+                  ? titpDocumentTypes.map((type, index) => (
                       <React.Fragment key={index}>
                         <Menu.Item
                           onClick={() =>

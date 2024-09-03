@@ -102,6 +102,11 @@ export type GenerateDocument = GenerateDocumentBase & {
   //ssw list of tasks
   ssw_job_title?: string;
 
+  // titp
+  titp_worker_name: "",
+  titp_worker_email: "",
+  titp_work_type?: string;
+
   //salary scheme breakdown (SSW)
   basic_salary?: number;
   income_tax?: number;

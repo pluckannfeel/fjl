@@ -111,15 +111,15 @@ export const visaTypes = [
     disabled: false,
   },
   {
-    label: "database.generateDocument.menu.visa.options.titp",
-    value: "titp",
-    icon: null,
-    disabled: true,
-  },
-  {
     label:
       "database.generateDocument.menu.visa.options.ssw",
     value: "ssw",
+    icon: null,
+    disabled: false,
+  },
+  {
+    label: "database.generateDocument.menu.visa.options.titp",
+    value: "titp",
     icon: null,
     disabled: false,
   },
@@ -268,6 +268,17 @@ export const sswDocumentTypes = [
   },
 ]
 
+// TITP
+
+export const titpDocumentTypes = [
+  {
+    label: "database.generateDocument.menu.document.options.titp.employmentContract",
+    value: "titp_employment_contract",
+    icon: null,
+    disabled: false,
+  },
+]
+
 export const JobPositions = [
   { label: "Care Worker (介護ヘルパー）", value: "care_worker" },
   { label: "Restaurant Staff (レストランスタッフ）", value: "restaurant_staff" },
@@ -277,4 +288,11 @@ export const JobPositions = [
 export const letterPackTOAddresses = [
   { label: "MWO TOKYO", value: "63" },
   { label: "MWO OSAKA", value: "70" },
+]
+
+export const titpWorkTypes = [
+  { label: "Waterproofing Sealing 「防水施工」", value: "waterproofing_sealing" },
+  { label: "Construction Machinery (Ground Push and Level) 「建設機械施工 押土・整地」", value: "construction_machinery_groundpushlevel" },
+  { label: "Construction Machinery (Excavation) 「建設機械施工 掘削作業」", value: "construction_machinery_excavation" },
+  { label: "Painting 「塗装」", value: "painting" },
 ]
